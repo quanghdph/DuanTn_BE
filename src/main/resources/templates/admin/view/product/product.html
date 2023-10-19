@@ -95,13 +95,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-4">
-                                    <label>Loại giày:</label>
+                                    <label>Loại:</label>
                                     <select class="form-control" style="width: 100%" multiple="multiple" name="category.id">
 
                                     </select>
                                 </div>
                                 <div class="form-group col-4">
-                                    <label>Đế giày:</label>
+                                    <label>Loại cổ áo:</label>
                                     <select class="form-control" style="width: 100%" multiple="multiple" name="sole.id">
                                     </select>
                                 </div>
@@ -112,9 +112,9 @@
                                 <div class="form-group col-3">
                                     <label >Type:</label>
                                     <select class="form-control" name="type" >
-                                        <option value="" disabled selected>Chọn type</option>
-                                        <option value="1">Hoạt động</option>
-                                        <option value="0">Không hoạt động</option>
+<!--                                        <option value="" disabled selected>Chọn type</option>-->
+                                        <option value="1" selected>Hoạt động</option>
+<!--                                        <option value="0">Không hoạt động</option>-->
                                     </select>
                                 </div>
                                 <div class="form-group col-12">
@@ -171,13 +171,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-4">
-                                    <label>Loại giày:</label>
+                                    <label>Loại:</label>
                                     <select class="form-control" style="width: 100%" multiple="multiple" name="category.id">
 
                                     </select>
                                 </div>
                                 <div class="form-group col-4">
-                                    <label>Đế giày:</label>
+                                    <label>Loại cổ áo: </label>
                                     <select class="form-control" style="width: 100%" multiple="multiple" name="sole.id">
                                     </select>
                                 </div>
@@ -227,10 +227,10 @@
                                 <th>Tên</th>
                                 <th>Hãng</th>
                                 <th>Loại</th>
-                                <th>Đế</th>
+                                <th>Loại cổ áo</th>
                                 <th>Ảnh</th>
                                 <th>Type</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -259,6 +259,7 @@
                         <div class="modal-body">
                             <form id="form-product-detail-add" class="row" >
                                 <div class="form-group col-4">
+<!--                                    để mã or name-->
                                     <label >Id sản phẩm :</label>
                                     <input type="text" readonly  class="form-control"  name="product.id">
                                 </div>
@@ -288,9 +289,9 @@
                                 <div class="form-group col-4">
                                     <label >Type:</label>
                                     <select class="form-control" name="type" >
-                                        <option value="" disabled selected>Chọn type</option>
-                                        <option value="1">Hoạt động</option>
-                                        <option value="0">Không hoạt động</option>
+<!--                                        <option value="" disabled selected>Chọn type</option>-->
+                                        <option value="1" selected>Hoạt động</option>
+<!--                                        <option value="0">Không hoạt động</option>-->
                                     </select>
                                 </div>
                                 <button  type="submit" class="btn btn-primary">Thêm</button>
@@ -387,7 +388,7 @@
                                             <th>ID</th>
                                             <th>Ảnh</th>
                                             <th>Type</th>
-                                            <th></th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
 
@@ -430,7 +431,7 @@
                                     <th>Slượng</th>
                                     <th>Giá</th>
                                     <th>Type</th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 

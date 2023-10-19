@@ -46,8 +46,8 @@ $(document).ready(function() {
       }
     },
     "columns": [
-      { "data": "id" },
-      { "data": "code" },
+      // { "data": "id" },
+      { "data": "code" },s
       { "data": "size" },
       {
         "data": "type",

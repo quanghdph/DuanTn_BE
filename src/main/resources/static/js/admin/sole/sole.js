@@ -46,7 +46,7 @@ $(document).ready(function() {
       }
     },
     "columns": [
-      { "data": "id" },
+      // { "data": "id" },
       { "data": "code" },
       { "data": "name" },
       {

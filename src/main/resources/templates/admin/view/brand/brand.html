@@ -17,7 +17,7 @@
 <body>
 <div th:fragment="tablex" class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Brand</h1>
+    <h1 class="h3 mb-2 text-gray-800">Hãng</h1>
 
     <div id="view-add" class="modal fade"  tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
          aria-hidden="true">
@@ -33,20 +33,20 @@
                     <form id="form-brand-add">
                         <input type="hidden"  name="id">
                         <div class="form-group">
-                            <label >Mã màu:</label>
+                            <label >Mã:</label>
                             <input type="text" class="form-control"  name="code">
                         </div>
                         <div class="form-group">
-                            <label>Tên màu:</label>
+                            <label>Tên hãng:</label>
                             <input type="text" class="form-control"  name="name">
 
                         </div>
                         <div class="form-group">
                             <label >Type:</label>
                             <select class="form-control" name="type" >
-                                <option value="" disabled selected>Chọn type</option>
-                                <option value="1">Hoạt động</option>
-                                <option value="0">Không hoạt động</option>
+<!--                                <option value="" disabled selected>Chọn type</option>-->
+                                <option value="1" selected>Hoạt động</option>
+<!--                                <option value="0">Không hoạt động</option>-->
                             </select>
 
                         </div>
@@ -55,7 +55,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex justify-content-between align-content-center" >
-                <h6 class="m-0 font-weight-bold text-center text-primary">Dữ liệu</h6>
+<!--                <h6 class="m-0 font-weight-bold text-center text-primary">Dữ liệu</h6>-->
                 <button class="btn btn-info btn-circle-sm view-add-btn" id="btn-view-add">Thêm</button>
             </div>
         </div>
@@ -115,11 +115,11 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>ID</th>
+<!--                        <th>ID</th>-->
                         <th>Mã</th>
                         <th>Tên</th>
                         <th>Type</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                     </thead>
 
