@@ -1,17 +1,15 @@
-package com.fpt.duantn.shrared.dto.CRUD;
+package com.fpt.duantn.ui.model.request;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
+import com.fpt.duantn.io.entity.ProductTypeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
-public class AddressDto implements Serializable {
-
-    private static final long serialVersionUID = 6835192601898364280L;
+public class AddressDetailsRequestModel {
 
     private Long id;
 

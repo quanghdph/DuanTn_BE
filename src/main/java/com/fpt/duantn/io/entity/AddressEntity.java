@@ -6,7 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,31 +32,33 @@ public class AddressEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "custome_id")
-//    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "custome_id")
+    private CustomerEntity customer;
 
-    @Column(name = "city")
+    @Column(name = "city", length = 100)
     private String city;
 
-    @Column(name = "district")
+    @Column(name = "district", length = 100)
     private String district;
 
-    @Column(name = "ward")
+    @Column(name = "ward", length = 100)
     private String ward;
 
-    @Column(name = "address_code")
+    @Column(name = "address_code", length = 100)
     private String addressCode;
 
-    @Column(name = "address_detail")
+    @Column(name = "address_detail", length = 100)
     private String addressDetail;
 
     @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
     @Column(name = "update_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
 

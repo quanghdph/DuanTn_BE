@@ -80,6 +80,7 @@ public class AddressServiceImpl implements AddressService {
         addressEntity.setWard(address.getWard());
         addressEntity.setCreateDate(address.getCreateDate());
         addressEntity.setUpdateDate(address.getUpdateDate());
+        addressEntity.setCustomer(address.getCustomer());
 
         AddressEntity updatedAddresss = addressRepository.save(addressEntity);
         returnValue = new ModelMapper().map(updatedAddresss, AddressDto.class);
