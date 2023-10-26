@@ -48,8 +48,6 @@ public class ProductEntity implements Serializable {
     private Integer status;
 
 
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ProductDetailEntity> productDetails;
 
 
 

@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 @AllArgsConstructor
@@ -37,5 +40,15 @@ public class CategoryEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "create_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date createDate;
+
+    @Column(name = "update_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date updateDate;
+
+
+    @ManyToOne
+    @JoinColumn(name = "product_type_id")
+    private ProductTypeEntity productType;
 
 }
