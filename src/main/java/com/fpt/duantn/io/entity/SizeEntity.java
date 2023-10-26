@@ -18,8 +18,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="patterns")
-public class PatternEntity implements Serializable {
+@Table(name="size")
+public class SizeEntity implements Serializable {
 
     private static final long serialVersionUID = 5313493413859894403L;
 
@@ -27,10 +27,9 @@ public class PatternEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "pattern_code")
-    private String patternCode;
+    @Column(name = "size_name")
+    private String sizeName;
 
-    @Column(name = "pattern_name")
-    private String patternName;
-
+    @Column(name = "size_code")
+    private String sizeCode;
 }
