@@ -21,8 +21,6 @@ public class AddressDetailsRequestModel {
 
     private String ward;
 
-    private String addressCode;
-
     private String addressDetail;
 
     private Date createDate;

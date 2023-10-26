@@ -11,7 +11,6 @@ import java.util.Date;
 public class CategoryDetailsRequestModel {
 
     private String categoryName;
-    private String categoryCode;
     private Integer status;
     private Date createDate;
     private Date updateDate;
