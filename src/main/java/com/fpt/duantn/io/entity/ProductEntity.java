@@ -8,14 +8,21 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -32,32 +39,41 @@ public class ProductEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "product_name")
+    @Column(name = "product_name", length = 255, nullable = false)
     private String productName;
 
-    @Column(name = "product_code")
-    private String productCode;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 
-    @Column(name = "main_image")
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brand;
+
+    @Column(name = "main_image", length = 255)
     private String mainImage;
 
-    @Column(name = "describe")
-    private String describe;
+    @Lob
+    @Column(name = "describe", columnDefinition = "TEXT")
+    private String description;
+
+    @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    @Column(name = "update_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
 
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "product_code", length = 255, nullable = false)
+    private String productCode;
 
+    @Column(name = "quantity")
+    private Long quantity;
 
-
-
-//    @ManyToOne
-//    @JoinColumn(name = "brand_id")
-//    private BrandEntity brandEntity;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "category_id")
-//    private CategoryEntity categoryEntity;
-
-
+    @Column(name = "price", precision = 10, scale = 0)
+    private BigDecimal price;
 }

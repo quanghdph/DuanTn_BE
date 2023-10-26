@@ -2,6 +2,7 @@ package com.fpt.duantn.io.repository;
 
 
 import com.fpt.duantn.io.entity.ProductEntity;
+import com.fpt.duantn.io.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 //            "JOIN colors c ON pd.color_id = c.id", nativeQuery = true)
 //    Page<ProductEntity> getProductsAndColorsByproductName(String productName, Pageable pageable);
 //
+
+    ProductEntity findByProductCode(String productCode);
+
+    Page<ProductEntity> findByProductNameContainingOrderByIdAsc(String productName, Pageable pageable);
 
 
 

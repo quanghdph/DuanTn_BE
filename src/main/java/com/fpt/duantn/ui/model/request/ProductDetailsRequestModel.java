@@ -1,29 +1,20 @@
-package com.fpt.duantn.shrared.dto.CRUD;
+package com.fpt.duantn.ui.model.request;
 
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
+import com.fpt.duantn.io.entity.ProductTypeEntity;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-
 
 @Getter
 @Setter
-public class ProductDto implements Serializable {
-
-    private static final long serialVersionUID = 6835192601898364280L;
-
-    private Long id;
+public class ProductDetailsRequestModel {
 
     private String productName;
 
@@ -44,11 +35,8 @@ public class ProductDto implements Serializable {
 
     private Integer status;
 
-    private String productCode;
-
     private Long quantity;
 
     private BigDecimal price;
-
 
 }
