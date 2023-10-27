@@ -79,7 +79,18 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setStatus(productDetail.getStatus());
         productDetailEntity.setUpdateDate(productDetail.getUpdateDate());
         productDetailEntity.setCreateDate(productDetail.getCreateDate());
-
+        productDetailEntity.setProduct(productDetail.getProduct());
+        productDetailEntity.setAmount(productDetail.getAmount());
+        productDetailEntity.setCollar(productDetail.getCollar());
+        productDetailEntity.setColor(productDetail.getColor());
+        productDetailEntity.setDefaultPrice(productDetail.getDefaultPrice());
+        productDetailEntity.setDesign(productDetail.getDesign());
+        productDetailEntity.setMaterial(productDetail.getMaterial());
+        productDetailEntity.setPattern(productDetail.getPattern());
+        productDetailEntity.setPrice(productDetail.getPrice());
+        productDetailEntity.setSize(productDetail.getSize());
+        productDetailEntity.setSleeve(productDetail.getSleeve());
+        productDetailEntity.setWaistband(productDetail.getWaistband());
 
         ProductDetailEntity updatedProductDetails = productDetailRepository.save(productDetailEntity);
         returnValue = new ModelMapper().map(updatedProductDetails, ProductDetailDto.class);

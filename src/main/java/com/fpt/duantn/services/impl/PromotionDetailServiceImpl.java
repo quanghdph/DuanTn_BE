@@ -79,6 +79,10 @@ public class PromotionDetailServiceImpl implements PromotionDetailService {
         promotionDetailEntity.setStatus(promotionDetail.getStatus());
         promotionDetailEntity.setUpdateDate(promotionDetail.getUpdateDate());
         promotionDetailEntity.setCreateDate(promotionDetail.getCreateDate());
+        promotionDetailEntity.setEndDate(promotionDetail.getEndDate());
+        promotionDetailEntity.setPromotion(promotionDetail.getPromotion());
+        promotionDetailEntity.setProductDetail(promotionDetail.getProductDetail());
+        promotionDetailEntity.setAmount(promotionDetail.getAmount());
 
 
         PromotionDetailEntity updatedPromotionDetails = promotionDetailRepository.save(promotionDetailEntity);
