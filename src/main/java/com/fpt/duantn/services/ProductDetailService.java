@@ -7,11 +7,11 @@ import java.util.List;
 public interface ProductDetailService {
 
     ProductDetailDto createProductDetail(ProductDetailDto productDetail);
-    ProductDetailDto getProductDetailByProductDetailCode(String productDetailCode);
-    ProductDetailDto updateProductDetail(String productDetailCode, ProductDetailDto productDetail);
-    void deleteProductDetail(String productDetailCode);
+    ProductDetailDto getProductDetailByProductDetailCode(Long productDetailCode);
+    ProductDetailDto updateProductDetail(Long productDetailCode, ProductDetailDto productDetail);
+    void deleteProductDetail(Long productDetailCode);
     List<ProductDetailDto> getProductDetails(int page, int limit);
-    List<ProductDetailDto> getProductDetailByProductDetailName(String productDetailName, int page, int limit);
+//    List<ProductDetailDto> getProductDetailByProductDetailName(String productDetailName, int page, int limit);
 
 
 }

@@ -70,7 +70,7 @@ public class ProductDetailEntity implements Serializable {
     @JoinColumn(name = "waistband_id")
     private WaistbandEntity waistband;
 
-    @Column(name = "default_price", precision = 10, scale = 0)
+    @Column(name = "default price", precision = 10, scale = 0)
     private BigDecimal defaultPrice;
 
     @Column(name = "price", precision = 10, scale = 0)
