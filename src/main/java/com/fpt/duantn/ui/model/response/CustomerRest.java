@@ -12,6 +12,8 @@ import java.util.Date;
 @Setter
 public class CustomerRest {
 
+    private Long id;
+
     private boolean emailVerificationStatus;
 
     private String firstName;

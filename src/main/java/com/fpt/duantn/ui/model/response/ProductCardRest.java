@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 public class ProductCardRest {
 
+    private Long id;
+
     private String productCode;
     private String productName;
     private String mainImage;

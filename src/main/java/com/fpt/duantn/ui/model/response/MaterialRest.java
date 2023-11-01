@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class MaterialRest {
 
+    private Long id;
+
     private String materialName;
     private String materialCode;
 

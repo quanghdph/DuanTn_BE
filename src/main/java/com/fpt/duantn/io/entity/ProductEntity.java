@@ -39,7 +39,7 @@ public class ProductEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "product_name", length = 255, nullable = false)
+    @Column(name = "product_name", length = 255)
     private String productName;
 
     @ManyToOne
@@ -54,7 +54,7 @@ public class ProductEntity implements Serializable {
     private String mainImage;
 
     @Lob
-    @Column(name = "describe", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "create_date")
@@ -68,7 +68,7 @@ public class ProductEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "product_code", length = 255, nullable = false)
+    @Column(name = "product_code", length = 255)
     private String productCode;
 
     @Column(name = "quantity")

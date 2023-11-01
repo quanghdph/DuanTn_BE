@@ -42,6 +42,10 @@ public class BillDetailServiceImpl implements BillDetailService {
 //        String publicBillDetailCode = utils.generateColorCode(8);
 //        BillDetailEntity.setId(publicBillDetailCode);
 
+        //them khoa ngoai
+        billDetailEntity.setProductDetail(billDetail.getProductDetail());
+        billDetailEntity.setBill(billDetail.getBill());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         BillDetailEntity storedBillDetailDetails = billDetailRepository.save(billDetailEntity);
 

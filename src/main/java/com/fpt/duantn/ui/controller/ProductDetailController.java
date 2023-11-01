@@ -47,6 +47,16 @@ public class ProductDetailController {
         ModelMapper modelMapper = new ModelMapper();
         ProductDetailDto productDetailDto = modelMapper.map(productDetailDetails, ProductDetailDto.class);
 
+        productDetailDto.setProduct(productDetailDetails.getProduct());
+        productDetailDto.setColor(productDetailDetails.getColor());
+        productDetailDto.setSize(productDetailDetails.getSize());
+        productDetailDto.setDesign(productDetailDetails.getDesign());
+        productDetailDto.setMaterial(productDetailDetails.getMaterial());
+        productDetailDto.setPattern(productDetailDetails.getPattern());
+        productDetailDto.setCollar(productDetailDetails.getCollar());
+        productDetailDto.setSleeve(productDetailDetails.getSleeve());
+        productDetailDto.setWaistband(productDetailDetails.getWaistband());
+
         ProductDetailDto createdUser = productDetailService.createProductDetail(productDetailDto);
         returnValue = modelMapper.map(createdUser, ProductDetailRest.class);
 
@@ -76,6 +86,16 @@ public class ProductDetailController {
 
         ProductDetailDto productDetailDto = new ProductDetailDto();
         productDetailDto = new ModelMapper().map(productDetailDetails, ProductDetailDto.class);
+
+        productDetailDto.setProduct(productDetailDetails.getProduct());
+        productDetailDto.setColor(productDetailDetails.getColor());
+        productDetailDto.setSize(productDetailDetails.getSize());
+        productDetailDto.setDesign(productDetailDetails.getDesign());
+        productDetailDto.setMaterial(productDetailDetails.getMaterial());
+        productDetailDto.setPattern(productDetailDetails.getPattern());
+        productDetailDto.setCollar(productDetailDetails.getCollar());
+        productDetailDto.setSleeve(productDetailDetails.getSleeve());
+        productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto updateProductDetail = productDetailService.updateProductDetail(id, productDetailDto);
         returnValue = new ModelMapper().map(updateProductDetail, ProductDetailRest.class);

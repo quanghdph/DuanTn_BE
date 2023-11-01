@@ -42,6 +42,10 @@ public class ProductServiceImpl implements ProductService {
         String publicProductCode = utils.generateColorCode(8);
         productEntity.setProductCode(publicProductCode);
 
+        //them khoa ngoai
+        productEntity.setCategory(product.getCategory());
+        productEntity.setBrand(product.getBrand());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         ProductEntity storedProductDetails = productRepository.save(productEntity);
 
@@ -80,7 +84,6 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setBrand(product.getBrand());
         productEntity.setMainImage(product.getMainImage());
         productEntity.setDescription(product.getDescription());
-        productEntity.setProductCode(product.getProductCode());
         productEntity.setQuantity(product.getQuantity());
         productEntity.setPrice(product.getPrice());
         productEntity.setStatus(product.getStatus());

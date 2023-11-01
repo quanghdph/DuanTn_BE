@@ -15,6 +15,8 @@ import java.util.Date;
 @Setter
 public class CartDetailRest {
 
+    private Long id;
+
     private ProductDetailEntity productDetail;
 
     private BillEntity bill;

@@ -47,6 +47,9 @@ public class BillDetailController {
         ModelMapper modelMapper = new ModelMapper();
         BillDetailDto billDetailDto = modelMapper.map(billDetailDetails, BillDetailDto.class);
 
+        billDetailDto.setProductDetail(billDetailDetails.getProductDetail());
+        billDetailDto.setBill(billDetailDetails.getBill());
+
         BillDetailDto createdUser = billDetailService.createBillDetail(billDetailDto);
         returnValue = modelMapper.map(createdUser, BillDetailRest.class);
 
@@ -76,6 +79,9 @@ public class BillDetailController {
 
         BillDetailDto billDetailDto = new BillDetailDto();
         billDetailDto = new ModelMapper().map(billDetailDetails, BillDetailDto.class);
+
+        billDetailDto.setProductDetail(billDetailDetails.getProductDetail());
+        billDetailDto.setBill(billDetailDetails.getBill());
 
         BillDetailDto updateBillDetail = billDetailService.updateBillDetail(id, billDetailDto);
         returnValue = new ModelMapper().map(updateBillDetail, BillDetailRest.class);

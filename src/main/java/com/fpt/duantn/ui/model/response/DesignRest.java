@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class DesignRest {
 
+    private Long id;
+
     private String designName;
     private String designCode;
 

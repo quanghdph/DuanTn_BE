@@ -47,6 +47,8 @@ public class ImageController {
         ModelMapper modelMapper = new ModelMapper();
         ImageDto imageDto = modelMapper.map(imageDetails, ImageDto.class);
 
+        imageDto.setProduct(imageDetails.getProduct());
+
         ImageDto createdUser = imageService.createImage(imageDto);
         returnValue = modelMapper.map(createdUser, ImageRest.class);
 
@@ -76,6 +78,8 @@ public class ImageController {
 
         ImageDto imageDto = new ImageDto();
         imageDto = new ModelMapper().map(imageDetails, ImageDto.class);
+
+        imageDto.setProduct(imageDetails.getProduct());
 
         ImageDto updateImage = imageService.updateImage(id, imageDto);
         returnValue = new ModelMapper().map(updateImage, ImageRest.class);

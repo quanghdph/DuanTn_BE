@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 public class SleeveRest {
 
+    private Long id;
+
     private String sleeveName;
     private String sleeveCode;
 

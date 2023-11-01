@@ -13,6 +13,8 @@ import java.util.Date;
 @Setter
 public class PromotionRest {
 
+    private Long id;
+
     private String promotionCode;
     private Integer amount;
 

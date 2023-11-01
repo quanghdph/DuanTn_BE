@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class WaistbandRest {
 
+    private Long id;
+
     private String waistbandName;
     private String waistbandCode;
 

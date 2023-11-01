@@ -42,6 +42,10 @@ public class PromotionDetailServiceImpl implements PromotionDetailService {
 //        String publicPromotionDetailCode = utils.generateColorCode(8);
 //        PromotionDetailEntity.setId(publicPromotionDetailCode);
 
+        //them khoa ngoai
+        promotionDetailEntity.setProductDetail(promotionDetail.getProductDetail());
+        promotionDetailEntity.setPromotion(promotionDetail.getPromotion());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         PromotionDetailEntity storedPromotionDetailDetails = promotionDetailRepository.save(promotionDetailEntity);
 

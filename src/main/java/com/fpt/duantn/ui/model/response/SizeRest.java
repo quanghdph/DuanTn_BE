@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class SizeRest {
 
+    private Long id;
+
     private String sizeName;
     private String sizeCode;
 

@@ -37,14 +37,17 @@ public class AddressServiceImpl implements AddressService {
 
         // Chuyển đổi AddressDto thành AddressEntity
         ModelMapper modelMapper = new ModelMapper();
-        AddressEntity AddressEntity = modelMapper.map(address, AddressEntity.class);
+        AddressEntity addressEntity = modelMapper.map(address, AddressEntity.class);
 
         // Tạo một mã ngẫu nhiên cho AddressCode (tùy theo yêu cầu)
         String publicAddressCode = utils.generateColorCode(8);
-        AddressEntity.setAddressCode(publicAddressCode);
+        addressEntity.setAddressCode(publicAddressCode);
+
+        //them khoa ngoai
+        addressEntity.setCustomer(address.getCustomer());
 
         // Lưu trữ thông tin dia chi vào cơ sở dữ liệu
-        AddressEntity storedAddressDetails = addressRepository.save(AddressEntity);
+        AddressEntity storedAddressDetails = addressRepository.save(addressEntity);
 
         // Chuyển đổi AddressEntity thành AddressDto
         AddressDto returnValue = modelMapper.map(storedAddressDetails, AddressDto.class);

@@ -42,6 +42,9 @@ public class CartServiceImpl implements CartService {
         String publicCartCode = utils.generateColorCode(8);
         cartEntity.setCartCode(publicCartCode);
 
+        //them khoa ngoai
+        cartEntity.setEmployee(cart.getEmployee());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         CartEntity storedCartDetails = cartRepository.save(cartEntity);
 

@@ -47,6 +47,9 @@ public class PromotionDetailController {
         ModelMapper modelMapper = new ModelMapper();
         PromotionDetailDto promotionDetailDto = modelMapper.map(promotionDetailDetails, PromotionDetailDto.class);
 
+        promotionDetailDto.setPromotion(promotionDetailDetails.getPromotion());
+        promotionDetailDto.setProductDetail(promotionDetailDetails.getProductDetail());
+
         PromotionDetailDto createdUser = promotionDetailService.createPromotionDetail(promotionDetailDto);
         returnValue = modelMapper.map(createdUser, PromotionDetailRest.class);
 
@@ -76,6 +79,9 @@ public class PromotionDetailController {
 
         PromotionDetailDto promotionDetailDto = new PromotionDetailDto();
         promotionDetailDto = new ModelMapper().map(promotionDetailDetails, PromotionDetailDto.class);
+
+        promotionDetailDto.setProductDetail(promotionDetailDetails.getProductDetail());
+        promotionDetailDto.setPromotion(promotionDetailDetails.getPromotion());
 
         PromotionDetailDto updatePromotionDetail = promotionDetailService.updatePromotionDetail(id, promotionDetailDto);
         returnValue = new ModelMapper().map(updatePromotionDetail, PromotionDetailRest.class);

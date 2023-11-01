@@ -11,9 +11,11 @@ import java.util.List;
 @Setter
 public class ColorRest {
 
+    private Long id;
+
     private String colorName;
     private String colorCode;
 
-    private List<ProductDetailCardRest> colors;
+//    private List<ProductDetailCardRest> colors;
 
 }

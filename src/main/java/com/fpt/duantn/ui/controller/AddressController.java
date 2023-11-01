@@ -47,6 +47,8 @@ public class AddressController {
         ModelMapper modelMapper = new ModelMapper();
         AddressDto addressDto = modelMapper.map(addressDetails, AddressDto.class);
 
+        addressDto.setCustomer(addressDetails.getCustomer());
+
         AddressDto createdUser = addressService.createAddress(addressDto);
         returnValue = modelMapper.map(createdUser, AddressRest.class);
 
@@ -76,6 +78,8 @@ public class AddressController {
 
         AddressDto addressDto = new AddressDto();
         addressDto = new ModelMapper().map(addressDetails, AddressDto.class);
+
+        addressDto.setCustomer(addressDetails.getCustomer());
 
         AddressDto updateAddress = addressService.updateAddress(id, addressDto);
         returnValue = new ModelMapper().map(updateAddress, AddressRest.class);

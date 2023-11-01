@@ -17,7 +17,7 @@ public class ColorDto implements Serializable {
     private String colorName;
     private String colorCode;
 
-    private List<ProductDetailDto> productDetails;
+//    private List<ProductDetailDto> productDetails;
 
 
 }

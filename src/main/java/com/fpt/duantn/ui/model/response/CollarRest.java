@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class CollarRest {
 
+    private Long id;
+
     private String collarName;
     private String collarCode;
 

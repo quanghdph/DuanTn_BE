@@ -11,6 +11,8 @@ import java.util.Date;
 @Setter
 public class ImageRest {
 
+    private Long id;
+
     private String url;
 
     private ProductEntity product;

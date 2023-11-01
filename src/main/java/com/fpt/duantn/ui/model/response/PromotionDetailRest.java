@@ -12,6 +12,8 @@ import java.util.Date;
 @Setter
 public class PromotionDetailRest {
 
+    private Long id;
+
     private PromotionEntity promotion;
 
     private ProductDetailEntity productDetail;

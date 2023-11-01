@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class PatternRest {
 
+    private Long id;
+
     private String patternName;
     private String patternCode;
 

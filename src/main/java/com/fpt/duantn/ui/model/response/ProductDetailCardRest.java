@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 @Setter
 public class ProductDetailCardRest extends RepresentationModel<ProductDetailCardRest> {
 
+    private Long id;
+
     private String productCode;
     private String productName;
     private BigDecimal price;

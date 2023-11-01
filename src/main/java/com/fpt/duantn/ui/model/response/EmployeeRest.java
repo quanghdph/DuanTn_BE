@@ -13,6 +13,8 @@ import java.util.Date;
 @Setter
 public class EmployeeRest {
 
+    private Long id;
+
     private String firstName;
 
     private String lastName;

@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class ProductTypeRest {
 
+    private Long id;
+
     private String productTypeName;
     private String productTypeCode;
 

@@ -42,6 +42,11 @@ public class CartDetailServiceImpl implements CartDetailService {
 //        String publicCartDetailCode = utils.generateColorCode(8);
 //        CartDetailEntity.setId(publicCartDetailCode);
 
+        //them khoa ngoai
+        cartDetailEntity.setCart(cartDetailEntity.getCart());
+        cartDetailEntity.setBill(cartDetailEntity.getBill());
+        cartDetailEntity.setProductDetail(cartDetailEntity.getProductDetail());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         CartDetailEntity storedCartDetailDetails = cartDetailRepository.save(cartDetailEntity);
 

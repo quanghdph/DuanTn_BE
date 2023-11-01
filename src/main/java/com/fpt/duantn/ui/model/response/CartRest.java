@@ -13,6 +13,8 @@ import java.util.Date;
 @Setter
 public class CartRest {
 
+    private Long id;
+
     private String cartCode;
 
     private EmployeeEntity employee;

@@ -42,6 +42,9 @@ public class ImageServiceImpl implements ImageService {
 //        String publicImageCode = utils.generateColorCode(8);
 //        imageEntity.setId(Long.parseLong(publicImageCode));
 
+        //them khoa ngoai
+        imageEntity.setProduct(image.getProduct());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         ImageEntity storedImageDetails = imageRepository.save(imageEntity);
 

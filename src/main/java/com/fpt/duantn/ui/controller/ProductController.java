@@ -47,6 +47,9 @@ public class ProductController {
         ModelMapper modelMapper = new ModelMapper();
         ProductDto productDto = modelMapper.map(productDetails, ProductDto.class);
 
+        productDto.setCategory(productDetails.getCategory());
+        productDto.setBrand(productDetails.getBrand());
+
         ProductDto createdUser = productService.createProduct(productDto);
         returnValue = modelMapper.map(createdUser, ProductRest.class);
 
@@ -76,6 +79,9 @@ public class ProductController {
 
         ProductDto productDto = new ProductDto();
         productDto = new ModelMapper().map(productDetails, ProductDto.class);
+
+        productDto.setCategory(productDetails.getCategory());
+        productDto.setBrand(productDetails.getBrand());
 
         ProductDto updateProduct = productService.updateProduct(id, productDto);
         returnValue = new ModelMapper().map(updateProduct, ProductRest.class);

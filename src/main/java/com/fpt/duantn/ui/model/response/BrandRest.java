@@ -12,6 +12,8 @@ import java.util.Date;
 @Setter
 public class BrandRest {
 
+    private Long id;
+
     private String brandCode;
 
     private String brandName;

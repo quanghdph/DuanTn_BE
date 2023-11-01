@@ -15,6 +15,8 @@ import java.util.Date;
 @Setter
 public class BillRest {
 
+    private Long id;
+
     private CustomerEntity customer;
 
     private EmployeeEntity employee;

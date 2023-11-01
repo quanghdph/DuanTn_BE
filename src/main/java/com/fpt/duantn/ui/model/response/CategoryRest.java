@@ -10,6 +10,8 @@ import java.util.Date;
 @Setter
 public class CategoryRest {
 
+    private Long id;
+
     private String categoryName;
     private String categoryCode;
     private Integer status;

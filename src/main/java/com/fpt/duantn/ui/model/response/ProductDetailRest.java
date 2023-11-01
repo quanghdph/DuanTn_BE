@@ -22,6 +22,8 @@ import java.util.Date;
 @Setter
 public class ProductDetailRest {
 
+    private Long id;
+
     private ProductEntity product;
 
     private ColorEntity color;

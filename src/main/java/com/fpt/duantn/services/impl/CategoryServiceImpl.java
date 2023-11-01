@@ -42,6 +42,9 @@ public class CategoryServiceImpl implements CategoryService {
         String publicCategoryCode = utils.generateColorCode(8);
         categoryEntity.setCategoryCode(publicCategoryCode);
 
+        //them khoa ngoai
+        categoryEntity.setProductType(category.getProductType());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         CategoryEntity storedCategoryDetails = categoryRepository.save(categoryEntity);
 

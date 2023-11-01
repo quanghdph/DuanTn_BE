@@ -42,6 +42,10 @@ public class BillServiceImpl implements BillService {
         String publicBillCode = utils.generateColorCode(8);
         billEntity.setBillCode(publicBillCode);
 
+        //them khoa ngoai
+        billEntity.setCustomer(bill.getCustomer());
+        billEntity.setEmployee(bill.getEmployee());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         BillEntity storedBillDetails = billRepository.save(billEntity);
 

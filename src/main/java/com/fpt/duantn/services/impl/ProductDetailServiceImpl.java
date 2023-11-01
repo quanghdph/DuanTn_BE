@@ -42,6 +42,17 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 //        String publicProductDetailCode = utils.generateColorCode(8);
 //        productDetailEntity.setId(publicProductDetailCode);
 
+        //them khoa ngoai
+        productDetailEntity.setProduct(productDetail.getProduct());
+        productDetailEntity.setColor(productDetail.getColor());
+        productDetailEntity.setSize(productDetail.getSize());
+        productDetailEntity.setDesign(productDetail.getDesign());
+        productDetailEntity.setMaterial(productDetail.getMaterial());
+        productDetailEntity.setPattern(productDetail.getPattern());
+        productDetailEntity.setCollar(productDetail.getCollar());
+        productDetailEntity.setSleeve(productDetail.getSleeve());
+        productDetailEntity.setWaistband(productDetail.getWaistband());
+
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         ProductDetailEntity storedProductDetailDetails = productDetailRepository.save(productDetailEntity);
 

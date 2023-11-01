@@ -16,6 +16,8 @@ import java.util.Date;
 @Setter
 public class ProductRest {
 
+    private Long id;
+
     private String productName;
 
     private CategoryEntity category;
