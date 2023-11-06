@@ -9,7 +9,7 @@ public interface BillDetailService {
     BillDetailDto createBillDetail(BillDetailDto billDetail);
     BillDetailDto getBillDetailByBillDetailCode(Long billDetailCode);
     BillDetailDto updateBillDetail(Long billDetailCode, BillDetailDto billDetail);
-    void deleteBillDetail(Long billDetailCode);
+    void deleteBillDetail(Long billDetailId);
     List<BillDetailDto> getBillDetails(int page, int limit);
 //    List<BillDetailDto> getBillDetailByBillDetailName(String billDetailName, int page, int limit);
 

@@ -89,8 +89,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void deleteImage(Long imageCode) {
-        ImageEntity imageEntity = imageRepository.findImageById(imageCode);
+    public void deleteImage(Long imageId) {
+        ImageEntity imageEntity = imageRepository.findImageById(imageId);
 
         if (imageEntity == null)
             throw new ImageServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

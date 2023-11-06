@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 
-    ImageEntity findImageById(Long ImageCode);
+    ImageEntity findImageById(Long ImageId);
 
     Page<ImageEntity> findByImageNameContainingOrderByIdAsc(String ImageName, Pageable pageable);
 

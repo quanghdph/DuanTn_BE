@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CartDetailRepository extends JpaRepository<CartDetailEntity, Long> {
 
-    CartDetailEntity findCartDetailEntityById(Long cartDetailCode);
+    CartDetailEntity findCartDetailEntityById(Long cartDetailId);
 
 
 

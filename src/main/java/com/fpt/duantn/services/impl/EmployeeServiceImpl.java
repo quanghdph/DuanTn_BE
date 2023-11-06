@@ -75,7 +75,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeEntity == null)
             throw new EmployeeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        employeeEntity.setEmployeeCode(employee.getEmployeeCode());
         employeeEntity.setImage(employee.getImage());
         employeeEntity.setFirstName(employee.getFirstName());
         employeeEntity.setLastName(employee.getLastName());

@@ -34,9 +34,4 @@ public class ColorEntity implements Serializable {
     @Column(name = "color_code")
     private String colorCode;
 
-//    @OneToMany(mappedBy = "colorEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ProductDetailEntity> productDetails;
-
-
-
 }

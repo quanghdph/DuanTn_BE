@@ -96,8 +96,8 @@ public class PromotionDetailServiceImpl implements PromotionDetailService {
     }
 
     @Override
-    public void deletePromotionDetail(Long promotionDetailCode) {
-        PromotionDetailEntity promotionDetailEntity = promotionDetailRepository.findPromotionDetailEntityById(promotionDetailCode);
+    public void deletePromotionDetail(Long promotionDetailId) {
+        PromotionDetailEntity promotionDetailEntity = promotionDetailRepository.findPromotionDetailEntityById(promotionDetailId);
 
         if (promotionDetailEntity == null)
             throw new PromotionDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

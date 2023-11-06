@@ -98,8 +98,8 @@ public class CartDetailServiceImpl implements CartDetailService {
     }
 
     @Override
-    public void deleteCartDetail(Long cartDetailCode) {
-        CartDetailEntity cartDetailEntity = cartDetailRepository.findCartDetailEntityById(cartDetailCode);
+    public void deleteCartDetail(Long cartDetailId) {
+        CartDetailEntity cartDetailEntity = cartDetailRepository.findCartDetailEntityById(cartDetailId);
 
         if (cartDetailEntity == null)
             throw new CartDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

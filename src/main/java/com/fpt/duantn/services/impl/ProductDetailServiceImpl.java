@@ -110,8 +110,8 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public void deleteProductDetail(Long productDetailCode) {
-        ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailCode);
+    public void deleteProductDetail(Long productDetailId) {
+        ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailId);
 
         if (productDetailEntity == null)
             throw new ProductDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

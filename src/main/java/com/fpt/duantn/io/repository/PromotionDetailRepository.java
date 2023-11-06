@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PromotionDetailRepository extends JpaRepository<PromotionDetailEntity, Long> {
 
-    PromotionDetailEntity findPromotionDetailEntityById(Long promotionDetailCode);
+    PromotionDetailEntity findPromotionDetailEntityById(Long promotionDetailId);
 
 
 

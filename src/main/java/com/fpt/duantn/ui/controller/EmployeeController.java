@@ -9,6 +9,7 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,7 +56,7 @@ public class EmployeeController {
 
     @GetMapping()
     public List<EmployeeRest> getEmployees(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<EmployeeRest> returnValue = new ArrayList<>();
 
         List<EmployeeDto> employees = employeeService.getEmployees(page, limit);
@@ -76,10 +77,12 @@ public class EmployeeController {
 
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto = new ModelMapper().map(employeeDetails, EmployeeDto.class);
-
-        EmployeeDto updateEmployee = employeeService.updateEmployee(id, employeeDto);
-        returnValue = new ModelMapper().map(updateEmployee, EmployeeRest.class);
-
+        try {
+            EmployeeDto updateEmployee = employeeService.updateEmployee(id, employeeDto);
+            returnValue = new ModelMapper().map(updateEmployee, EmployeeRest.class);
+        }catch (Exception e) {
+            System.out.println(e);
+        }
         return returnValue;
     }
 
@@ -88,9 +91,17 @@ public class EmployeeController {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        employeeService.deleteEmployee(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+        try {
+            employeeService.deleteEmployee(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: Sản phẩm có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: " + e.getMessage());
+        }
         return returnValue;
     }
 
@@ -99,7 +110,7 @@ public class EmployeeController {
     @GetMapping("/search")
     public List<EmployeeRest> searchEmployees(@RequestParam(value = "employeeName") String employeeName,
                                               @RequestParam(value = "page", defaultValue = "0") int page,
-                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                              @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<EmployeeRest> returnValue = new ArrayList<>();
 
         List<EmployeeDto> employees = employeeService.getEmployeeByEmployeeName(employeeName, page, limit);

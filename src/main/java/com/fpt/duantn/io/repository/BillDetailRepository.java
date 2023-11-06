@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BillDetailRepository extends JpaRepository<BillDetailEntity, Long> {
 
-    BillDetailEntity findBillDetailEntityById(Long billDetailCode);
+    BillDetailEntity findBillDetailEntityById(Long billDetailId);
 
 
 

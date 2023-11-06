@@ -9,6 +9,8 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +60,7 @@ public class ProductController {
 
     @GetMapping()
     public List<ProductRest> getProducts(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<ProductRest> returnValue = new ArrayList<>();
 
         List<ProductDto> products = productService.getProducts(page, limit);
@@ -82,10 +84,12 @@ public class ProductController {
 
         productDto.setCategory(productDetails.getCategory());
         productDto.setBrand(productDetails.getBrand());
-
-        ProductDto updateProduct = productService.updateProduct(id, productDto);
-        returnValue = new ModelMapper().map(updateProduct, ProductRest.class);
-
+        try {
+            ProductDto updateProduct = productService.updateProduct(id, productDto);
+            returnValue = new ModelMapper().map(updateProduct, ProductRest.class);
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return returnValue;
     }
 
@@ -93,10 +97,17 @@ public class ProductController {
     public OperationStatusModel deleteProduct(@PathVariable String id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
-
-        productService.deleteProduct(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            try {
+                productService.deleteProduct(id);
+                returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+                returnValue.setOperationMessage("Xoa Thanh Cong.");
+            }catch (DataIntegrityViolationException exception){
+                returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+                returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: Sản phẩm có tham chiếu đến khoá ngoại.");
+            }catch (Exception e){
+                returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+                returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: " + e.getMessage());
+            }
         return returnValue;
     }
 
@@ -105,7 +116,7 @@ public class ProductController {
     @GetMapping("/search")
     public List<ProductRest> searchProducts(@RequestParam(value = "productName") String productName,
                                               @RequestParam(value = "page", defaultValue = "0") int page,
-                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                              @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<ProductRest> returnValue = new ArrayList<>();
 
         List<ProductDto> products = productService.getProductByProductName(productName, page, limit);

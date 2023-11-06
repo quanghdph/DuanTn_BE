@@ -9,7 +9,7 @@ public interface PromotionDetailService {
     PromotionDetailDto createPromotionDetail(PromotionDetailDto promotionDetail);
     PromotionDetailDto getPromotionDetailByPromotionDetailCode(Long promotionDetailCode);
     PromotionDetailDto updatePromotionDetail(Long promotionDetailCode, PromotionDetailDto promotionDetail);
-    void deletePromotionDetail(Long promotionDetailCode);
+    void deletePromotionDetail(Long promotionDetailId);
     List<PromotionDetailDto> getPromotionDetails(int page, int limit);
 //    List<PromotionDetailDto> getPromotionDetailByPromotionDetailName(String promotionDetailName, int page, int limit);
 

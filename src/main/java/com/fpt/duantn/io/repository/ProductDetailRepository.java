@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductDetailRepository extends JpaRepository<ProductDetailEntity, Long> {
 
-    ProductDetailEntity findProductDetailEntityById(Long ProductDetailCode);
+    ProductDetailEntity findProductDetailEntityById(Long ProductDetailId);
 
 //    Page<ProductDetailEntity> findByProductDetailContainingOrderByIdAsc(String ProductDetailName,Pageable pageable);
 

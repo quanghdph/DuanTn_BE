@@ -9,7 +9,7 @@ public interface ImageService {
     ImageDto createImage(ImageDto image);
     ImageDto getImageByImageCode(Long imageCode);
     ImageDto updateImage(Long imageCode, ImageDto image);
-    void deleteImage(Long imageCode);
+    void deleteImage(Long imageId);
     List<ImageDto> getImages(int page, int limit);
     List<ImageDto> getImageByImageName(String imageName, int page, int limit);
 
