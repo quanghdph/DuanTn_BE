@@ -31,7 +31,7 @@ public class ProductTypeEntity implements Serializable {
     @Column(name = "product_type_name")
     private String productTypeName;
 
-    @Column(name = "iproduct_type_code")
+    @Column(name = "product_type_code")
     private String productTypeCode;
 
 

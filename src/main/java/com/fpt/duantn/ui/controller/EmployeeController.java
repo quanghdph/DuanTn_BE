@@ -9,10 +9,7 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< Updated upstream
 import org.springframework.dao.DataIntegrityViolationException;
-=======
->>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
