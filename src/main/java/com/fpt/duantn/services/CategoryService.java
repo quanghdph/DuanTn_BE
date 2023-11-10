@@ -10,7 +10,9 @@ public interface CategoryService {
     CategoryDto getCategoryByCategoryCode(String categoryCode);
     CategoryDto updateCategory(String categoryCode, CategoryDto category);
     void deleteCategory(String categoryCode);
-    List<CategoryDto> getCategorys(int page, int limit);
+    List<CategoryDto> getCategorys(int page, int limit, String filter);
+
+    Long count(String filter);
     List<CategoryDto> getCategoryByCategoryName(String categoryName, int page, int limit);
 
 

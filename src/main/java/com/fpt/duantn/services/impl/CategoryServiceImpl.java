@@ -101,14 +101,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> getCategorys(int page, int limit) {
+    public List<CategoryDto> getCategorys(int page, int limit,String filter) {
         List<CategoryDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<CategoryEntity> categoryPage = categoryRepository.findAll(pageableRequest);
+        Page<CategoryEntity> categoryPage = categoryRepository.filter(filter, pageableRequest);
         List<CategoryEntity> categorys = categoryPage.getContent();
 
         for (CategoryEntity categoryEntity : categorys) {
@@ -118,6 +118,13 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = categoryRepository.count(filter);
+        return total;
     }
 
     @Override

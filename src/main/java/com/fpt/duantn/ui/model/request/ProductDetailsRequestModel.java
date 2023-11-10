@@ -3,6 +3,7 @@ package com.fpt.duantn.ui.model.request;
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
 import com.fpt.duantn.io.entity.ProductTypeEntity;
+import com.fpt.duantn.io.entity.SizeEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -22,6 +23,8 @@ public class ProductDetailsRequestModel {
 
     private BrandEntity brand;
 
+    private SizeEntity size;
+
     private String mainImage;
 
     @Lob
@@ -32,6 +35,9 @@ public class ProductDetailsRequestModel {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
     private Integer status;
 

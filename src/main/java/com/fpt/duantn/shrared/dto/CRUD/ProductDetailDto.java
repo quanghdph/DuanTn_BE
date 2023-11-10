@@ -51,6 +51,9 @@ public class ProductDetailDto implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
+
     private Integer status;
 
 }

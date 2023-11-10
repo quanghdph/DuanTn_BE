@@ -5,10 +5,12 @@ import com.fpt.duantn.shrared.dto.CRUD.CategoryDto;
 import com.fpt.duantn.ui.model.request.CategoryDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.CategoryRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,19 +50,23 @@ public class CategoryController {
     }
 
     @GetMapping()
-    public List<CategoryRest> getCategorys(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getCategorys(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                           @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<CategoryRest> returnValue = new ArrayList<>();
 
-        List<CategoryDto> categorys = categoryService.getCategorys(page, limit);
+        List<CategoryDto> categorys = categoryService.getCategorys(page, limit, filter);
 
         for (CategoryDto categoryDto : categorys) {
             CategoryRest categoryModel = new CategoryRest();
             BeanUtils.copyProperties(categoryDto, categoryModel);
             returnValue.add(categoryModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListCategories(returnValue);
+        paginationRest.setTotal(categoryService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
@@ -72,10 +78,12 @@ public class CategoryController {
         categoryDto = new ModelMapper().map(categoryDetails, CategoryDto.class);
 
         categoryDto.setProductType(categoryDetails.getProductType());
-
+        try {
         CategoryDto updateCategory = categoryService.updateCategory(id, categoryDto);
         returnValue = new ModelMapper().map(updateCategory, CategoryRest.class);
-
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return returnValue;
     }
 
@@ -84,9 +92,17 @@ public class CategoryController {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        categoryService.deleteCategory(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+        try {
+            categoryService.deleteCategory(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Loai sản phẩm: Loai sản phẩm có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Loai sản phẩm: " + e.getMessage());
+        }
         return returnValue;
     }
 

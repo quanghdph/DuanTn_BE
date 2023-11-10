@@ -17,6 +17,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "FROM products p " +
             "JOIN product_detail pd ON p.id = pd.product_id " +
             "JOIN colors c ON pd.color_id = c.id", nativeQuery = true)
+
     Page<ProductEntity> getProductsAndColors(Pageable pageable);
 
 //    @Query(value = "SELECT p.product_name, p.main_image, pd.price, c.color_code " +
