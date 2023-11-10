@@ -3,6 +3,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
 import com.fpt.duantn.ui.model.request.ProductDetailDetailsRequestModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.ProductDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -62,19 +63,23 @@ public class ProductDetailController {
     }
 
     @GetMapping()
-    public List<ProductDetailRest> getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                                     @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<ProductDetailRest> returnValue = new ArrayList<>();
 
-        List<ProductDetailDto> productDetails = productDetailService.getProductDetails(page, limit);
+        List<ProductDetailDto> productDetails = productDetailService.getProductDetails(page, limit, filter);
 
         for (ProductDetailDto productDetailDto : productDetails) {
             ProductDetailRest productDetailModel = new ProductDetailRest();
             BeanUtils.copyProperties(productDetailDto, productDetailModel);
             returnValue.add(productDetailModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListProductDetail(returnValue);
+        paginationRest.setTotal(productDetailService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 

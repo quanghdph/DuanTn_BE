@@ -103,14 +103,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> getCustomers(int page, int limit) {
+    public List<CustomerDto> getCustomers(int page, int limit, String filter) {
         List<CustomerDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<CustomerEntity> customerPage = customerRepository.findAll(pageableRequest);
+        Page<CustomerEntity> customerPage = customerRepository.filter(filter, pageableRequest);
         List<CustomerEntity> customers = customerPage.getContent();
 
         for (CustomerEntity customerEntity : customers) {
@@ -120,6 +120,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = customerRepository.count(filter);
+        return total;
     }
 
     @Override

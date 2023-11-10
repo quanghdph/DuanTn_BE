@@ -117,14 +117,14 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public List<ProductDetailDto> getProductDetails(int page, int limit) {
+    public List<ProductDetailDto> getProductDetails(int page, int limit, String filter) {
         List<ProductDetailDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<ProductDetailEntity> productDetailPage = productDetailRepository.findAll(pageableRequest);
+        Page<ProductDetailEntity> productDetailPage = productDetailRepository.filter(filter, pageableRequest);
         List<ProductDetailEntity> productDetails = productDetailPage.getContent();
 
         for (ProductDetailEntity productDetailEntity : productDetails) {
@@ -134,6 +134,13 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = productDetailRepository.count(filter);
+        return total;
     }
 
 //    @Override

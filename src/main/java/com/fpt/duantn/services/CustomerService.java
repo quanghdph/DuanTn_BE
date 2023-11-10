@@ -10,7 +10,8 @@ public interface CustomerService {
     CustomerDto getCustomerByCustomerCode(String customerCode);
     CustomerDto updateCustomer(String customerCode, CustomerDto customer);
     void deleteCustomer(String customerCode);
-    List<CustomerDto> getCustomers(int page, int limit);
+    List<CustomerDto> getCustomers(int page, int limit, String filter);
+    Long count(String filter);
     List<CustomerDto> getCustomerByCustomerName(String customerName, int page, int limit);
 
 

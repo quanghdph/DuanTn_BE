@@ -5,6 +5,7 @@ import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
 import com.fpt.duantn.ui.model.request.CustomerDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.CustomerRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -46,19 +47,23 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public List<CustomerRest> getCustomers(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getCustomers(@RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                       @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<CustomerRest> returnValue = new ArrayList<>();
 
-        List<CustomerDto> customers = customerService.getCustomers(page, limit);
+        List<CustomerDto> customers = customerService.getCustomers(page, limit, filter);
 
         for (CustomerDto customerDto : customers) {
             CustomerRest customerModel = new CustomerRest();
             BeanUtils.copyProperties(customerDto, customerModel);
             returnValue.add(customerModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListCustomer(returnValue);
+        paginationRest.setTotal(customerService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
