@@ -46,11 +46,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setSize(productDetail.getSize());
-        productDetailEntity.setDesign(productDetail.getDesign());
         productDetailEntity.setMaterial(productDetail.getMaterial());
         productDetailEntity.setPattern(productDetail.getPattern());
         productDetailEntity.setCollar(productDetail.getCollar());
-        productDetailEntity.setSleeve(productDetail.getSleeve());
         productDetailEntity.setWaistband(productDetail.getWaistband());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
@@ -95,12 +93,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setCollar(productDetail.getCollar());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setDefaultPrice(productDetail.getDefaultPrice());
-        productDetailEntity.setDesign(productDetail.getDesign());
         productDetailEntity.setMaterial(productDetail.getMaterial());
         productDetailEntity.setPattern(productDetail.getPattern());
         productDetailEntity.setPrice(productDetail.getPrice());
         productDetailEntity.setSize(productDetail.getSize());
-        productDetailEntity.setSleeve(productDetail.getSleeve());
         productDetailEntity.setWaistband(productDetail.getWaistband());
 
         ProductDetailEntity updatedProductDetails = productDetailRepository.save(productDetailEntity);

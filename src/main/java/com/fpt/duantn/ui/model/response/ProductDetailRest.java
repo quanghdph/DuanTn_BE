@@ -2,13 +2,10 @@ package com.fpt.duantn.ui.model.response;
 
 import com.fpt.duantn.io.entity.CollarEntity;
 import com.fpt.duantn.io.entity.ColorEntity;
-import com.fpt.duantn.io.entity.DesignEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
 import com.fpt.duantn.io.entity.PatternEntity;
 import com.fpt.duantn.io.entity.ProductEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
-import com.fpt.duantn.io.entity.SleeveEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -30,15 +27,11 @@ public class ProductDetailRest {
 
     private SizeEntity size;
 
-    private DesignEntity design;
-
     private MaterialEntity material;
 
     private PatternEntity pattern;
 
     private CollarEntity collar;
-
-    private SleeveEntity sleeve;
 
     private WaistbandEntity waistband;
 

@@ -47,10 +47,6 @@ public class ProductDetailEntity implements Serializable {
     private SizeEntity size;
 
     @ManyToOne
-    @JoinColumn(name = "design_id")
-    private DesignEntity design;
-
-    @ManyToOne
     @JoinColumn(name = "material_id")
     private MaterialEntity material;
 
@@ -63,14 +59,10 @@ public class ProductDetailEntity implements Serializable {
     private CollarEntity collar;
 
     @ManyToOne
-    @JoinColumn(name = "sleeve_id")
-    private SleeveEntity sleeve;
-
-    @ManyToOne
     @JoinColumn(name = "waistband_id")
     private WaistbandEntity waistband;
 
-    @Column(name = "default price", precision = 10, scale = 0)
+    @Column(name = "default_price", precision = 10, scale = 0)
     private BigDecimal defaultPrice;
 
     @Column(name = "price", precision = 10, scale = 0)

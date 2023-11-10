@@ -50,11 +50,9 @@ public class ProductDetailController {
         productDetailDto.setProduct(productDetailDetails.getProduct());
         productDetailDto.setColor(productDetailDetails.getColor());
         productDetailDto.setSize(productDetailDetails.getSize());
-        productDetailDto.setDesign(productDetailDetails.getDesign());
         productDetailDto.setMaterial(productDetailDetails.getMaterial());
         productDetailDto.setPattern(productDetailDetails.getPattern());
         productDetailDto.setCollar(productDetailDetails.getCollar());
-        productDetailDto.setSleeve(productDetailDetails.getSleeve());
         productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto createdUser = productDetailService.createProductDetail(productDetailDto);
@@ -90,11 +88,9 @@ public class ProductDetailController {
         productDetailDto.setProduct(productDetailDetails.getProduct());
         productDetailDto.setColor(productDetailDetails.getColor());
         productDetailDto.setSize(productDetailDetails.getSize());
-        productDetailDto.setDesign(productDetailDetails.getDesign());
         productDetailDto.setMaterial(productDetailDetails.getMaterial());
         productDetailDto.setPattern(productDetailDetails.getPattern());
         productDetailDto.setCollar(productDetailDetails.getCollar());
-        productDetailDto.setSleeve(productDetailDetails.getSleeve());
         productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto updateProductDetail = productDetailService.updateProductDetail(id, productDetailDto);
