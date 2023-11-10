@@ -100,14 +100,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartDto> getCarts(int page, int limit) {
+    public List<CartDto> getCarts(int page, int limit, String filter) {
         List<CartDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<CartEntity> cartPage = cartRepository.findAll(pageableRequest);
+        Page<CartEntity> cartPage = cartRepository.filter(filter, pageableRequest);
         List<CartEntity> carts = cartPage.getContent();
 
         for (CartEntity cartEntity : carts) {
@@ -117,6 +117,13 @@ public class CartServiceImpl implements CartService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = cartRepository.count(filter);
+        return total;
     }
 
     @Override
