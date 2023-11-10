@@ -15,9 +15,12 @@ import java.util.Date;
 @Setter
 public class BillDetailsRequestModel {
 
+
     private CustomerEntity customer;
 
     private EmployeeEntity employee;
+
+    private String billCode;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;

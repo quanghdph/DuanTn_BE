@@ -39,8 +39,8 @@ public class BillServiceImpl implements BillService {
         BillEntity billEntity = modelMapper.map(bill, BillEntity.class);
 
         // Tạo một mã ngẫu nhiên cho BillCode (tùy theo yêu cầu)
-        String publicBillCode = utils.generateColorCode(8);
-        billEntity.setBillCode(publicBillCode);
+//        String publicBillCode = utils.generateColorCode(8);
+//        billEntity.setBillCode(publicBillCode);
 
         //them khoa ngoai
         billEntity.setCustomer(bill.getCustomer());

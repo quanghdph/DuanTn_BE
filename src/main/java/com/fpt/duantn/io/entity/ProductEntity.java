@@ -39,7 +39,7 @@ public class ProductEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "product_name", length = 255)
+    @Column(name = "product_name")
     private String productName;
 
     @ManyToOne
@@ -50,7 +50,7 @@ public class ProductEntity implements Serializable {
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
 
-    @Column(name = "main_image", length = 255)
+    @Column(name = "main_image")
     private String mainImage;
 
     @Lob
