@@ -36,13 +36,12 @@ public class ProductDetailsRequestModel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-
     private Integer status;
 
     private Long quantity;
 
     private BigDecimal price;
+
+    private String productDetailCode;
 
 }

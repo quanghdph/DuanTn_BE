@@ -79,10 +79,9 @@ public class ProductDetailEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
-    @Column(name = "end_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "product_detail_code")
+    private String productDetailCode;;
 }

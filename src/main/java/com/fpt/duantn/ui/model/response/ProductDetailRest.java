@@ -47,9 +47,8 @@ public class ProductDetailRest {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-
     private Integer status;
+
+    private String productDetailCode;
 
 }

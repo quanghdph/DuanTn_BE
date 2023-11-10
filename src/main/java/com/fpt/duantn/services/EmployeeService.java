@@ -10,7 +10,8 @@ public interface EmployeeService {
     EmployeeDto getEmployeeByEmployeeCode(String employeeCode);
     EmployeeDto updateEmployee(String employeeCode, EmployeeDto employee);
     void deleteEmployee(String employeeCode);
-    List<EmployeeDto> getEmployees(int page, int limit);
+    List<EmployeeDto> getEmployees(int page, int limit, String filter);
+    Long count(String filter);
     List<EmployeeDto> getEmployeeByEmployeeName(String employeeName, int page, int limit);
 
 

@@ -105,14 +105,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDto> getEmployees(int page, int limit) {
+    public List<EmployeeDto> getEmployees(int page, int limit, String filter) {
         List<EmployeeDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<EmployeeEntity> employeePage = employeeRepository.findAll(pageableRequest);
+        Page<EmployeeEntity> employeePage = employeeRepository.filter(filter, pageableRequest);
         List<EmployeeEntity> employees = employeePage.getContent();
 
         for (EmployeeEntity employeeEntity : employees) {
@@ -122,6 +122,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = employeeRepository.count(filter);
+        return total;
     }
 
     @Override

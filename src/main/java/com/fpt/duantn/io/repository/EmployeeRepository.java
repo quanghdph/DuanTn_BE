@@ -15,17 +15,17 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
     Page<EmployeeEntity> findByLastNameContainingOrderByIdAsc(String employeeName, Pageable pageable);
 
 
-    @Query(value = "SELECT e.id, e.product_name," +
-            "e.category_id,e.brand_id,e.main_image,e.description,e.create_date,e.update_date, " +
-            "e.status,e.product_code,e.quantity,e.price " +
+    @Query(value = "SELECT e.id, e.first_name," +
+            "e.last_name,e.gender,e.dateof_birth,e.email,e.create_date,e.update_date, " +
+            "e.status,e.phone_number,e.encrypted_password, e.image, e.employee_code " +
             "FROM employees e " +
-            "where 1=1 and (:filter is null or :filter = '' or (e.product_name like %:filter% or e.status like %:filter% or e.product_code like %:filter%))",
+            "where 1=1 and (:filter is null or :filter = '' or (e.last_name like %:filter% or e.status like %:filter% or e.employee_code like %:filter%))",
             nativeQuery = true)
     Page<EmployeeEntity> filter(@Param("filter") String filter, Pageable pageable);
 
     @Query(value = "SELECT count(1) " +
-            "FROM products e " +
-            "where 1=1 and (:filter is null or :filter = '' or (e.product_name like %:filter% or e.status like %:filter% or e.product_code like %:filter%))",
+            "FROM employees e " +
+            "where 1=1 and (:filter is null or :filter = '' or (e.last_name like %:filter% or e.status like %:filter% or e.employee_code like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
 }

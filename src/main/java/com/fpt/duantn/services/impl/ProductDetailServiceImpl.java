@@ -88,7 +88,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setStatus(productDetail.getStatus());
         productDetailEntity.setUpdateDate(productDetail.getUpdateDate());
         productDetailEntity.setCreateDate(productDetail.getCreateDate());
-        productDetailEntity.setEndDate(productDetail.getEndDate());
+        productDetailEntity.setProductDetailCode(productDetail.getProductDetailCode());
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setAmount(productDetail.getAmount());
         productDetailEntity.setCollar(productDetail.getCollar());

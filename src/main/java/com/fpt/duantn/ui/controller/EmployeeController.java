@@ -5,6 +5,7 @@ import com.fpt.duantn.shrared.dto.CRUD.EmployeeDto;
 import com.fpt.duantn.ui.model.request.EmployeeDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.EmployeeRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -47,11 +48,13 @@ public class EmployeeController {
     }
 
     @GetMapping()
-    public List<EmployeeRest> getEmployees(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit) {
+    public PaginationRest getEmployees(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                           @RequestParam(value = "filter", defaultValue = "") String filter) {
+
         List<EmployeeRest> returnValue = new ArrayList<>();
 
-        List<EmployeeDto> employees = employeeService.getEmployees(page, limit);
+        List<EmployeeDto> employees = employeeService.getEmployees(page, limit, filter);
 
         for (EmployeeDto employeeDto : employees) {
             EmployeeRest employeeModel = new EmployeeRest();
@@ -59,7 +62,12 @@ public class EmployeeController {
             returnValue.add(employeeModel);
         }
 
-        return returnValue;
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListEmployees(returnValue);
+        paginationRest.setTotal(employeeService.count(filter));
+
+
+        return paginationRest;
     }
 
 
