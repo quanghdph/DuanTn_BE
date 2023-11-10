@@ -107,14 +107,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getProducts(int page, int limit) {
+    public List<ProductDto> getProducts(int page, int limit, String filter) {
         List<ProductDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<ProductEntity> productPage = productRepository.findAll(pageableRequest);
+        Page<ProductEntity> productPage = productRepository.filter(filter, pageableRequest);
         List<ProductEntity> products = productPage.getContent();
 
         for (ProductEntity productEntity : products) {
@@ -124,6 +124,13 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = productRepository.count(filter);
+        return total;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.services.ProductService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.ui.model.request.ProductDetailsRequestModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.ProductRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -51,19 +52,23 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<ProductRest> getProducts(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit) {
+    public PaginationRest getProducts(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<ProductRest> returnValue = new ArrayList<>();
 
-        List<ProductDto> products = productService.getProducts(page, limit);
+        List<ProductDto> products = productService.getProducts(page, limit, filter);
 
         for (ProductDto productDto : products) {
             ProductRest productModel = new ProductRest();
             BeanUtils.copyProperties(productDto, productModel);
             returnValue.add(productModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setList(returnValue);
+        paginationRest.setTotal(productService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 

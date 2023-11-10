@@ -10,7 +10,8 @@ public interface ProductService {
     ProductDto getProductByProductCode(String productCode);
     ProductDto updateProduct(String productCode, ProductDto product);
     void deleteProduct(String productCode);
-    List<ProductDto> getProducts(int page, int limit);
+    List<ProductDto> getProducts(int page, int limit, String filter);
+    Long count(String filter);
     List<ProductDto> getProductByProductName(String productName, int page, int limit);
 
 
