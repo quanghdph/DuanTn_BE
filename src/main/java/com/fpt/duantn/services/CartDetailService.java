@@ -10,7 +10,8 @@ public interface CartDetailService {
     CartDetailDto getCartDetailByCartDetailCode(Long cartDetailCode);
     CartDetailDto updateCartDetail(Long cartDetailCode, CartDetailDto cartDetail);
     void deleteCartDetail(Long cartDetailId);
-    List<CartDetailDto> getCartDetails(int page, int limit);
+    List<CartDetailDto> getCartDetails(int page, int limit, String filter);
+    Long count(String filter);
 //    List<CartDetailDto> getCartDetailByCartDetailName(String cartDetailName, int page, int limit);
 
 

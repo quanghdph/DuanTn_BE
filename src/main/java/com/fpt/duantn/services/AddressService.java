@@ -10,7 +10,8 @@ public interface AddressService {
     AddressDto getAddressByAddressCode(String addressCode);
     AddressDto updateAddress(String addressCode, AddressDto address);
     void deleteAddress(String addressCode);
-    List<AddressDto> getAddresss(int page, int limit);
+    List<AddressDto> getAddresss(int page, int limit, String filter);
+    Long count(String filter);
     List<AddressDto> getAddressByAddressName(String addressName, int page, int limit);
 
 }

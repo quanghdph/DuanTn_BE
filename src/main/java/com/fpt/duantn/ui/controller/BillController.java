@@ -5,6 +5,7 @@ import com.fpt.duantn.shrared.dto.CRUD.BillDto;
 import com.fpt.duantn.ui.model.request.BillDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.BillRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -49,19 +50,23 @@ public class BillController {
     }
 
     @GetMapping()
-    public List<BillRest> getBills(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getBills(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                   @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<BillRest> returnValue = new ArrayList<>();
 
-        List<BillDto> bills = billService.getBills(page, limit);
+        List<BillDto> bills = billService.getBills(page, limit, filter);
 
         for (BillDto billDto : bills) {
             BillRest billModel = new BillRest();
             BeanUtils.copyProperties(billDto, billModel);
             returnValue.add(billModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListBill(returnValue);
+        paginationRest.setTotal(billService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 

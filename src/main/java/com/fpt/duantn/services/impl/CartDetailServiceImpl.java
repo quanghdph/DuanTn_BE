@@ -108,14 +108,14 @@ public class CartDetailServiceImpl implements CartDetailService {
     }
 
     @Override
-    public List<CartDetailDto> getCartDetails(int page, int limit) {
+    public List<CartDetailDto> getCartDetails(int page, int limit, String filter) {
         List<CartDetailDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<CartDetailEntity> cartDetailPage = cartDetailRepository.findAll(pageableRequest);
+        Page<CartDetailEntity> cartDetailPage = cartDetailRepository.filter(filter, pageableRequest);
         List<CartDetailEntity> cartDetails = cartDetailPage.getContent();
 
         for (CartDetailEntity cartDetailEntity : cartDetails) {
@@ -125,6 +125,13 @@ public class CartDetailServiceImpl implements CartDetailService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = cartDetailRepository.count(filter);
+        return total;
     }
 
 //    @Override

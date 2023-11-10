@@ -97,14 +97,14 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public List<BrandDto> getBrands(int page, int limit) {
+    public List<BrandDto> getBrands(int page, int limit, String filter) {
         List<BrandDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<BrandEntity> brandPage = brandRepository.findAll(pageableRequest);
+        Page<BrandEntity> brandPage = brandRepository.filter(filter, pageableRequest);
         List<BrandEntity> brands = brandPage.getContent();
 
         for (BrandEntity brandEntity : brands) {
@@ -114,6 +114,13 @@ public class BrandServiceImpl implements BrandService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = brandRepository.count(filter);
+        return total;
     }
 
     @Override

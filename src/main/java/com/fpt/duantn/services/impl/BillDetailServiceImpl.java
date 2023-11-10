@@ -110,14 +110,14 @@ public class BillDetailServiceImpl implements BillDetailService {
     }
 
     @Override
-    public List<BillDetailDto> getBillDetails(int page, int limit) {
+    public List<BillDetailDto> getBillDetails(int page, int limit, String filter) {
         List<BillDetailDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<BillDetailEntity> billDetailPage = billDetailRepository.findAll(pageableRequest);
+        Page<BillDetailEntity> billDetailPage = billDetailRepository.filter(filter, pageableRequest);
         List<BillDetailEntity> billDetails = billDetailPage.getContent();
 
         for (BillDetailEntity billDetailEntity : billDetails) {
@@ -127,6 +127,13 @@ public class BillDetailServiceImpl implements BillDetailService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = billDetailRepository.count(filter);
+        return total;
     }
 
 //    @Override

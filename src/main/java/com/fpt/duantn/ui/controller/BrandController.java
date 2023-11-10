@@ -5,6 +5,7 @@ import com.fpt.duantn.shrared.dto.CRUD.BrandDto;
 import com.fpt.duantn.ui.model.request.BrandDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.BrandRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -46,19 +47,23 @@ public class BrandController {
     }
 
     @GetMapping()
-    public List<BrandRest> getBrands(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getBrands(@RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                    @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<BrandRest> returnValue = new ArrayList<>();
 
-        List<BrandDto> brands = brandService.getBrands(page, limit);
+        List<BrandDto> brands = brandService.getBrands(page, limit, filter);
 
         for (BrandDto brandDto : brands) {
             BrandRest brandModel = new BrandRest();
             BeanUtils.copyProperties(brandDto, brandModel);
             returnValue.add(brandModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListBrand(returnValue);
+        paginationRest.setTotal(brandService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 

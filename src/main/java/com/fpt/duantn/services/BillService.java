@@ -10,7 +10,9 @@ public interface BillService {
     BillDto getBillByBillCode(String billCode);
     BillDto updateBill(String billCode, BillDto bill);
     void deleteBill(String billCode);
-    List<BillDto> getBills(int page, int limit);
+    List<BillDto> getBills(int page, int limit, String filter);
+    Long count(String filter);
+
     List<BillDto> getBillByBillName(String billName, int page, int limit);
 
 

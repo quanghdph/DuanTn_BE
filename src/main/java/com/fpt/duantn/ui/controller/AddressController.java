@@ -5,10 +5,12 @@ import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
 import com.fpt.duantn.ui.model.request.AddressDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.AddressRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,19 +50,23 @@ public class AddressController {
     }
 
     @GetMapping()
-    public List<AddressRest> getAddresss(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getAddresss(@RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<AddressRest> returnValue = new ArrayList<>();
 
-        List<AddressDto> addresss = addressService.getAddresss(page, limit);
+        List<AddressDto> addresss = addressService.getAddresss(page, limit, filter);
 
         for (AddressDto addressDto : addresss) {
             AddressRest addressModel = new AddressRest();
             BeanUtils.copyProperties(addressDto, addressModel);
             returnValue.add(addressModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListAddresses(returnValue);
+        paginationRest.setTotal(addressService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
@@ -72,10 +78,13 @@ public class AddressController {
         addressDto = new ModelMapper().map(addressDetails, AddressDto.class);
 
         addressDto.setCustomer(addressDetails.getCustomer());
+        try {
 
         AddressDto updateAddress = addressService.updateAddress(id, addressDto);
         returnValue = new ModelMapper().map(updateAddress, AddressRest.class);
-
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return returnValue;
     }
 
@@ -84,9 +93,17 @@ public class AddressController {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        addressService.deleteAddress(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+        try {
+            addressService.deleteAddress(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Dia Chi: Dia Chi có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Dia Chi: " + e.getMessage());
+        }
         return returnValue;
     }
 

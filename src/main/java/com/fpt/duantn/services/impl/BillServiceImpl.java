@@ -110,14 +110,14 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDto> getBills(int page, int limit) {
+    public List<BillDto> getBills(int page, int limit, String filter) {
         List<BillDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<BillEntity> billPage = billRepository.findAll(pageableRequest);
+        Page<BillEntity> billPage = billRepository.filter(filter, pageableRequest);
         List<BillEntity> bills = billPage.getContent();
 
         for (BillEntity billEntity : bills) {
@@ -127,6 +127,13 @@ public class BillServiceImpl implements BillService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = billRepository.count(filter);
+        return total;
     }
 
     @Override

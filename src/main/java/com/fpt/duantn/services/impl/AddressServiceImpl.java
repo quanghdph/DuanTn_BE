@@ -102,14 +102,14 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<AddressDto> getAddresss(int page, int limit) {
+    public List<AddressDto> getAddresss(int page, int limit, String filter) {
         List<AddressDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<AddressEntity> addressPage = addressRepository.findAll(pageableRequest);
+        Page<AddressEntity> addressPage = addressRepository.filter(filter, pageableRequest);
         List<AddressEntity> addresss = addressPage.getContent();
 
         for (AddressEntity addressEntity : addresss) {
@@ -119,6 +119,13 @@ public class AddressServiceImpl implements AddressService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = addressRepository.count(filter);
+        return total;
     }
 
     @Override

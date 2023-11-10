@@ -10,7 +10,9 @@ public interface BrandService {
     BrandDto getBrandByBrandCode(String brandCode);
     BrandDto updateBrand(String brandCode, BrandDto brand);
     void deleteBrand(String brandCode);
-    List<BrandDto> getBrands(int page, int limit);
+    List<BrandDto> getBrands(int page, int limit, String filter);
+    Long count(String filter);
+
     List<BrandDto> getBrandByBrandName(String brandName, int page, int limit);
 
 

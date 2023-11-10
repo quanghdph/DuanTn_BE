@@ -5,6 +5,7 @@ import com.fpt.duantn.shrared.dto.CRUD.CartDetailDto;
 import com.fpt.duantn.ui.model.request.CartDetailDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.CartDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -50,19 +51,23 @@ public class CartDetailController {
     }
 
     @GetMapping()
-    public List<CartDetailRest> getCartDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                         @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getCartDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                         @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                               @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<CartDetailRest> returnValue = new ArrayList<>();
 
-        List<CartDetailDto> cartDetails = cartDetailService.getCartDetails(page, limit);
+        List<CartDetailDto> cartDetails = cartDetailService.getCartDetails(page, limit, filter);
 
         for (CartDetailDto cartDetailDto : cartDetails) {
             CartDetailRest cartDetailModel = new CartDetailRest();
             BeanUtils.copyProperties(cartDetailDto, cartDetailModel);
             returnValue.add(cartDetailModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListCartDetail(returnValue);
+        paginationRest.setTotal(cartDetailService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
