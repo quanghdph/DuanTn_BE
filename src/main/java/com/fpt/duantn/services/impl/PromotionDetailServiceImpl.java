@@ -106,14 +106,14 @@ public class PromotionDetailServiceImpl implements PromotionDetailService {
     }
 
     @Override
-    public List<PromotionDetailDto> getPromotionDetails(int page, int limit) {
+    public List<PromotionDetailDto> getPromotionDetails(int page, int limit, String filter) {
         List<PromotionDetailDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<PromotionDetailEntity> promotionDetailPage = promotionDetailRepository.findAll(pageableRequest);
+        Page<PromotionDetailEntity> promotionDetailPage = promotionDetailRepository.filter(filter, pageableRequest);
         List<PromotionDetailEntity> promotionDetails = promotionDetailPage.getContent();
 
         for (PromotionDetailEntity promotionDetailEntity : promotionDetails) {
@@ -123,6 +123,13 @@ public class PromotionDetailServiceImpl implements PromotionDetailService {
         }
 
         return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = promotionDetailRepository.count(filter);
+        return total;
     }
 
 //    @Override

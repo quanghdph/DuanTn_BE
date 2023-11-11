@@ -3,6 +3,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.services.PromotionService;
 import com.fpt.duantn.shrared.dto.CRUD.PromotionDto;
 import com.fpt.duantn.ui.model.request.PromotionDetailsRequestModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.PromotionRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -54,19 +55,23 @@ public class PromotionController {
     }
 
     @GetMapping()
-    public List<PromotionRest> getPromotions(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getPromotions(@RequestParam(value = "page", defaultValue = "0") int page,
+                                        @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                        @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<PromotionRest> returnValue = new ArrayList<>();
 
-        List<PromotionDto> promotions = promotionService.getPromotions(page, limit);
+        List<PromotionDto> promotions = promotionService.getPromotions(page, limit, filter);
 
         for (PromotionDto promotionDto : promotions) {
             PromotionRest promotionModel = new PromotionRest();
             BeanUtils.copyProperties(promotionDto, promotionModel);
             returnValue.add(promotionModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListPromotion(returnValue);
+        paginationRest.setTotal(promotionService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 

@@ -10,7 +10,8 @@ public interface PromotionService {
     PromotionDto getPromotionByPromotionCode(String promotionCode);
     PromotionDto updatePromotion(String promotionCode, PromotionDto promotion);
     void deletePromotion(String promotionCode);
-    List<PromotionDto> getPromotions(int page, int limit);
+    List<PromotionDto> getPromotions(int page, int limit, String filter);
+    Long count(String filter);
     List<PromotionDto> getPromotionByPromotionName(String promotionName, int page, int limit);
 
 

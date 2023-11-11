@@ -10,7 +10,8 @@ public interface PromotionDetailService {
     PromotionDetailDto getPromotionDetailByPromotionDetailCode(Long promotionDetailCode);
     PromotionDetailDto updatePromotionDetail(Long promotionDetailCode, PromotionDetailDto promotionDetail);
     void deletePromotionDetail(Long promotionDetailId);
-    List<PromotionDetailDto> getPromotionDetails(int page, int limit);
+    List<PromotionDetailDto> getPromotionDetails(int page, int limit, String filter);
+    Long count(String filter);
 //    List<PromotionDetailDto> getPromotionDetailByPromotionDetailName(String promotionDetailName, int page, int limit);
 
 
