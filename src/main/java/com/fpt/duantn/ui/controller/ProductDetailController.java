@@ -2,8 +2,10 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
+import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.ui.model.request.ProductDetailDetailsRequestModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
+import com.fpt.duantn.ui.model.response.ProductDetailCardRest;
 import com.fpt.duantn.ui.model.response.ProductDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -68,7 +70,7 @@ public class ProductDetailController {
                                                      @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<ProductDetailRest> returnValue = new ArrayList<>();
 
-        List<ProductDetailDto> productDetails = productDetailService.getProductDetails(page, limit, filter);
+        List<ProductDetailDto> productDetails = productDetailService.getProductsDetail(page, limit, filter);
 
         for (ProductDetailDto productDetailDto : productDetails) {
             ProductDetailRest productDetailModel = new ProductDetailRest();
@@ -117,21 +119,21 @@ public class ProductDetailController {
 
 
 
-//    @GetMapping("/search")
-//    public List<ProductDetailRest> searchProductDetails(@RequestParam(value = "productDetailName") String productDetailName,
-//                                              @RequestParam(value = "page", defaultValue = "0") int page,
-//                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
-//        List<ProductDetailRest> returnValue = new ArrayList<>();
-//
-//        List<ProductDetailDto> productDetails = productDetailService.getProductDetailByProductDetailName(productDetailName, page, limit);
-//
-//        for (ProductDetailDto productDetailDto : productDetails) {
-//            ProductDetailRest productDetailModel = new ProductDetailRest();
-//            BeanUtils.copyProperties(productDetailDto, productDetailModel);
-//            returnValue.add(productDetailModel);
-//        }
-//
-//        return returnValue;
-//    }
+    @GetMapping("/search")
+    public List<ProductDetailRest> searchProductDetails(@RequestParam(value = "productDetailCode") String productDetailCode,
+                                              @RequestParam(value = "page", defaultValue = "0") int page,
+                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
+        List<ProductDetailRest> returnValue = new ArrayList<>();
+
+        List<ProductDetailDto> productDetails = productDetailService.getProductByProductDetailCode(productDetailCode, page, limit);
+
+        for (ProductDetailDto productDetailDto : productDetails) {
+            ProductDetailRest productDetailModel = new ProductDetailRest();
+            BeanUtils.copyProperties(productDetailDto, productDetailModel);
+            returnValue.add(productDetailModel);
+        }
+
+        return returnValue;
+    }
 
 }

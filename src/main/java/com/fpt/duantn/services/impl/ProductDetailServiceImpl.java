@@ -2,10 +2,12 @@ package com.fpt.duantn.services.impl;
 
 import com.fpt.duantn.exceptions.ProductDetailServiceException;
 import com.fpt.duantn.io.entity.ProductDetailEntity;
+import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.repository.ProductDetailRepository;
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.shrared.Utils;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
+import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -117,7 +119,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public List<ProductDetailDto> getProductDetails(int page, int limit, String filter) {
+    public List<ProductDetailDto> getProductsDetail(int page, int limit, String filter) {
         List<ProductDetailDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
@@ -125,9 +127,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         Pageable pageableRequest = PageRequest.of(page, limit);
 
         Page<ProductDetailEntity> productDetailPage = productDetailRepository.filter(filter, pageableRequest);
-        List<ProductDetailEntity> productDetails = productDetailPage.getContent();
+        List<ProductDetailEntity> productsDetails = productDetailPage.getContent();
 
-        for (ProductDetailEntity productDetailEntity : productDetails) {
+        for (ProductDetailEntity productDetailEntity : productsDetails) {
             ProductDetailDto productDetailDto = new ProductDetailDto();
             BeanUtils.copyProperties(productDetailEntity, productDetailDto);
             returnValue.add(productDetailDto);
@@ -138,27 +140,26 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 
     @Override
     public Long count(String filter) {
-
         Long total = productDetailRepository.count(filter);
         return total;
     }
 
-//    @Override
-//    public List<ProductDetailDto> getProductDetailByProductDetailName(String productDetailName, int page, int limit) {
-//        List<ProductDetailDto> returnValue = new ArrayList<>();
-//
-//        if(page>0) page = page-1;
-//
-//        Pageable pageableRequest = PageRequest.of(page, limit);
-//        Page<ProductDetailEntity> productDetailPage = productDetailRepository.findByProductDetailContainingOrderByIdAsc(productDetailName, pageableRequest);
-//        List<ProductDetailEntity> productDetails = productDetailPage.getContent();
-//
-//        for (ProductDetailEntity productDetailEntity : productDetails) {
-//            ProductDetailDto productDetailDto = new ProductDetailDto();
-//            BeanUtils.copyProperties(productDetailEntity, productDetailDto);
-//            returnValue.add(productDetailDto);
-//        }
-//
-//        return returnValue;
-//    }
+    @Override
+    public List<ProductDetailDto> getProductByProductDetailCode(String productDetailCode, int page, int limit) {
+        List<ProductDetailDto> returnValue = new ArrayList<>();
+
+        if (page > 0) page = page - 1;
+
+        Pageable pageableRequest = PageRequest.of(page, limit);
+        Page<ProductDetailEntity> productDetailPage = productDetailRepository.findByProductDetailCodeContainingOrderByIdAsc(productDetailCode, pageableRequest);
+        List<ProductDetailEntity> productsDetail = productDetailPage.getContent();
+
+        for (ProductDetailEntity productDetailEntity : productsDetail) {
+            ProductDetailDto productDetailDto = new ProductDetailDto();
+            BeanUtils.copyProperties(productDetailEntity, productDetailDto);
+            returnValue.add(productDetailDto);
+        }
+        return returnValue;
+    }
+
 }

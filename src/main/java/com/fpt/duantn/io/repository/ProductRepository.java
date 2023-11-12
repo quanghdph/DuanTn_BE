@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
-    @Query(value = "SELECT p.id, p.describe, p.product_code, p.product_name, p.status, p.main_image, " +
+    @Query(value = "SELECT p.id, p.description, p.product_code, p.product_name, p.status, p.main_image, " +
             "pd.id AS product_detail_id, pd.price, " +
             "c.id AS color_id, c.color_code " +
             "FROM products p " +
