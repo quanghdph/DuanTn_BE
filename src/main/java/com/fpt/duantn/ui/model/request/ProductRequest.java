@@ -24,6 +24,8 @@ public class ProductRequest {
 
     private SizeEntity size;
 
+    private Integer soldQuantity;
+
     private String mainImage;
 
     @Lob

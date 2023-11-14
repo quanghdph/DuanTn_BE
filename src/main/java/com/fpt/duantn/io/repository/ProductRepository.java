@@ -33,7 +33,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "SELECT p.id, p.product_name," +
             "p.category_id,p.brand_id,p.main_image,p.description,p.create_date,p.update_date, " +
-            "p.status,p.product_code,p.quantity,p.price " +
+            "p.status,p.product_code,p.quantity,p.sold_quantity,p.price " +
             "FROM products p " +
             "where 1=1 and (:filter is null or :filter = '' or (p.product_name like %:filter% or p.status like %:filter% or p.product_code like %:filter%))",
             nativeQuery = true)

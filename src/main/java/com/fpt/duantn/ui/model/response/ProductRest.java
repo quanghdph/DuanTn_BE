@@ -22,6 +22,8 @@ public class ProductRest {
 
     private CategoryEntity category;
 
+    private Integer soldQuantity;
+
     private BrandEntity brand;
 
     private String mainImage;
