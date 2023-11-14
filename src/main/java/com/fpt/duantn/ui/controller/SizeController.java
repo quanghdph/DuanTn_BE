@@ -3,7 +3,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.SizeService;
 import com.fpt.duantn.shrared.dto.CRUD.SizeDto;
-import com.fpt.duantn.ui.model.request.SizeDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.SizeRequest;
 import com.fpt.duantn.ui.model.response.SizeRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/size")
+@RequestMapping("/api/size")
 public class SizeController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class SizeController {
 
 
     @PostMapping()
-    public SizeRest createSize(@RequestBody SizeDetailsRequestModel sizeDetails) throws Exception {
+    public SizeRest createSize(@RequestBody SizeRequest sizeDetails) throws Exception {
         SizeRest returnValue = new SizeRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -68,7 +68,7 @@ public class SizeController {
 
 
     @PutMapping(path = "/{id}")
-    public SizeRest updateSize(@PathVariable String id, @RequestBody SizeDetailsRequestModel sizeDetails) {
+    public SizeRest updateSize(@PathVariable String id, @RequestBody SizeRequest sizeDetails) {
         SizeRest returnValue = new SizeRest();
 
         SizeDto sizeDto = new SizeDto();

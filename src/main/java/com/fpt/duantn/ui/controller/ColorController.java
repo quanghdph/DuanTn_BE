@@ -3,7 +3,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ColorService;
 import com.fpt.duantn.shrared.dto.CRUD.ColorDto;
-import com.fpt.duantn.ui.model.request.ColorDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.ColorRequest;
 import com.fpt.duantn.ui.model.response.ColorRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-@RequestMapping("/color")
+@RequestMapping("/api/color")
 public class ColorController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class ColorController {
 
 
     @PostMapping()
-    public ColorRest createColor(@RequestBody ColorDetailsRequestModel colorDetails) throws Exception {
+    public ColorRest createColor(@RequestBody ColorRequest colorDetails) throws Exception {
         ColorRest returnValue = new ColorRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -69,7 +69,7 @@ public class ColorController {
 
 
     @PutMapping(path = "/{id}")
-    public ColorRest updateColor(@PathVariable String id, @RequestBody ColorDetailsRequestModel colorDetails) {
+    public ColorRest updateColor(@PathVariable String id, @RequestBody ColorRequest colorDetails) {
         ColorRest returnValue = new ColorRest();
 
         ColorDto colorDto = new ColorDto();

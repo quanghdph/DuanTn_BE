@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.MaterialService;
 import com.fpt.duantn.shrared.dto.CRUD.MaterialDto;
-import com.fpt.duantn.ui.model.request.MaterialDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.MaterialRequest;
 import com.fpt.duantn.ui.model.response.MaterialRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/material")
+@RequestMapping("/api/material")
 public class MaterialController {
     
     @Autowired
@@ -34,7 +34,7 @@ public class MaterialController {
 
 
     @PostMapping()
-    public MaterialRest createMaterial(@RequestBody MaterialDetailsRequestModel materialDetails) throws Exception {
+    public MaterialRest createMaterial(@RequestBody MaterialRequest materialDetails) throws Exception {
         MaterialRest returnValue = new MaterialRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -65,7 +65,7 @@ public class MaterialController {
 
 
     @PutMapping(path = "/{id}")
-    public MaterialRest updateMaterial(@PathVariable String id, @RequestBody MaterialDetailsRequestModel materialDetails) {
+    public MaterialRest updateMaterial(@PathVariable String id, @RequestBody MaterialRequest materialDetails) {
         MaterialRest returnValue = new MaterialRest();
 
         MaterialDto materialDto = new MaterialDto();

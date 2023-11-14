@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.EmployeeService;
 import com.fpt.duantn.shrared.dto.CRUD.EmployeeDto;
-import com.fpt.duantn.ui.model.request.EmployeeDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.EmployeeRequest;
 import com.fpt.duantn.ui.model.response.EmployeeRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public EmployeeRest createEmployee(@RequestBody EmployeeDetailsRequestModel employeeDetails) throws Exception {
+    public EmployeeRest createEmployee(@RequestBody EmployeeRequest employeeDetails) throws Exception {
         EmployeeRest returnValue = new EmployeeRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -47,32 +47,10 @@ public class EmployeeController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getEmployees(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                           @RequestParam(value = "filter", defaultValue = "") String filter) {
-
-        List<EmployeeRest> returnValue = new ArrayList<>();
-
-        List<EmployeeDto> employees = employeeService.getEmployees(page, limit, filter);
-
-        for (EmployeeDto employeeDto : employees) {
-            EmployeeRest employeeModel = new EmployeeRest();
-            BeanUtils.copyProperties(employeeDto, employeeModel);
-            returnValue.add(employeeModel);
-        }
-
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListEmployees(returnValue);
-        paginationRest.setTotal(employeeService.count(filter));
-
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public EmployeeRest updateEmployee(@PathVariable String id, @RequestBody EmployeeDetailsRequestModel employeeDetails) {
+    public EmployeeRest updateEmployee(@PathVariable String id, @RequestBody EmployeeRequest employeeDetails) {
         EmployeeRest returnValue = new EmployeeRest();
 
         EmployeeDto employeeDto = new EmployeeDto();
@@ -123,5 +101,29 @@ public class EmployeeController {
 
         return returnValue;
     }
+
+    @GetMapping()
+    public PaginationRest getEmployees(@RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                       @RequestParam(value = "filter", defaultValue = "") String filter) {
+
+        List<EmployeeRest> returnValue = new ArrayList<>();
+
+        List<EmployeeDto> employees = employeeService.getEmployees(page, limit, filter);
+
+        for (EmployeeDto employeeDto : employees) {
+            EmployeeRest employeeModel = new EmployeeRest();
+            BeanUtils.copyProperties(employeeDto, employeeModel);
+            returnValue.add(employeeModel);
+        }
+
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListEmployees(returnValue);
+        paginationRest.setTotal(employeeService.count(filter));
+
+
+        return paginationRest;
+    }
+
 
 }

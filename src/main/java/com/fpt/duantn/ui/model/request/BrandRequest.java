@@ -1,6 +1,5 @@
 package com.fpt.duantn.ui.model.request;
 
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class BrandDetailsRequestModel {
+public class BrandRequest {
 
     private String brandName;
 

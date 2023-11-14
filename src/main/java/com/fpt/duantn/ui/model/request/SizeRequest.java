@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MaterialDetailsRequestModel {
+public class SizeRequest {
 
-    private String materialName;
+    private String sizeName;
 }

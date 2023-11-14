@@ -1,29 +1,37 @@
 package com.fpt.duantn.ui.model.request;
 
+
+import com.fpt.duantn.io.entity.BillEntity;
 import com.fpt.duantn.io.entity.ProductDetailEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
-import com.fpt.duantn.io.entity.PromotionEntity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
 @Setter
-public class PromotionDetailDetailsRequestModel {
+public class BillDetailRequest {
 
-    private PromotionEntity promotion;
+    private BillEntity bill;
 
     private ProductDetailEntity productDetail;
 
+    private String productName;
+
+    private String color;
+
+    private String size;
+
     private Integer amount;
 
-    private Date endDate;
+    private BigDecimal defaultPrice;
+
+    private BigDecimal price;
 
     private Date createDate;
 
-    private Date updateDate;
+    private Date updateTime;
 
     private Integer status;
-
 }

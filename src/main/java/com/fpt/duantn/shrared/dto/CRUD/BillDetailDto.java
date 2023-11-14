@@ -2,17 +2,12 @@ package com.fpt.duantn.shrared.dto.CRUD;
 
 import com.fpt.duantn.io.entity.BillEntity;
 import com.fpt.duantn.io.entity.ProductDetailEntity;
-import com.fpt.duantn.io.entity.PromotionEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 
 @Getter

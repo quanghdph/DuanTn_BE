@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
-import com.fpt.duantn.ui.model.request.ImageDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.ImageRequest;
 import com.fpt.duantn.ui.model.response.ImageRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 public class ImageController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class ImageController {
     }
 
     @PostMapping()
-    public ImageRest createImage(@RequestBody ImageDetailsRequestModel imageDetails) throws Exception {
+    public ImageRest createImage(@RequestBody ImageRequest imageDetails) throws Exception {
         ImageRest returnValue = new ImageRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -65,7 +65,7 @@ public class ImageController {
 
 
     @PutMapping(path = "/{id}")
-    public ImageRest updateImage(@PathVariable Long id, @RequestBody ImageDetailsRequestModel imageDetails) {
+    public ImageRest updateImage(@PathVariable Long id, @RequestBody ImageRequest imageDetails) {
         ImageRest returnValue = new ImageRest();
 
         ImageDto imageDto = new ImageDto();

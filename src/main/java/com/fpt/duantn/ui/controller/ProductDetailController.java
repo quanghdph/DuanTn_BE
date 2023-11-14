@@ -2,10 +2,8 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
-import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
-import com.fpt.duantn.ui.model.request.ProductDetailDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.ProductDetailRequest;
 import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.ProductDetailCardRest;
 import com.fpt.duantn.ui.model.response.ProductDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/productDetail")
+@RequestMapping("/api/product-detail")
 public class ProductDetailController {
 
     @Autowired
@@ -44,7 +42,7 @@ public class ProductDetailController {
     }
 
     @PostMapping()
-    public ProductDetailRest createProductDetail(@RequestBody ProductDetailDetailsRequestModel productDetailDetails) throws Exception {
+    public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
         ProductDetailRest returnValue = new ProductDetailRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -54,8 +52,6 @@ public class ProductDetailController {
         productDetailDto.setColor(productDetailDetails.getColor());
         productDetailDto.setSize(productDetailDetails.getSize());
         productDetailDto.setMaterial(productDetailDetails.getMaterial());
-        productDetailDto.setPattern(productDetailDetails.getPattern());
-        productDetailDto.setCollar(productDetailDetails.getCollar());
         productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto createdUser = productDetailService.createProductDetail(productDetailDto);
@@ -64,29 +60,8 @@ public class ProductDetailController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                                     @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<ProductDetailRest> returnValue = new ArrayList<>();
-
-        List<ProductDetailDto> productDetails = productDetailService.getProductsDetail(page, limit, filter);
-
-        for (ProductDetailDto productDetailDto : productDetails) {
-            ProductDetailRest productDetailModel = new ProductDetailRest();
-            BeanUtils.copyProperties(productDetailDto, productDetailModel);
-            returnValue.add(productDetailModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListProductDetail(returnValue);
-        paginationRest.setTotal(productDetailService.count(filter));
-
-        return paginationRest;
-    }
-
-
     @PutMapping(path = "/{id}")
-    public ProductDetailRest updateProductDetail(@PathVariable Long id, @RequestBody ProductDetailDetailsRequestModel productDetailDetails) {
+    public ProductDetailRest updateProductDetail(@PathVariable Long id, @RequestBody ProductDetailRequest productDetailDetails) {
         ProductDetailRest returnValue = new ProductDetailRest();
 
         ProductDetailDto productDetailDto = new ProductDetailDto();
@@ -96,8 +71,6 @@ public class ProductDetailController {
         productDetailDto.setColor(productDetailDetails.getColor());
         productDetailDto.setSize(productDetailDetails.getSize());
         productDetailDto.setMaterial(productDetailDetails.getMaterial());
-        productDetailDto.setPattern(productDetailDetails.getPattern());
-        productDetailDto.setCollar(productDetailDetails.getCollar());
         productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto updateProductDetail = productDetailService.updateProductDetail(id, productDetailDto);
@@ -136,4 +109,23 @@ public class ProductDetailController {
         return returnValue;
     }
 
+    @GetMapping()
+    public PaginationRest getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+                                            @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                            @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<ProductDetailRest> returnValue = new ArrayList<>();
+
+        List<ProductDetailDto> productDetails = productDetailService.getProductsDetail(page, limit, filter);
+
+        for (ProductDetailDto productDetailDto : productDetails) {
+            ProductDetailRest productDetailModel = new ProductDetailRest();
+            BeanUtils.copyProperties(productDetailDto, productDetailModel);
+            returnValue.add(productDetailModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListProductDetail(returnValue);
+        paginationRest.setTotal(productDetailService.count(filter));
+
+        return paginationRest;
+    }
 }

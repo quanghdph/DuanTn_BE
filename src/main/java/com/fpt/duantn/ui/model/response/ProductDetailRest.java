@@ -1,9 +1,7 @@
 package com.fpt.duantn.ui.model.response;
 
-import com.fpt.duantn.io.entity.CollarEntity;
 import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
-import com.fpt.duantn.io.entity.PatternEntity;
 import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
@@ -22,17 +20,9 @@ public class ProductDetailRest {
     private Long id;
 
     private ProductEntity product;
-
     private ColorEntity color;
-
     private SizeEntity size;
-
     private MaterialEntity material;
-
-    private PatternEntity pattern;
-
-    private CollarEntity collar;
-
     private WaistbandEntity waistband;
 
     private BigDecimal defaultPrice;
@@ -43,7 +33,6 @@ public class ProductDetailRest {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 

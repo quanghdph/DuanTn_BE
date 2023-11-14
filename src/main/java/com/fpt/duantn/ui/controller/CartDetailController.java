@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.CartDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.CartDetailDto;
-import com.fpt.duantn.ui.model.request.CartDetailDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.CartDetailRequest;
 import com.fpt.duantn.ui.model.response.CartDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/cartDetail")
+@RequestMapping("/api/cart-detail")
 public class CartDetailController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class CartDetailController {
     }
 
     @PostMapping()
-    public CartDetailRest createCartDetail(@RequestBody CartDetailDetailsRequestModel cartDetailDetails) throws Exception {
+    public CartDetailRest createCartDetail(@RequestBody CartDetailRequest cartDetailDetails) throws Exception {
         CartDetailRest returnValue = new CartDetailRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -50,29 +50,10 @@ public class CartDetailController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getCartDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                         @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                               @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<CartDetailRest> returnValue = new ArrayList<>();
-
-        List<CartDetailDto> cartDetails = cartDetailService.getCartDetails(page, limit, filter);
-
-        for (CartDetailDto cartDetailDto : cartDetails) {
-            CartDetailRest cartDetailModel = new CartDetailRest();
-            BeanUtils.copyProperties(cartDetailDto, cartDetailModel);
-            returnValue.add(cartDetailModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListCartDetail(returnValue);
-        paginationRest.setTotal(cartDetailService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public CartDetailRest updateCartDetail(@PathVariable Long id, @RequestBody CartDetailDetailsRequestModel cartDetailDetails) {
+    public CartDetailRest updateCartDetail(@PathVariable Long id, @RequestBody CartDetailRequest cartDetailDetails) {
         CartDetailRest returnValue = new CartDetailRest();
 
         CartDetailDto cartDetailDto = new CartDetailDto();
@@ -118,5 +99,26 @@ public class CartDetailController {
 //
 //        return returnValue;
 //    }
+
+    @GetMapping()
+    public PaginationRest getCartDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+                                         @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<CartDetailRest> returnValue = new ArrayList<>();
+
+        List<CartDetailDto> cartDetails = cartDetailService.getCartDetails(page, limit, filter);
+
+        for (CartDetailDto cartDetailDto : cartDetails) {
+            CartDetailRest cartDetailModel = new CartDetailRest();
+            BeanUtils.copyProperties(cartDetailDto, cartDetailModel);
+            returnValue.add(cartDetailModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListCartDetail(returnValue);
+        paginationRest.setTotal(cartDetailService.count(filter));
+
+        return paginationRest;
+    }
+
 
 }

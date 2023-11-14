@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.BillDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.BillDetailDto;
-import com.fpt.duantn.ui.model.request.BillDetailDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.BillDetailRequest;
 import com.fpt.duantn.ui.model.response.BillDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/billDetail")
+@RequestMapping("/api/bill-detail")
 public class BillDetailController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class BillDetailController {
     }
 
     @PostMapping()
-    public BillDetailRest createBillDetail(@RequestBody BillDetailDetailsRequestModel billDetailDetails) throws Exception {
+    public BillDetailRest createBillDetail(@RequestBody BillDetailRequest billDetailDetails) throws Exception {
         BillDetailRest returnValue = new BillDetailRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -50,29 +50,10 @@ public class BillDetailController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getBillDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                         @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                               @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<BillDetailRest> returnValue = new ArrayList<>();
-
-        List<BillDetailDto> billDetails = billDetailService.getBillDetails(page, limit, filter);
-
-        for (BillDetailDto billDetailDto : billDetails) {
-            BillDetailRest billDetailModel = new BillDetailRest();
-            BeanUtils.copyProperties(billDetailDto, billDetailModel);
-            returnValue.add(billDetailModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListBillDetails(returnValue);
-        paginationRest.setTotal(billDetailService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public BillDetailRest updateBillDetail(@PathVariable Long id, @RequestBody BillDetailDetailsRequestModel billDetailDetails) {
+    public BillDetailRest updateBillDetail(@PathVariable Long id, @RequestBody BillDetailRequest billDetailDetails) {
         BillDetailRest returnValue = new BillDetailRest();
 
         BillDetailDto billDetailDto = new BillDetailDto();
@@ -124,5 +105,26 @@ public class BillDetailController {
 //
 //        return returnValue;
 //    }
+
+
+    @GetMapping()
+    public PaginationRest getBillDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+                                         @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<BillDetailRest> returnValue = new ArrayList<>();
+
+        List<BillDetailDto> billDetails = billDetailService.getBillDetails(page, limit, filter);
+
+        for (BillDetailDto billDetailDto : billDetails) {
+            BillDetailRest billDetailModel = new BillDetailRest();
+            BeanUtils.copyProperties(billDetailDto, billDetailModel);
+            returnValue.add(billDetailModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListBillDetails(returnValue);
+        paginationRest.setTotal(billDetailService.count(filter));
+
+        return paginationRest;
+    }
 
 }

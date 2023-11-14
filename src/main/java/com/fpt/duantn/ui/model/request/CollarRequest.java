@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class WaistbandDetailsRequestModel {
+public class CollarRequest {
 
-    private String waistbandName;
+    private String collarName;
 }

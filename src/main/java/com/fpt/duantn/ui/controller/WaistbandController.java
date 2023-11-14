@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.WaistbandService;
 import com.fpt.duantn.shrared.dto.CRUD.WaistbandDto;
-import com.fpt.duantn.ui.model.request.WaistbandDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.WaistbandRequest;
 import com.fpt.duantn.ui.model.response.WaistbandRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/waistband")
+@RequestMapping("/api/waistband")
 public class WaistbandController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class WaistbandController {
     }
 
     @PostMapping()
-    public WaistbandRest createWaistband(@RequestBody WaistbandDetailsRequestModel waistbandDetails) throws Exception {
+    public WaistbandRest createWaistband(@RequestBody WaistbandRequest waistbandDetails) throws Exception {
         WaistbandRest returnValue = new WaistbandRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -71,7 +71,7 @@ public class WaistbandController {
 
 
     @PutMapping(path = "/{id}")
-    public WaistbandRest updateWaistband(@PathVariable String id, @RequestBody WaistbandDetailsRequestModel waistbandDetails) {
+    public WaistbandRest updateWaistband(@PathVariable String id, @RequestBody WaistbandRequest waistbandDetails) {
         WaistbandRest returnValue = new WaistbandRest();
 
         WaistbandDto waistbandDto = new WaistbandDto();

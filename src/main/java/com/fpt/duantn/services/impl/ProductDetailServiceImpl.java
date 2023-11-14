@@ -40,17 +40,15 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         ModelMapper modelMapper = new ModelMapper();
         ProductDetailEntity productDetailEntity = modelMapper.map(productDetail, ProductDetailEntity.class);
 
-        // Tạo một mã ngẫu nhiên cho ProductDetailCode (tùy theo yêu cầu)
-//        String publicProductDetailCode = utils.generateColorCode(8);
-//        productDetailEntity.setId(publicProductDetailCode);
+//         Tạo một mã ngẫu nhiên cho ProductDetailCode (tùy theo yêu cầu)
+        String publicProductDetailCode = utils.generateColorCode(8);
+        productDetailEntity.setProductDetailCode(publicProductDetailCode);
 
         //them khoa ngoai
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setSize(productDetail.getSize());
         productDetailEntity.setMaterial(productDetail.getMaterial());
-        productDetailEntity.setPattern(productDetail.getPattern());
-        productDetailEntity.setCollar(productDetail.getCollar());
         productDetailEntity.setWaistband(productDetail.getWaistband());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
@@ -62,12 +60,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return returnValue;
     }
 
-
-
     @Override
-    public ProductDetailDto getProductDetailByProductDetailCode(Long productDetailCode) {
+    public ProductDetailDto getProductDetailByProductDetailCode(Long productDetailId) {
         ProductDetailDto returnValue = new ProductDetailDto();
-        ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailCode);
+        ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailId);
 
         if (productDetailEntity == null)
             throw new ProductDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -78,10 +74,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public ProductDetailDto updateProductDetail(Long productDetailCode, ProductDetailDto productDetail) {
+    public ProductDetailDto updateProductDetail(Long productDetailId, ProductDetailDto productDetail) {
         ProductDetailDto returnValue = new ProductDetailDto();
 
-        ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailCode);
+        ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailId);
 
         if (productDetailEntity == null)
             throw new ProductDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -93,11 +89,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setProductDetailCode(productDetail.getProductDetailCode());
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setAmount(productDetail.getAmount());
-        productDetailEntity.setCollar(productDetail.getCollar());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setDefaultPrice(productDetail.getDefaultPrice());
         productDetailEntity.setMaterial(productDetail.getMaterial());
-        productDetailEntity.setPattern(productDetail.getPattern());
         productDetailEntity.setPrice(productDetail.getPrice());
         productDetailEntity.setSize(productDetail.getSize());
         productDetailEntity.setWaistband(productDetail.getWaistband());

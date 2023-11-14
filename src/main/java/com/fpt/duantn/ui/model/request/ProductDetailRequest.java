@@ -1,9 +1,7 @@
 package com.fpt.duantn.ui.model.request;
 
-import com.fpt.duantn.io.entity.CollarEntity;
 import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
-import com.fpt.duantn.io.entity.PatternEntity;
 import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
@@ -17,7 +15,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class ProductDetailDetailsRequestModel {
+public class ProductDetailRequest {
 
     private ProductEntity product;
 
@@ -26,10 +24,6 @@ public class ProductDetailDetailsRequestModel {
     private SizeEntity size;
 
     private MaterialEntity material;
-
-    private PatternEntity pattern;
-
-    private CollarEntity collar;
 
     private WaistbandEntity waistband;
 

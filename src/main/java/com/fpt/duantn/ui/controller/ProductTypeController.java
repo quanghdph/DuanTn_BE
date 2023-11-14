@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ProductTypeService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductTypeDto;
-import com.fpt.duantn.ui.model.request.ProductTypeDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.ProductTypeRequest;
 import com.fpt.duantn.ui.model.response.ProductTypeRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/productType")
+@RequestMapping("/api/product-type")
 public class ProductTypeController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class ProductTypeController {
     }
 
     @PostMapping()
-    public ProductTypeRest createProductType(@RequestBody ProductTypeDetailsRequestModel productTypeDetails) throws Exception {
+    public ProductTypeRest createProductType(@RequestBody ProductTypeRequest productTypeDetails) throws Exception {
         ProductTypeRest returnValue = new ProductTypeRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -53,25 +53,9 @@ public class ProductTypeController {
         return returnValue;
     }
 
-    @GetMapping()
-    public List<ProductTypeRest> getProductTypes(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<ProductTypeRest> returnValue = new ArrayList<>();
-
-        List<ProductTypeDto> productTypes = productTypeService.getProductTypes(page, limit);
-
-        for (ProductTypeDto productTypeDto : productTypes) {
-            ProductTypeRest productTypeModel = new ProductTypeRest();
-            BeanUtils.copyProperties(productTypeDto, productTypeModel);
-            returnValue.add(productTypeModel);
-        }
-
-        return returnValue;
-    }
-
 
     @PutMapping(path = "/{id}")
-    public ProductTypeRest updateProductType(@PathVariable String id, @RequestBody ProductTypeDetailsRequestModel productTypeDetails) {
+    public ProductTypeRest updateProductType(@PathVariable String id, @RequestBody ProductTypeRequest productTypeDetails) {
         ProductTypeRest returnValue = new ProductTypeRest();
 
         ProductTypeDto productTypeDto = new ProductTypeDto();
@@ -112,5 +96,23 @@ public class ProductTypeController {
 
         return returnValue;
     }
+
+
+    @GetMapping()
+    public List<ProductTypeRest> getProductTypes(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                 @RequestParam(value = "limit", defaultValue = "2") int limit) {
+        List<ProductTypeRest> returnValue = new ArrayList<>();
+
+        List<ProductTypeDto> productTypes = productTypeService.getProductTypes(page, limit);
+
+        for (ProductTypeDto productTypeDto : productTypes) {
+            ProductTypeRest productTypeModel = new ProductTypeRest();
+            BeanUtils.copyProperties(productTypeDto, productTypeModel);
+            returnValue.add(productTypeModel);
+        }
+
+        return returnValue;
+    }
+
 
 }

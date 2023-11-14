@@ -2,7 +2,6 @@ package com.fpt.duantn.ui.model.request;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.io.entity.EmployeeEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -13,7 +12,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class BillDetailsRequestModel {
+public class BillRequest {
 
 
     private CustomerEntity customer;

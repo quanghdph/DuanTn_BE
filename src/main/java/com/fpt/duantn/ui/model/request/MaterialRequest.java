@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PatternDetailsRequestModel {
+public class MaterialRequest {
 
-    private String patternName;
+    private String materialName;
 }

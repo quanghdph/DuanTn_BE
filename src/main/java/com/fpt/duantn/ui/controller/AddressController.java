@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.AddressService;
 import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
-import com.fpt.duantn.ui.model.request.AddressDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.AddressRequest;
 import com.fpt.duantn.ui.model.response.AddressRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/api/address")
 public class AddressController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class AddressController {
     }
 
     @PostMapping()
-    public AddressRest createAddress(@RequestBody AddressDetailsRequestModel addressDetails) throws Exception {
+    public AddressRest createAddress(@RequestBody AddressRequest addressDetails) throws Exception {
         AddressRest returnValue = new AddressRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -49,29 +49,11 @@ public class AddressController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getAddresss(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "2") int limit,
-                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<AddressRest> returnValue = new ArrayList<>();
 
-        List<AddressDto> addresss = addressService.getAddresss(page, limit, filter);
-
-        for (AddressDto addressDto : addresss) {
-            AddressRest addressModel = new AddressRest();
-            BeanUtils.copyProperties(addressDto, addressModel);
-            returnValue.add(addressModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListAddresses(returnValue);
-        paginationRest.setTotal(addressService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public AddressRest updateAddress(@PathVariable String id, @RequestBody AddressDetailsRequestModel addressDetails) {
+    public AddressRest updateAddress(@PathVariable String id, @RequestBody AddressRequest addressDetails) {
         AddressRest returnValue = new AddressRest();
 
         AddressDto addressDto = new AddressDto();
@@ -126,4 +108,23 @@ public class AddressController {
         return returnValue;
     }
 
+    @GetMapping()
+    public PaginationRest getAddresss(@RequestParam(value = "page", defaultValue = "0") int page,
+                                      @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                      @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<AddressRest> returnValue = new ArrayList<>();
+
+        List<AddressDto> addresss = addressService.getAddresss(page, limit, filter);
+
+        for (AddressDto addressDto : addresss) {
+            AddressRest addressModel = new AddressRest();
+            BeanUtils.copyProperties(addressDto, addressModel);
+            returnValue.add(addressModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListAddresses(returnValue);
+        paginationRest.setTotal(addressService.count(filter));
+
+        return paginationRest;
+    }
 }

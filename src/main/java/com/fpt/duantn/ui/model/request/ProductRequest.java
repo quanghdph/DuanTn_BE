@@ -2,7 +2,6 @@ package com.fpt.duantn.ui.model.request;
 
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
@@ -15,7 +14,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class ProductDetailsRequestModel {
+public class ProductRequest {
 
     private String productName;
 

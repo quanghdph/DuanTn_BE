@@ -1,11 +1,12 @@
 package com.fpt.duantn.ui.model.request;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductTypeDetailsRequestModel {
+public class ColorRequest {
 
-    private String productTypeName;
+    private String colorName;
 }

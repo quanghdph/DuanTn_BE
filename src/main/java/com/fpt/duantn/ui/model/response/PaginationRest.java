@@ -21,9 +21,4 @@ public class PaginationRest {
     private List<CartDetailRest> listCartDetail;
     private List<CustomerRest> listCustomer;
     private List<ProductDetailRest> listProductDetail;
-    private List<PromotionRest> listPromotion;
-    private List<PromotionDetailRest> listPromotionDetail;
-
-
-
 }

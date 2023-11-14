@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.CategoryService;
 import com.fpt.duantn.shrared.dto.CRUD.CategoryDto;
-import com.fpt.duantn.ui.model.request.CategoryDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.CategoryRequest;
 import com.fpt.duantn.ui.model.response.CategoryRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public CategoryRest createCategory(@RequestBody CategoryDetailsRequestModel categoryDetails) throws Exception {
+    public CategoryRest createCategory(@RequestBody CategoryRequest categoryDetails) throws Exception {
         CategoryRest returnValue = new CategoryRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -49,29 +49,10 @@ public class CategoryController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getCategorys(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                           @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<CategoryRest> returnValue = new ArrayList<>();
-
-        List<CategoryDto> categorys = categoryService.getCategorys(page, limit, filter);
-
-        for (CategoryDto categoryDto : categorys) {
-            CategoryRest categoryModel = new CategoryRest();
-            BeanUtils.copyProperties(categoryDto, categoryModel);
-            returnValue.add(categoryModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListCategories(returnValue);
-        paginationRest.setTotal(categoryService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public CategoryRest updateCategory(@PathVariable String id, @RequestBody CategoryDetailsRequestModel categoryDetails) {
+    public CategoryRest updateCategory(@PathVariable String id, @RequestBody CategoryRequest categoryDetails) {
         CategoryRest returnValue = new CategoryRest();
 
         CategoryDto categoryDto = new CategoryDto();
@@ -124,5 +105,26 @@ public class CategoryController {
 
         return returnValue;
     }
+
+    @GetMapping()
+    public PaginationRest getCategorys(@RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                       @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<CategoryRest> returnValue = new ArrayList<>();
+
+        List<CategoryDto> categorys = categoryService.getCategorys(page, limit, filter);
+
+        for (CategoryDto categoryDto : categorys) {
+            CategoryRest categoryModel = new CategoryRest();
+            BeanUtils.copyProperties(categoryDto, categoryModel);
+            returnValue.add(categoryModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListCategories(returnValue);
+        paginationRest.setTotal(categoryService.count(filter));
+
+        return paginationRest;
+    }
+
 
 }

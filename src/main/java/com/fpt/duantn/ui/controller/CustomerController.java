@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.CustomerService;
 import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
-import com.fpt.duantn.ui.model.request.CustomerDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.CustomerRequest;
 import com.fpt.duantn.ui.model.response.CustomerRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public CustomerRest createCustomer(@RequestBody CustomerDetailsRequestModel customerDetails) throws Exception {
+    public CustomerRest createCustomer(@RequestBody CustomerRequest customerDetails) throws Exception {
         CustomerRest returnValue = new CustomerRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -46,29 +46,11 @@ public class CustomerController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getCustomers(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                       @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<CustomerRest> returnValue = new ArrayList<>();
 
-        List<CustomerDto> customers = customerService.getCustomers(page, limit, filter);
-
-        for (CustomerDto customerDto : customers) {
-            CustomerRest customerModel = new CustomerRest();
-            BeanUtils.copyProperties(customerDto, customerModel);
-            returnValue.add(customerModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListCustomer(returnValue);
-        paginationRest.setTotal(customerService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public CustomerRest updateCustomer(@PathVariable String id, @RequestBody CustomerDetailsRequestModel customerDetails) {
+    public CustomerRest updateCustomer(@PathVariable String id, @RequestBody CustomerRequest customerDetails) {
         CustomerRest returnValue = new CustomerRest();
 
         CustomerDto customerDto = new CustomerDto();
@@ -108,6 +90,26 @@ public class CustomerController {
         }
 
         return returnValue;
+    }
+
+    @GetMapping()
+    public PaginationRest getCustomers(@RequestParam(value = "page", defaultValue = "0") int page,
+                                       @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                       @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<CustomerRest> returnValue = new ArrayList<>();
+
+        List<CustomerDto> customers = customerService.getCustomers(page, limit, filter);
+
+        for (CustomerDto customerDto : customers) {
+            CustomerRest customerModel = new CustomerRest();
+            BeanUtils.copyProperties(customerDto, customerModel);
+            returnValue.add(customerModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListCustomer(returnValue);
+        paginationRest.setTotal(customerService.count(filter));
+
+        return paginationRest;
     }
 
 }

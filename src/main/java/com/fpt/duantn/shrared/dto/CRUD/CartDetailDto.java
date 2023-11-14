@@ -3,11 +3,6 @@ package com.fpt.duantn.shrared.dto.CRUD;
 import com.fpt.duantn.io.entity.BillEntity;
 import com.fpt.duantn.io.entity.CartEntity;
 import com.fpt.duantn.io.entity.ProductDetailEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
-import com.fpt.duantn.io.entity.PromotionEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 

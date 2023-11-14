@@ -1,7 +1,6 @@
 package com.fpt.duantn.ui.model.request;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class AddressDetailsRequestModel {
+public class AddressRequest {
 
     private Long id;
 

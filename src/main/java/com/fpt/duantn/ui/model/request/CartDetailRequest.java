@@ -3,8 +3,6 @@ package com.fpt.duantn.ui.model.request;
 import com.fpt.duantn.io.entity.BillEntity;
 import com.fpt.duantn.io.entity.CartEntity;
 import com.fpt.duantn.io.entity.ProductDetailEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
-import com.fpt.duantn.io.entity.PromotionEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +11,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class CartDetailDetailsRequestModel {
+public class CartDetailRequest {
 
     private ProductDetailEntity productDetail;
 

@@ -1,9 +1,7 @@
 package com.fpt.duantn.shrared.dto.CRUD;
 
-import com.fpt.duantn.io.entity.CollarEntity;
 import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
-import com.fpt.duantn.io.entity.PatternEntity;
 import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
@@ -32,10 +30,6 @@ public class ProductDetailDto implements Serializable {
     private SizeEntity size;
 
     private MaterialEntity material;
-
-    private PatternEntity pattern;
-
-    private CollarEntity collar;
 
     private WaistbandEntity waistband;
 

@@ -51,14 +51,6 @@ public class ProductDetailEntity implements Serializable {
     private MaterialEntity material;
 
     @ManyToOne
-    @JoinColumn(name = "pattern_id")
-    private PatternEntity pattern;
-
-    @ManyToOne
-    @JoinColumn(name = "collar_id")
-    private CollarEntity collar;
-
-    @ManyToOne
     @JoinColumn(name = "waistband_id")
     private WaistbandEntity waistband;
 

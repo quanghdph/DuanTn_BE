@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ProductService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
-import com.fpt.duantn.ui.model.request.ProductDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.ProductRequest;
 import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.ProductRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
@@ -11,14 +11,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -36,7 +35,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductRest createProduct(@RequestBody ProductDetailsRequestModel productDetails) throws Exception {
+    public ProductRest createProduct(@RequestBody ProductRequest productDetails) throws Exception {
         ProductRest returnValue = new ProductRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -51,29 +50,10 @@ public class ProductController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getProducts(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<ProductRest> returnValue = new ArrayList<>();
-
-        List<ProductDto> products = productService.getProducts(page, limit, filter);
-
-        for (ProductDto productDto : products) {
-            ProductRest productModel = new ProductRest();
-            BeanUtils.copyProperties(productDto, productModel);
-            returnValue.add(productModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setList(returnValue);
-        paginationRest.setTotal(productService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public ProductRest updateProduct(@PathVariable String id, @RequestBody ProductDetailsRequestModel productDetails) {
+    public ProductRest updateProduct(@PathVariable String id, @RequestBody ProductRequest productDetails) {
         ProductRest returnValue = new ProductRest();
 
         ProductDto productDto = new ProductDto();
@@ -125,6 +105,27 @@ public class ProductController {
         }
 
         return returnValue;
+    }
+
+
+    @GetMapping()
+    public PaginationRest getProducts(@RequestParam(value = "page", defaultValue = "0") int page,
+                                      @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                      @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<ProductRest> returnValue = new ArrayList<>();
+
+        List<ProductDto> products = productService.getProducts(page, limit, filter);
+
+        for (ProductDto productDto : products) {
+            ProductRest productModel = new ProductRest();
+            BeanUtils.copyProperties(productDto, productModel);
+            returnValue.add(productModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setList(returnValue);
+        paginationRest.setTotal(productService.count(filter));
+
+        return paginationRest;
     }
 
 }

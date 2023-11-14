@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class CategoryDetailsRequestModel {
+public class CategoryRequest {
 
     private String categoryName;
     private Integer status;

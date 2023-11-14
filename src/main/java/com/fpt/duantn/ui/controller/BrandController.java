@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.BrandService;
 import com.fpt.duantn.shrared.dto.CRUD.BrandDto;
-import com.fpt.duantn.ui.model.request.BrandDetailsRequestModel;
+import com.fpt.duantn.ui.model.request.BrandRequest;
 import com.fpt.duantn.ui.model.response.BrandRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/brand")
+@RequestMapping("/api/brand")
 public class BrandController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class BrandController {
     }
 
     @PostMapping()
-    public BrandRest createBrand(@RequestBody BrandDetailsRequestModel brandDetails) throws Exception {
+    public BrandRest createBrand(@RequestBody BrandRequest brandDetails) throws Exception {
         BrandRest returnValue = new BrandRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -46,29 +46,10 @@ public class BrandController {
         return returnValue;
     }
 
-    @GetMapping()
-    public PaginationRest getBrands(@RequestParam(value = "page", defaultValue = "0") int page,
-                                           @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                    @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<BrandRest> returnValue = new ArrayList<>();
-
-        List<BrandDto> brands = brandService.getBrands(page, limit, filter);
-
-        for (BrandDto brandDto : brands) {
-            BrandRest brandModel = new BrandRest();
-            BeanUtils.copyProperties(brandDto, brandModel);
-            returnValue.add(brandModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListBrand(returnValue);
-        paginationRest.setTotal(brandService.count(filter));
-
-        return paginationRest;
-    }
 
 
     @PutMapping(path = "/{id}")
-    public BrandRest updateBrand(@PathVariable String id, @RequestBody BrandDetailsRequestModel brandDetails) {
+    public BrandRest updateBrand(@PathVariable String id, @RequestBody BrandRequest brandDetails) {
         BrandRest returnValue = new BrandRest();
 
         BrandDto brandDto = new BrandDto();
@@ -108,6 +89,27 @@ public class BrandController {
         }
 
         return returnValue;
+    }
+
+
+    @GetMapping()
+    public PaginationRest getBrands(@RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                    @RequestParam(value = "filter", defaultValue = "") String filter) {
+        List<BrandRest> returnValue = new ArrayList<>();
+
+        List<BrandDto> brands = brandService.getBrands(page, limit, filter);
+
+        for (BrandDto brandDto : brands) {
+            BrandRest brandModel = new BrandRest();
+            BeanUtils.copyProperties(brandDto, brandModel);
+            returnValue.add(brandModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListBrand(returnValue);
+        paginationRest.setTotal(brandService.count(filter));
+
+        return paginationRest;
     }
 
 }
