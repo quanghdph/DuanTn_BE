@@ -85,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setMainImage(product.getMainImage());
         productEntity.setDescription(product.getDescription());
         productEntity.setQuantity(product.getQuantity());
+        productEntity.setSoldQuantity(product.getSoldQuantity());
         productEntity.setPrice(product.getPrice());
         productEntity.setStatus(product.getStatus());
         productEntity.setUpdateDate(product.getUpdateDate());

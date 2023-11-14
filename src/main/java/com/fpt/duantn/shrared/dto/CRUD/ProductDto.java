@@ -2,10 +2,7 @@ package com.fpt.duantn.shrared.dto.CRUD;
 
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -32,6 +29,8 @@ public class ProductDto implements Serializable {
     private BrandEntity brand;
 
     private String mainImage;
+
+    private Integer soldQuantity;
 
     @Lob
     private String description;

@@ -39,41 +39,40 @@ public class ProductEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+
     @Column(name = "product_name")
     private String productName;
+    @Column(name = "product_code", length = 255)
+    private String productCode;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
-
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private BrandEntity brand;
-
+    @Column(name = "sold_quantity")
+    private Integer soldQuantity;
     @Column(name = "main_image")
     private String mainImage;
-
     @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+    @Column(name = "status")
+    private Integer status;
+    @Column(name = "quantity")
+    private Long quantity;
+    @Column(name = "price", precision = 10, scale = 0)
+    private BigDecimal price;
+
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
-    @Column(name = "status")
-    private Integer status;
 
-    @Column(name = "product_code", length = 255)
-    private String productCode;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brand;
 
-    @Column(name = "quantity")
-    private Long quantity;
-
-    @Column(name = "price", precision = 10, scale = 0)
-    private BigDecimal price;
 }
