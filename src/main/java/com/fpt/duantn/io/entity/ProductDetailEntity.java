@@ -34,26 +34,6 @@ public class ProductDetailEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private ProductEntity product;
-
-    @ManyToOne
-    @JoinColumn(name = "color_id")
-    private ColorEntity color;
-
-    @ManyToOne
-    @JoinColumn(name = "size_id")
-    private SizeEntity size;
-
-    @ManyToOne
-    @JoinColumn(name = "material_id")
-    private MaterialEntity material;
-
-    @ManyToOne
-    @JoinColumn(name = "waistband_id")
-    private WaistbandEntity waistband;
-
     @Column(name = "default_price", precision = 10, scale = 0)
     private BigDecimal defaultPrice;
 
@@ -66,14 +46,19 @@ public class ProductDetailEntity implements Serializable {
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "product_detail_code")
-    private String productDetailCode;;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductEntity product;
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private ColorEntity color;
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    private SizeEntity size;
 }

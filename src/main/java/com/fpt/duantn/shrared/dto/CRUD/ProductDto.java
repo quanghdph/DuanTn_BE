@@ -2,6 +2,8 @@ package com.fpt.duantn.shrared.dto.CRUD;
 
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
+import com.fpt.duantn.io.entity.MaterialEntity;
+import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -28,9 +30,7 @@ public class ProductDto implements Serializable {
 
     private BrandEntity brand;
 
-    private String mainImage;
-
-    private Integer soldQuantity;
+    private byte[] mainImage;
 
     @Lob
     private String description;
@@ -43,11 +43,13 @@ public class ProductDto implements Serializable {
 
     private Integer status;
 
+    private WaistbandEntity waistband;
+
     private String productCode;
 
-    private Long quantity;
+    private MaterialEntity material;
 
-    private BigDecimal price;
+
 
 
 }

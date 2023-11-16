@@ -2,10 +2,6 @@ package com.fpt.duantn.shrared.dto.CRUD;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.io.entity.EmployeeEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;

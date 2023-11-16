@@ -1,6 +1,5 @@
 package com.fpt.duantn.ui.model.request;
 
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +13,5 @@ public class CategoryRequest {
     private Integer status;
     private Date createDate;
     private Date updateDate;
-    private ProductTypeEntity productType;
 
 }

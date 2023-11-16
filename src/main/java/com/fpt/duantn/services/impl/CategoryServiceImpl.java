@@ -42,9 +42,6 @@ public class CategoryServiceImpl implements CategoryService {
         String publicCategoryCode = utils.generateColorCode(8);
         categoryEntity.setCategoryCode(publicCategoryCode);
 
-        //them khoa ngoai
-        categoryEntity.setProductType(category.getProductType());
-
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         CategoryEntity storedCategoryDetails = categoryRepository.save(categoryEntity);
 
@@ -82,7 +79,6 @@ public class CategoryServiceImpl implements CategoryService {
         categoryEntity.setStatus(category.getStatus());
         categoryEntity.setUpdateDate(category.getUpdateDate());
         categoryEntity.setCreateDate(category.getCreateDate());
-        categoryEntity.setProductType(category.getProductType());
 
         CategoryEntity updatedCategorys = categoryRepository.save(categoryEntity);
         returnValue = new ModelMapper().map(updatedCategorys, CategoryDto.class);

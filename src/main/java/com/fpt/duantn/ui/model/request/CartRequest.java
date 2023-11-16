@@ -1,5 +1,6 @@
 package com.fpt.duantn.ui.model.request;
 
+import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.io.entity.EmployeeEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +18,8 @@ public class CartRequest {
     private Date updateDate;
 
     private Integer status;
+
+    private CustomerEntity customer;
+
 
 }

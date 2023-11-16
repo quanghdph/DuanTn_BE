@@ -8,10 +8,10 @@ import lombok.Setter;
 @Setter
 public class ImageRequest {
 
-    private String url;
+    private byte[] image;
 
     private ProductEntity product;
 
-    private String imageName;
+    private boolean type;
 
 }

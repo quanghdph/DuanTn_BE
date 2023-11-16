@@ -2,14 +2,14 @@ package com.fpt.duantn.ui.model.response;
 
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
+import com.fpt.duantn.io.entity.MaterialEntity;
+import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -21,8 +21,6 @@ public class ProductRest {
     private String productName;
 
     private CategoryEntity category;
-
-    private Integer soldQuantity;
 
     private BrandEntity brand;
 
@@ -39,10 +37,9 @@ public class ProductRest {
 
     private Integer status;
 
+    private WaistbandEntity waistband;
+
     private String productCode;
 
-    private Long quantity;
-
-    private BigDecimal price;
-
+    private MaterialEntity material;
 }

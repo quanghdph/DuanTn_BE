@@ -1,7 +1,6 @@
 package com.fpt.duantn.ui.model.response;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -16,6 +16,7 @@ public class CustomerDto implements Serializable {
     private static final long serialVersionUID = 6835192601898364280L;
 
     private Long id;
+
     private boolean emailVerificationStatus;
 
     private String firstName;
@@ -42,4 +43,5 @@ public class CustomerDto implements Serializable {
     private Date updateDate;
 
     private String customerCode;
+
 }

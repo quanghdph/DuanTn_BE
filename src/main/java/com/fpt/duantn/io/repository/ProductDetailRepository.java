@@ -7,12 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
 public interface ProductDetailRepository extends JpaRepository<ProductDetailEntity, Long> {
 
     ProductDetailEntity findProductDetailEntityById(Long productDetailId);
 
     @Query(value = "SELECT pd.id, pd.default_price, pd.price, pd.amount, " +
-            "pd.status, pd.product_detail_code, " +
+            "pd.status, " +
             "p.id AS product_id, p.price " +
             "FROM product_detail pd " +
             "JOIN products p ON pd.id = p.brand_id " +
@@ -20,19 +24,19 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetailEnti
 
     Page<ProductDetailEntity> getProductsDetailAndColors(Pageable pageable);
 
-    Page<ProductDetailEntity> findByProductDetailCodeContainingOrderByIdAsc(String productDetailCode,Pageable pageable);
+//    Page<ProductDetailEntity> findByProductContainingOrderByIdAsc(String productDetailCode,Pageable pageable);
 
     @Query(value = "SELECT pd.id, pd.product_id, " +
-            "pd.color_id,pd.size_id,pd.material_id, pd.waistband_id,pd.default_price,pd.amount,pd.create_date,pd.update_date, " +
-            "pd.status,pd.product_detail_code,pd.price " +
+            "pd.color_id,pd.size_id,pd.default_price,pd.amount,pd.create_date,pd.update_date, " +
+            "pd.status,pd.price " +
             "FROM product_detail pd " +
-            "where 1=1 and (:filter is null or :filter = '' or (pd.price like %:filter% or pd.status like %:filter% or pd.product_detail_code like %:filter% or pd.amount like %:filter%))",
+            "where 1=1 and (:filter is null or :filter = '' or (pd.price like %:filter% or pd.status like %:filter% or pd.amount like %:filter% or pd.amount like %:filter%))",
             nativeQuery = true)
     Page<ProductDetailEntity> filter(@Param("filter") String filter, Pageable pageable);
 
     @Query(value = "SELECT count(1) " +
             "FROM product_detail pd " +
-            "where 1=1 and (:filter is null or :filter = '' or (pd.price like %:filter% or pd.status like %:filter% or pd.product_detail_code like %:filter% or pd.amount like %:filter%))",
+            "where 1=1 and (:filter is null or :filter = '' or (pd.price like %:filter% or pd.status like %:filter% or pd.amount like %:filter% or pd.amount like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
 

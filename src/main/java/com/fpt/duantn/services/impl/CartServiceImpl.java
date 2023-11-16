@@ -44,6 +44,7 @@ public class CartServiceImpl implements CartService {
 
         //them khoa ngoai
         cartEntity.setEmployee(cart.getEmployee());
+        cartEntity.setCustomer(cart.getCustomer());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         CartEntity storedCartDetails = cartRepository.save(cartEntity);
@@ -82,6 +83,8 @@ public class CartServiceImpl implements CartService {
         cartEntity.setUpdateDate(cart.getUpdateDate());
         cartEntity.setCreateDate(cart.getCreateDate());
         cartEntity.setEmployee(cart.getEmployee());
+        cartEntity.setCustomer(cart.getCustomer());
+
 
         CartEntity updatedCarts = cartRepository.save(cartEntity);
         returnValue = new ModelMapper().map(updatedCarts, CartDto.class);

@@ -13,7 +13,7 @@ public interface ProductDetailService {
     void deleteProductDetail(Long productDetailId);
     List<ProductDetailDto> getProductsDetail(int page, int limit, String filter);
     Long count(String filter);
-    List<ProductDetailDto> getProductByProductDetailCode(String productDetailCode, int page, int limit);
+//    List<ProductDetailDto> getProductByProductDetailCode(String productDetailCode, int page, int limit);
 
 
 

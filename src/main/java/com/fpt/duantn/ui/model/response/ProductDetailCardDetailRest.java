@@ -9,17 +9,15 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductDetailCardDetailRest {
+
     private Long id;
 
     private BigDecimal defaultPrice;
-
     private BigDecimal price;
-
     private Integer amount;
-
     private Integer status;
-
     private String productDetailCode;
+
 
     private List<ProductDetailCardDetailsRest> productDetailCardDetailsRest;
 

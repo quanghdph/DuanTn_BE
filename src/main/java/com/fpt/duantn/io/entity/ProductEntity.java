@@ -37,42 +37,46 @@ public class ProductEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-
-    @Column(name = "product_name")
+    @Column(name = "product_name", nullable = false)
     private String productName;
-    @Column(name = "product_code", length = 255)
-    private String productCode;
-
-    @Column(name = "sold_quantity")
-    private Integer soldQuantity;
-    @Column(name = "main_image")
-    private String mainImage;
-    @Lob
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-    @Column(name = "status")
-    private Integer status;
-    @Column(name = "quantity")
-    private Long quantity;
-    @Column(name = "price", precision = 10, scale = 0)
-    private BigDecimal price;
-
-
-    @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-    @Column(name = "update_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
-
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
+
+    @Lob
+    @Column(name = "main_image")
+    private byte[] mainImage;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    @Column(name = "update_date")
+    private Date updateDate;
+
+    @Column(name = "status")
+    private Integer status;
+
+    @ManyToOne
+    @JoinColumn(name = "material_id")
+    private MaterialEntity material;
+
+    @ManyToOne
+    @JoinColumn(name = "waistband_id")
+    private WaistbandEntity waistband;
+
+    @Column(name = "product_code")
+    private String productCode;
+
 
 }

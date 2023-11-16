@@ -41,7 +41,6 @@ public class CategoryController {
         ModelMapper modelMapper = new ModelMapper();
         CategoryDto categoryDto = modelMapper.map(categoryDetails, CategoryDto.class);
 
-        categoryDto.setProductType(categoryDetails.getProductType());
 
         CategoryDto createdUser = categoryService.createCategory(categoryDto);
         returnValue = modelMapper.map(createdUser, CategoryRest.class);
@@ -58,7 +57,6 @@ public class CategoryController {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto = new ModelMapper().map(categoryDetails, CategoryDto.class);
 
-        categoryDto.setProductType(categoryDetails.getProductType());
         try {
         CategoryDto updateCategory = categoryService.updateCategory(id, categoryDto);
         returnValue = new ModelMapper().map(updateCategory, CategoryRest.class);

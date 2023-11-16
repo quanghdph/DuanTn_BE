@@ -23,10 +23,6 @@ public class ProductDetailRequest {
 
     private SizeEntity size;
 
-    private MaterialEntity material;
-
-    private WaistbandEntity waistband;
-
     private BigDecimal defaultPrice;
 
     private BigDecimal price;

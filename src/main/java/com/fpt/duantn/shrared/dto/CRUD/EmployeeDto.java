@@ -1,7 +1,5 @@
 package com.fpt.duantn.shrared.dto.CRUD;
 
-import com.fpt.duantn.io.entity.ProductTypeEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;

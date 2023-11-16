@@ -40,15 +40,11 @@ public class CategoryEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+
+
     @Column(name = "create_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date createDate;
 
     @Column(name = "update_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date updateDate;
-
-
-    @ManyToOne
-    @JoinColumn(name = "product_type_id")
-    private ProductTypeEntity productType;
-
 }

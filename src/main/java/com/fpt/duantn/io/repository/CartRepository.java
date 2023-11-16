@@ -7,7 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface CartRepository extends JpaRepository<CartEntity, Long> {
 
     CartEntity findByCartCode(String cartCode);
@@ -16,7 +19,7 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
 
     @Query(value = "SELECT c.id, c.cart_code," +
             "c.employee_id,c.create_date,c.update_date, " +
-            "c.status " +
+            "c.status,c.customer_id " +
             "FROM cart c " +
             "where 1=1 and (:filter is null or :filter = '' or (c.employee_id like %:filter% or c.status like %:filter% or c.cart_code like %:filter%))",
             nativeQuery = true)

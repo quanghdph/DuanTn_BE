@@ -31,15 +31,15 @@ public class ImageEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "image")
+    private byte[] image;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private ProductEntity product;
 
-    @Column(name = "image_name")
-    private String imageName;
+    @Column(name = "type")
+    private boolean type;
 
 
 }

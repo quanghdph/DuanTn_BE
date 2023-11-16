@@ -29,10 +29,6 @@ public class ProductDetailDto implements Serializable {
 
     private SizeEntity size;
 
-    private MaterialEntity material;
-
-    private WaistbandEntity waistband;
-
     private BigDecimal defaultPrice;
 
     private BigDecimal price;
@@ -46,7 +42,5 @@ public class ProductDetailDto implements Serializable {
     private Date updateDate;
 
     private Integer status;
-
-    private String productDetailCode;
 
 }

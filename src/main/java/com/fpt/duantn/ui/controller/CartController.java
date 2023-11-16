@@ -41,6 +41,7 @@ public class CartController {
         CartDto cartDto = modelMapper.map(cartDetails, CartDto.class);
 
         cartDto.setEmployee(cartDetails.getEmployee());
+        cartDto.setCustomer(cartDetails.getCustomer());
 
         CartDto createdUser = cartService.createCart(cartDto);
         returnValue = modelMapper.map(createdUser, CartRest.class);
@@ -58,6 +59,7 @@ public class CartController {
         cartDto = new ModelMapper().map(cartDetails, CartDto.class);
 
         cartDto.setEmployee(cartDetails.getEmployee());
+        cartDto.setCustomer(cartDetails.getCustomer());
 
         CartDto updateCart = cartService.updateCart(id, cartDto);
         returnValue = new ModelMapper().map(updateCart, CartRest.class);

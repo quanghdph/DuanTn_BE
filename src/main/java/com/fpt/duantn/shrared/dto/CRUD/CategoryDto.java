@@ -1,7 +1,5 @@
 package com.fpt.duantn.shrared.dto.CRUD;
 
-import com.fpt.duantn.io.entity.ProductTypeEntity;
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +18,4 @@ public class CategoryDto implements Serializable {
     private Integer status;
     private Date createDate;
     private Date updateDate;
-    private ProductTypeEntity productType;
 }

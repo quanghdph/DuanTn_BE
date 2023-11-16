@@ -78,6 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerEntity.setFirstName(customer.getFirstName());
         customerEntity.setLastName(customer.getLastName());
         customerEntity.setEmail(customer.getEmail());
+        customerEntity.setEmailVerificationStatus(customer.isEmailVerificationStatus());
         customerEntity.setEmailVerificationToken(customer.getEmailVerificationToken());
         customerEntity.setEncryptedPassword(customer.getEncryptedPassword());
         customerEntity.setGender(customer.getGender());

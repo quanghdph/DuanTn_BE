@@ -22,22 +22,14 @@ public class ProductDetailRest {
     private ProductEntity product;
     private ColorEntity color;
     private SizeEntity size;
-    private MaterialEntity material;
-    private WaistbandEntity waistband;
+
 
     private BigDecimal defaultPrice;
-
     private BigDecimal price;
-
     private Integer amount;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
     private Integer status;
-
-    private String productDetailCode;
-
 }

@@ -2,7 +2,6 @@ package com.fpt.duantn.ui.model.response;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.io.entity.EmployeeEntity;
-import com.fpt.duantn.io.entity.ProductTypeEntity;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;

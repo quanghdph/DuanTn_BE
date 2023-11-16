@@ -11,7 +11,7 @@ public interface ImageService {
     ImageDto updateImage(Long imageCode, ImageDto image);
     void deleteImage(Long imageId);
     List<ImageDto> getImages(int page, int limit);
-    List<ImageDto> getImageByImageName(String imageName, int page, int limit);
+    List<ImageDto> getImageByProductId(String imageName, int page, int limit);
 
 
 }

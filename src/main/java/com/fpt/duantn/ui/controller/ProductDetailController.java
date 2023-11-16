@@ -10,6 +10,7 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +52,6 @@ public class ProductDetailController {
         productDetailDto.setProduct(productDetailDetails.getProduct());
         productDetailDto.setColor(productDetailDetails.getColor());
         productDetailDto.setSize(productDetailDetails.getSize());
-        productDetailDto.setMaterial(productDetailDetails.getMaterial());
-        productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto createdUser = productDetailService.createProductDetail(productDetailDto);
         returnValue = modelMapper.map(createdUser, ProductDetailRest.class);
@@ -70,8 +69,6 @@ public class ProductDetailController {
         productDetailDto.setProduct(productDetailDetails.getProduct());
         productDetailDto.setColor(productDetailDetails.getColor());
         productDetailDto.setSize(productDetailDetails.getSize());
-        productDetailDto.setMaterial(productDetailDetails.getMaterial());
-        productDetailDto.setWaistband(productDetailDetails.getWaistband());
 
         ProductDetailDto updateProductDetail = productDetailService.updateProductDetail(id, productDetailDto);
         returnValue = new ModelMapper().map(updateProductDetail, ProductDetailRest.class);
@@ -84,30 +81,37 @@ public class ProductDetailController {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        productDetailService.deleteProductDetail(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            productDetailService.deleteProductDetail(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: Sản phẩm có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: " + e.getMessage());
+        }return returnValue;
     }
 
 
 
-    @GetMapping("/search")
-    public List<ProductDetailRest> searchProductDetails(@RequestParam(value = "productDetailCode") String productDetailCode,
-                                              @RequestParam(value = "page", defaultValue = "0") int page,
-                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<ProductDetailRest> returnValue = new ArrayList<>();
-
-        List<ProductDetailDto> productDetails = productDetailService.getProductByProductDetailCode(productDetailCode, page, limit);
-
-        for (ProductDetailDto productDetailDto : productDetails) {
-            ProductDetailRest productDetailModel = new ProductDetailRest();
-            BeanUtils.copyProperties(productDetailDto, productDetailModel);
-            returnValue.add(productDetailModel);
-        }
-
-        return returnValue;
-    }
+//    @GetMapping("/search")
+//    public List<ProductDetailRest> searchProductDetails(@RequestParam(value = "productDetailCode") String productDetailCode,
+//                                              @RequestParam(value = "page", defaultValue = "0") int page,
+//                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
+//        List<ProductDetailRest> returnValue = new ArrayList<>();
+//
+//        List<ProductDetailDto> productDetails = productDetailService.getProductByProductDetailCode(productDetailCode, page, limit);
+//
+//        for (ProductDetailDto productDetailDto : productDetails) {
+//            ProductDetailRest productDetailModel = new ProductDetailRest();
+//            BeanUtils.copyProperties(productDetailDto, productDetailModel);
+//            returnValue.add(productDetailModel);
+//        }
+//
+//        return returnValue;
+//    }
 
     @GetMapping()
     public PaginationRest getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,

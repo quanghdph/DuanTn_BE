@@ -98,7 +98,7 @@ public class ImageController {
                                           @RequestParam(value = "limit", defaultValue = "2") int limit) {
         List<ImageRest> returnValue = new ArrayList<>();
 
-        List<ImageDto> images = imageService.getImageByImageName(imageName, page, limit);
+        List<ImageDto> images = imageService.getImageByProductId(imageName, page, limit);
 
         for (ImageDto imageDto : images) {
             ImageRest imageModel = new ImageRest();

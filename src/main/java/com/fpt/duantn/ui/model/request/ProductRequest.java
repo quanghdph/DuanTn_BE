@@ -2,7 +2,9 @@ package com.fpt.duantn.ui.model.request;
 
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
+import com.fpt.duantn.io.entity.MaterialEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
+import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -22,10 +24,6 @@ public class ProductRequest {
 
     private BrandEntity brand;
 
-    private SizeEntity size;
-
-    private Integer soldQuantity;
-
     private String mainImage;
 
     @Lob
@@ -39,10 +37,8 @@ public class ProductRequest {
 
     private Integer status;
 
-    private Long quantity;
+    private WaistbandEntity waistband;
 
-    private BigDecimal price;
-
-    private String productDetailCode;
+    private MaterialEntity material;
 
 }

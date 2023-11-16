@@ -40,16 +40,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         ModelMapper modelMapper = new ModelMapper();
         ProductDetailEntity productDetailEntity = modelMapper.map(productDetail, ProductDetailEntity.class);
 
-//         Tạo một mã ngẫu nhiên cho ProductDetailCode (tùy theo yêu cầu)
-        String publicProductDetailCode = utils.generateColorCode(8);
-        productDetailEntity.setProductDetailCode(publicProductDetailCode);
-
         //them khoa ngoai
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setSize(productDetail.getSize());
-        productDetailEntity.setMaterial(productDetail.getMaterial());
-        productDetailEntity.setWaistband(productDetail.getWaistband());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         ProductDetailEntity storedProductDetailDetails = productDetailRepository.save(productDetailEntity);
@@ -86,15 +80,12 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setStatus(productDetail.getStatus());
         productDetailEntity.setUpdateDate(productDetail.getUpdateDate());
         productDetailEntity.setCreateDate(productDetail.getCreateDate());
-        productDetailEntity.setProductDetailCode(productDetail.getProductDetailCode());
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setAmount(productDetail.getAmount());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setDefaultPrice(productDetail.getDefaultPrice());
-        productDetailEntity.setMaterial(productDetail.getMaterial());
         productDetailEntity.setPrice(productDetail.getPrice());
         productDetailEntity.setSize(productDetail.getSize());
-        productDetailEntity.setWaistband(productDetail.getWaistband());
 
         ProductDetailEntity updatedProductDetails = productDetailRepository.save(productDetailEntity);
         returnValue = new ModelMapper().map(updatedProductDetails, ProductDetailDto.class);
@@ -138,22 +129,22 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return total;
     }
 
-    @Override
-    public List<ProductDetailDto> getProductByProductDetailCode(String productDetailCode, int page, int limit) {
-        List<ProductDetailDto> returnValue = new ArrayList<>();
-
-        if (page > 0) page = page - 1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<ProductDetailEntity> productDetailPage = productDetailRepository.findByProductDetailCodeContainingOrderByIdAsc(productDetailCode, pageableRequest);
-        List<ProductDetailEntity> productsDetail = productDetailPage.getContent();
-
-        for (ProductDetailEntity productDetailEntity : productsDetail) {
-            ProductDetailDto productDetailDto = new ProductDetailDto();
-            BeanUtils.copyProperties(productDetailEntity, productDetailDto);
-            returnValue.add(productDetailDto);
-        }
-        return returnValue;
-    }
+//    @Override
+//    public List<ProductDetailDto> getProductByProductDetailCode(String productDetailCode, int page, int limit) {
+//        List<ProductDetailDto> returnValue = new ArrayList<>();
+//
+//        if (page > 0) page = page - 1;
+//
+//        Pageable pageableRequest = PageRequest.of(page, limit);
+//        Page<ProductDetailEntity> productDetailPage = productDetailRepository.findByProductDetailCodeContainingOrderByIdAsc(productDetailCode, pageableRequest);
+//        List<ProductDetailEntity> productsDetail = productDetailPage.getContent();
+//
+//        for (ProductDetailEntity productDetailEntity : productsDetail) {
+//            ProductDetailDto productDetailDto = new ProductDetailDto();
+//            BeanUtils.copyProperties(productDetailEntity, productDetailDto);
+//            returnValue.add(productDetailDto);
+//        }
+//        return returnValue;
+//    }
 
 }

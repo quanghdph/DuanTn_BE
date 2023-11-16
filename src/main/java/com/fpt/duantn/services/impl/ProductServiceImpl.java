@@ -45,6 +45,8 @@ public class ProductServiceImpl implements ProductService {
         //them khoa ngoai
         productEntity.setCategory(product.getCategory());
         productEntity.setBrand(product.getBrand());
+        productEntity.setWaistband(product.getWaistband());
+        productEntity.setMaterial(product.getMaterial());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         ProductEntity storedProductDetails = productRepository.save(productEntity);
@@ -82,11 +84,11 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setProductName(product.getProductName());
         productEntity.setCategory(product.getCategory());
         productEntity.setBrand(product.getBrand());
+        productEntity.setWaistband(product.getWaistband());
+        productEntity.setMaterial(product.getMaterial());
         productEntity.setMainImage(product.getMainImage());
         productEntity.setDescription(product.getDescription());
-        productEntity.setQuantity(product.getQuantity());
-        productEntity.setSoldQuantity(product.getSoldQuantity());
-        productEntity.setPrice(product.getPrice());
+        productEntity.setProductCode(product.getProductCode());
         productEntity.setStatus(product.getStatus());
         productEntity.setUpdateDate(product.getUpdateDate());
         productEntity.setCreateDate(product.getCreateDate());
