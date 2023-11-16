@@ -43,7 +43,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetailEnti
     @Query("SELECT pd.product.id AS productId, pd.color.id AS colorId, pd.size.id AS sizeId, pd.defaultPrice " +
             "FROM ProductDetailEntity pd " +
             "WHERE pd.product.id = :productId OR pd.color.id = :colorId OR pd.size.id = :sizeId")
-    ProductDetailEntity findByColorIdAndSizeId(@Param("productId") Long productId,
+    ProductDetailEntity findByProductIdAndColorIdAndSizeId(@Param("productId") Long productId,
                                                @Param("colorId") Long colorId,
                                                @Param("sizeId") Long sizeId);
 

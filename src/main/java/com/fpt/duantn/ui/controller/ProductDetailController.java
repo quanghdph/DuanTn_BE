@@ -135,15 +135,16 @@ public class ProductDetailController {
         return paginationRest;
     }
 
-    @GetMapping("/{colorId}/{sizeId}")
+    @GetMapping("/{productId}/{colorId}/{sizeId}")
     public ResponseEntity<ProductDetailDto> getProductDetailByColorAndSize(
             @PathVariable Long productId, @PathVariable Long colorId, @PathVariable Long sizeId) {
-        ProductDetailDto productDetailDto = productDetailService.getProductDetailsByColorAndSize(productId,colorId, sizeId);
+        ProductDetailDto productDetailDto = productDetailService.getProductDetailsByProductAndColorAndSize(productId,colorId, sizeId);
         if (productDetailDto != null) {
             return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
 }
