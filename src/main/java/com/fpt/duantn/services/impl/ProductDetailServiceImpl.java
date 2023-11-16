@@ -130,8 +130,8 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public ProductDetailDto getProductDetailsByColorAndSize(Long colorId, Long sizeId) {
-        ProductDetailEntity productDetailEntity = productDetailRepository.findByColorIdAndSizeId(colorId, sizeId);
+    public ProductDetailDto getProductDetailsByColorAndSize(Long productId,Long colorId, Long sizeId) {
+        ProductDetailEntity productDetailEntity = productDetailRepository.findByColorIdAndSizeId(productId ,colorId, sizeId);
         if (productDetailEntity != null) {
             return convertToDto(productDetailEntity);
         } else {

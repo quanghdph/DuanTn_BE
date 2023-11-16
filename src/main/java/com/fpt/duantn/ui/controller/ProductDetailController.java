@@ -137,8 +137,8 @@ public class ProductDetailController {
 
     @GetMapping("/{colorId}/{sizeId}")
     public ResponseEntity<ProductDetailDto> getProductDetailByColorAndSize(
-            @PathVariable Long colorId, @PathVariable Long sizeId) {
-        ProductDetailDto productDetailDto = productDetailService.getProductDetailsByColorAndSize(colorId, sizeId);
+            @PathVariable Long productId, @PathVariable Long colorId, @PathVariable Long sizeId) {
+        ProductDetailDto productDetailDto = productDetailService.getProductDetailsByColorAndSize(productId,colorId, sizeId);
         if (productDetailDto != null) {
             return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
         } else {

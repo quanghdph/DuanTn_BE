@@ -40,8 +40,11 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetailEnti
             nativeQuery = true)
     Long count(@Param("filter") String filter);
 
-    @Query("SELECT pd, pd.product.id AS product_id FROM ProductDetailEntity pd " +
-            "WHERE pd.color.id = :color AND pd.size.id = :size")
-    ProductDetailEntity findByColorIdAndSizeId(@Param("color") Long color, @Param("size") Long size);
+    @Query("SELECT pd.product.id AS productId, pd.color.id AS colorId, pd.size.id AS sizeId, pd.defaultPrice " +
+            "FROM ProductDetailEntity pd " +
+            "WHERE pd.product.id = :productId OR pd.color.id = :colorId OR pd.size.id = :sizeId")
+    ProductDetailEntity findByColorIdAndSizeId(@Param("productId") Long productId,
+                                               @Param("colorId") Long colorId,
+                                               @Param("sizeId") Long sizeId);
 
 }
