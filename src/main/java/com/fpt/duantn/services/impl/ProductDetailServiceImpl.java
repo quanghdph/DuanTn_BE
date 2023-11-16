@@ -129,22 +129,31 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return total;
     }
 
-//    @Override
-//    public List<ProductDetailDto> getProductByProductDetailCode(String productDetailCode, int page, int limit) {
-//        List<ProductDetailDto> returnValue = new ArrayList<>();
-//
-//        if (page > 0) page = page - 1;
-//
-//        Pageable pageableRequest = PageRequest.of(page, limit);
-//        Page<ProductDetailEntity> productDetailPage = productDetailRepository.findByProductDetailCodeContainingOrderByIdAsc(productDetailCode, pageableRequest);
-//        List<ProductDetailEntity> productsDetail = productDetailPage.getContent();
-//
-//        for (ProductDetailEntity productDetailEntity : productsDetail) {
-//            ProductDetailDto productDetailDto = new ProductDetailDto();
-//            BeanUtils.copyProperties(productDetailEntity, productDetailDto);
-//            returnValue.add(productDetailDto);
-//        }
-//        return returnValue;
-//    }
+    @Override
+    public ProductDetailDto getProductDetailsByColorAndSize(Long colorId, Long sizeId) {
+        ProductDetailEntity productDetailEntity = productDetailRepository.findByColorIdAndSizeId(colorId, sizeId);
+        if (productDetailEntity != null) {
+            return convertToDto(productDetailEntity);
+        } else {
+            return null;
+        }
+    }
+
+    private ProductDetailDto convertToDto(ProductDetailEntity productDetailEntity) {
+
+        ProductDetailDto dto = new ProductDetailDto();
+        dto.setId(productDetailEntity.getId());
+        dto.setProduct(productDetailEntity.getProduct());
+        dto.setColor(productDetailEntity.getColor());
+        dto.setSize(productDetailEntity.getSize());
+        dto.setDefaultPrice(productDetailEntity.getDefaultPrice());
+        dto.setPrice(productDetailEntity.getPrice());
+        dto.setAmount(productDetailEntity.getAmount());
+        dto.setCreateDate(productDetailEntity.getCreateDate());
+        dto.setUpdateDate(productDetailEntity.getUpdateDate());
+        dto.setStatus(productDetailEntity.getStatus());
+
+        return dto;
+    }
 
 }

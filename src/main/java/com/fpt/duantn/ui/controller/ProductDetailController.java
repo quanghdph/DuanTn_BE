@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -132,4 +134,16 @@ public class ProductDetailController {
 
         return paginationRest;
     }
+
+    @GetMapping("/{colorId}/{sizeId}")
+    public ResponseEntity<ProductDetailDto> getProductDetailByColorAndSize(
+            @PathVariable Long colorId, @PathVariable Long sizeId) {
+        ProductDetailDto productDetailDto = productDetailService.getProductDetailsByColorAndSize(colorId, sizeId);
+        if (productDetailDto != null) {
+            return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
