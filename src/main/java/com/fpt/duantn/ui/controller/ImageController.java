@@ -1,21 +1,35 @@
 package com.fpt.duantn.ui.controller;
 
+import com.fpt.duantn.io.entity.ImageEntity;
 import com.fpt.duantn.services.ImageService;
+import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 import com.fpt.duantn.ui.model.request.ImageRequest;
+import com.fpt.duantn.ui.model.response.AddressRest;
 import com.fpt.duantn.ui.model.response.ImageRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/image")
+@RequestMapping("/image")
 public class ImageController {
 
     @Autowired
@@ -25,11 +39,51 @@ public class ImageController {
     public ImageRest getImage(@PathVariable Long id) {
         ImageRest returnValue = new ImageRest();
 
-        ImageDto imageDto = imageService.getImageByImageCode(id);
+        ImageDto imageDto = imageService.getImageById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(imageDto, ImageRest.class);
 
         return returnValue;
+    }
+
+//    @GetMapping()
+//    public List<ImageRest> getImages(@RequestParam(value = "page", defaultValue = "0") int page,
+//                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
+//        List<ImageRest> returnValue = new ArrayList<>();
+//
+//        List<ImageDto> images = imageService.getImages(page, limit);
+//
+//        for (ImageDto imageDto : images) {
+//            ImageRest imageModel = new ImageRest();
+//            BeanUtils.copyProperties(imageDto, imageModel);
+//            returnValue.add(imageModel);
+//        }
+//
+//        return returnValue;
+//    }
+
+    @ResponseBody
+    @GetMapping("")
+    public PaginationRest getProductDetail(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "2") int limit,
+            @RequestParam(value = "filter", defaultValue = "") String filter,
+            HttpServletRequest request, Model model) {
+
+        List<ImageRest> returnValue = new ArrayList<>();
+
+        List<ImageDto> images = imageService.getImages(page, limit);
+
+        for (ImageDto imageDto : images) {
+            ImageRest imageModel = new ImageRest();
+            BeanUtils.copyProperties(imageDto, imageModel);
+            returnValue.add(imageModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListImage(returnValue);
+        paginationRest.setTotal(imageService.count(filter));
+
+        return paginationRest;
     }
 
     @PostMapping()
@@ -43,22 +97,6 @@ public class ImageController {
 
         ImageDto createdUser = imageService.createImage(imageDto);
         returnValue = modelMapper.map(createdUser, ImageRest.class);
-
-        return returnValue;
-    }
-
-    @GetMapping()
-    public List<ImageRest> getImages(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<ImageRest> returnValue = new ArrayList<>();
-
-        List<ImageDto> images = imageService.getImages(page, limit);
-
-        for (ImageDto imageDto : images) {
-            ImageRest imageModel = new ImageRest();
-            BeanUtils.copyProperties(imageDto, imageModel);
-            returnValue.add(imageModel);
-        }
 
         return returnValue;
     }
@@ -79,15 +117,14 @@ public class ImageController {
         return returnValue;
     }
 
-    @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteImage(@PathVariable Long id) {
-        OperationStatusModel returnValue = new OperationStatusModel();
-        returnValue.setOperationName(RequestOperationName.DELETE.name());
-
-        imageService.deleteImage(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        if (imageService.existsById(id)){
+            imageService.deleteImage(id);
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.badRequest().body("Không tồn tại");
+        }
     }
 
 

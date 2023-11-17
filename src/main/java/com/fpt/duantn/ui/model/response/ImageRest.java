@@ -4,13 +4,16 @@ import com.fpt.duantn.io.entity.ProductEntity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Blob;
+
 @Getter
 @Setter
 public class ImageRest {
 
     private Long id;
 
-    private byte[] image;
+    private Blob image;
+
 
     private ProductEntity product;
 
