@@ -17,17 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
 
     @GetMapping(path = "/{id}")
-    public CategoryRest getCategory(@PathVariable String id) {
+    public CategoryRest getCategory(@PathVariable Long id) {
         CategoryRest returnValue = new CategoryRest();
 
-        CategoryDto categoryDto = categoryService.getCategoryByCategoryCode(id);
+        CategoryDto categoryDto = categoryService.getCategoryById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(categoryDto, CategoryRest.class);
 
@@ -51,7 +51,7 @@ public class CategoryController {
 
 
     @PutMapping(path = "/{id}")
-    public CategoryRest updateCategory(@PathVariable String id, @RequestBody CategoryRequest categoryDetails) {
+    public CategoryRest updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryDetails) {
         CategoryRest returnValue = new CategoryRest();
 
         CategoryDto categoryDto = new CategoryDto();
@@ -67,7 +67,7 @@ public class CategoryController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteCategory(@PathVariable String id) {
+    public OperationStatusModel deleteCategory(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/bill-detail")
+@RequestMapping("/bill-detail")
 public class BillDetailController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class BillDetailController {
     public BillDetailRest getBillDetail(@PathVariable Long id) {
         BillDetailRest returnValue = new BillDetailRest();
 
-        BillDetailDto billDetailDto = billDetailService.getBillDetailByBillDetailCode(id);
+        BillDetailDto billDetailDto = billDetailService.getBillDetailById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(billDetailDto, BillDetailRest.class);
 
@@ -79,10 +79,10 @@ public class BillDetailController {
             returnValue.setOperationMessage("Xoa Thanh Cong.");
         }catch (DataIntegrityViolationException exception){
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: Sản phẩm có tham chiếu đến khoá ngoại.");
+            returnValue.setOperationMessage("Lỗi khi xóa Chi Tiet Hoa Don: Chi Tiet Hoa Don có tham chiếu đến khoá ngoại.");
         }catch (Exception e){
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: " + e.getMessage());
+            returnValue.setOperationMessage("Lỗi khi xóa Chi Tiet Hoa Don: " + e.getMessage());
         }
         return returnValue;
     }

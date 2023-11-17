@@ -26,6 +26,9 @@ public class ProductRequest {
 
     private String mainImage;
 
+    private Long totalSold;
+
+
     @Lob
     private String description;
 

@@ -10,23 +10,24 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
     CartService cartService;
 
     @GetMapping(path = "/{id}")
-    public CartRest getCart(@PathVariable String id) {
+    public CartRest getCart(@PathVariable Long id) {
         CartRest returnValue = new CartRest();
 
-        CartDto cartDto = cartService.getCartByCartCode(id);
+        CartDto cartDto = cartService.getCartById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(cartDto, CartRest.class);
 
@@ -52,7 +53,7 @@ public class CartController {
 
 
     @PutMapping(path = "/{id}")
-    public CartRest updateCart(@PathVariable String id, @RequestBody CartRequest cartDetails) {
+    public CartRest updateCart(@PathVariable Long id, @RequestBody CartRequest cartDetails) {
         CartRest returnValue = new CartRest();
 
         CartDto cartDto = new CartDto();
@@ -68,14 +69,21 @@ public class CartController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteCart(@PathVariable String id) {
+    public OperationStatusModel deleteCart(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        cartService.deleteCart(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            cartService.deleteCart(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Gio Hang: Gio Hang có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Gio Hang: " + e.getMessage());
+        }return returnValue;
     }
 
 

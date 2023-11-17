@@ -7,9 +7,9 @@ import java.util.List;
 public interface BillService {
 
     BillDto createBill(BillDto bill);
-    BillDto getBillByBillCode(String billCode);
-    BillDto updateBill(String billCode, BillDto bill);
-    void deleteBill(String billCode);
+    BillDto getBillById(Long billId);
+    BillDto updateBill(Long billId, BillDto bill);
+    void deleteBill(Long billId);
     List<BillDto> getBills(int page, int limit, String filter);
     Long count(String filter);
 

@@ -10,23 +10,24 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
 
     @GetMapping(path = "/{id}")
-    public CustomerRest getCustomer(@PathVariable String id) {
+    public CustomerRest getCustomer(@PathVariable Long id) {
         CustomerRest returnValue = new CustomerRest();
 
-        CustomerDto customerDto = customerService.getCustomerByCustomerCode(id);
+        CustomerDto customerDto = customerService.getCustomerById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(customerDto, CustomerRest.class);
 
@@ -50,7 +51,7 @@ public class CustomerController {
 
 
     @PutMapping(path = "/{id}")
-    public CustomerRest updateCustomer(@PathVariable String id, @RequestBody CustomerRequest customerDetails) {
+    public CustomerRest updateCustomer(@PathVariable Long id, @RequestBody CustomerRequest customerDetails) {
         CustomerRest returnValue = new CustomerRest();
 
         CustomerDto customerDto = new CustomerDto();
@@ -63,14 +64,21 @@ public class CustomerController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteCustomer(@PathVariable String id) {
+    public OperationStatusModel deleteCustomer(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        customerService.deleteCustomer(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            customerService.deleteCustomer(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Khach Hang: Khach Hang có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Khach Hang: " + e.getMessage());
+        }return returnValue;
     }
 
 

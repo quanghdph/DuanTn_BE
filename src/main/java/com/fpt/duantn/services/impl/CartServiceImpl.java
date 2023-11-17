@@ -58,9 +58,9 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public CartDto getCartByCartCode(String cartCode) {
+    public CartDto getCartById(Long cartId) {
         CartDto returnValue = new CartDto();
-        CartEntity cartEntity = cartRepository.findByCartCode(cartCode);
+        CartEntity cartEntity = cartRepository.findCartEntityById(cartId);
 
         if (cartEntity == null)
             throw new CartServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -71,10 +71,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartDto updateCart(String cartCode, CartDto cart) {
+    public CartDto updateCart(Long cartId, CartDto cart) {
         CartDto returnValue = new CartDto();
 
-        CartEntity cartEntity = cartRepository.findByCartCode(cartCode);
+        CartEntity cartEntity = cartRepository.findCartEntityById(cartId);
 
         if (cartEntity == null)
             throw new CartServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -93,8 +93,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteCart(String cartCode) {
-        CartEntity cartEntity = cartRepository.findByCartCode(cartCode);
+    public void deleteCart(Long cartId) {
+        CartEntity cartEntity = cartRepository.findCartEntityById(cartId);
 
         if (cartEntity == null)
             throw new CartServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

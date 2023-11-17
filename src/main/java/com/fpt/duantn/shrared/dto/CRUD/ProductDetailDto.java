@@ -33,7 +33,7 @@ public class ProductDetailDto implements Serializable {
 
     private BigDecimal price;
 
-    private Integer amount;
+    private Integer quantity;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;

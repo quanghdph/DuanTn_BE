@@ -9,23 +9,24 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/material")
+@RequestMapping("/material")
 public class MaterialController {
     
     @Autowired
     MaterialService materialService;
 
     @GetMapping(path = "/{id}")
-    public MaterialRest getMaterial(@PathVariable String id) {
+    public MaterialRest getMaterial(@PathVariable Long id) {
         MaterialRest returnValue = new MaterialRest();
 
-        MaterialDto materialDto = materialService.getMaterialByMaterialCode(id);
+        MaterialDto materialDto = materialService.getMaterialById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(materialDto, MaterialRest.class);
 
@@ -65,7 +66,7 @@ public class MaterialController {
 
 
     @PutMapping(path = "/{id}")
-    public MaterialRest updateMaterial(@PathVariable String id, @RequestBody MaterialRequest materialDetails) {
+    public MaterialRest updateMaterial(@PathVariable Long id, @RequestBody MaterialRequest materialDetails) {
         MaterialRest returnValue = new MaterialRest();
 
         MaterialDto materialDto = new MaterialDto();
@@ -78,14 +79,21 @@ public class MaterialController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteMaterial(@PathVariable String id) {
+    public OperationStatusModel deleteMaterial(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        materialService.deleteMaterial(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            materialService.deleteMaterial(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Chat Lieu: Chat Lieu có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Chat Lieu: " + e.getMessage());
+        }return returnValue;
     }
 
 

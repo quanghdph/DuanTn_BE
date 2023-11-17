@@ -54,9 +54,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    public EmployeeDto getEmployeeByEmployeeCode(String employeeCode) {
+    public EmployeeDto getEmployeeById(Long employeeId) {
         EmployeeDto returnValue = new EmployeeDto();
-        EmployeeEntity employeeEntity = employeeRepository.findByEmployeeCode(employeeCode);
+        EmployeeEntity employeeEntity = employeeRepository.findEmployeeEntityById(employeeId);
 
         if (employeeEntity == null)
             throw new EmployeeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -67,10 +67,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto updateEmployee(String employeeCode, EmployeeDto employee) {
+    public EmployeeDto updateEmployee(Long employeeId, EmployeeDto employee) {
         EmployeeDto returnValue = new EmployeeDto();
 
-        EmployeeEntity employeeEntity = employeeRepository.findByEmployeeCode(employeeCode);
+        EmployeeEntity employeeEntity = employeeRepository.findEmployeeEntityById(employeeId);
 
         if (employeeEntity == null)
             throw new EmployeeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -95,8 +95,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(String employeeCode) {
-        EmployeeEntity employeeEntity = employeeRepository.findByEmployeeCode(employeeCode);
+    public void deleteEmployee(Long employeeId) {
+        EmployeeEntity employeeEntity = employeeRepository.findEmployeeEntityById(employeeId);
 
         if (employeeEntity == null)
             throw new EmployeeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

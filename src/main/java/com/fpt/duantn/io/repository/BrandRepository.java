@@ -15,6 +15,9 @@ public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
 
     BrandEntity findByBrandCode(String brandCode);
 
+    BrandEntity findBrandEntityById(Long brandId);
+
+
     Page<BrandEntity> findByBrandNameContainingOrderByIdAsc(String brandName, Pageable pageable);
 
     @Query(value = "SELECT b.id, b.brand_code," +

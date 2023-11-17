@@ -56,9 +56,9 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDto getAddressByAddressCode(String addressCode) {
+    public AddressDto getAddressById(Long addressId) {
         AddressDto returnValue = new AddressDto();
-        AddressEntity AddressEntity = addressRepository.findByAddressCode(addressCode);
+        AddressEntity AddressEntity = addressRepository.findAddressEntityById(addressId);
 
         if (AddressEntity == null)
             throw new AddressServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -69,10 +69,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDto updateAddress(String addressCode, AddressDto address) {
+    public AddressDto updateAddress(Long addressId, AddressDto address) {
         AddressDto returnValue = new AddressDto();
 
-        AddressEntity addressEntity = addressRepository.findByAddressCode(addressCode);
+        AddressEntity addressEntity = addressRepository.findAddressEntityById(addressId);
 
         if (addressEntity == null)
             throw new AddressServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -92,8 +92,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void deleteAddress(String addressCode) {
-        AddressEntity addressEntity = addressRepository.findByAddressCode(addressCode);
+    public void deleteAddress(Long addressId) {
+        AddressEntity addressEntity = addressRepository.findAddressEntityById(addressId);
 
         if (addressEntity == null)
             throw new ColorServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -128,8 +128,4 @@ public class AddressServiceImpl implements AddressService {
         return total;
     }
 
-    @Override
-    public List<AddressDto> getAddressByAddressName(String addressName, int page, int limit) {
-        return null;
-    }
 }

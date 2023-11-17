@@ -16,6 +16,9 @@ public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
 
     AddressEntity findByAddressCode(String addressCode);
 
+    AddressEntity findAddressEntityById(Long addressId);
+
+
     Page<ColorEntity> findByCityContainingOrderByIdAsc(String addressName, Pageable pageable);
 
     @Query(value = "SELECT a.id, a.custome_id," +

@@ -14,7 +14,7 @@ public class ProductDetailCardDetailRest {
 
     private BigDecimal defaultPrice;
     private BigDecimal price;
-    private Integer amount;
+    private Integer quantity;
     private Integer status;
     private String productDetailCode;
 

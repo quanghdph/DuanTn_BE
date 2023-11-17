@@ -50,6 +50,9 @@ public class ProductEntity implements Serializable {
     @Column(name = "main_image")
     private byte[] mainImage;
 
+    @Column(name = "total_sold")
+    private Long totalSold;
+
     @Column(name = "description")
     private String description;
 

@@ -10,23 +10,24 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/brand")
+@RequestMapping("/brand")
 public class BrandController {
 
     @Autowired
     BrandService brandService;
 
     @GetMapping(path = "/{id}")
-    public BrandRest getBrand(@PathVariable String id) {
+    public BrandRest getBrand(@PathVariable Long id) {
         BrandRest returnValue = new BrandRest();
 
-        BrandDto brandDto = brandService.getBrandByBrandCode(id);
+        BrandDto brandDto = brandService.getBrandById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(brandDto, BrandRest.class);
 
@@ -49,7 +50,7 @@ public class BrandController {
 
 
     @PutMapping(path = "/{id}")
-    public BrandRest updateBrand(@PathVariable String id, @RequestBody BrandRequest brandDetails) {
+    public BrandRest updateBrand(@PathVariable Long id, @RequestBody BrandRequest brandDetails) {
         BrandRest returnValue = new BrandRest();
 
         BrandDto brandDto = new BrandDto();
@@ -62,14 +63,21 @@ public class BrandController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteBrand(@PathVariable String id) {
+    public OperationStatusModel deleteBrand(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        brandService.deleteBrand(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            brandService.deleteBrand(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Thuong Hieu: Thuong Hieu có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Thuong Hieu: " + e.getMessage());
+        }return returnValue;
     }
 
 

@@ -17,7 +17,6 @@ public interface BillDetailRepository extends JpaRepository<BillDetailEntity, Lo
     BillDetailEntity findBillDetailEntityById(Long billDetailId);
 
 
-
 //    Page<BillDetailEntity> findByBillDetailNameContainingOrderByIdAsc(String billDetailName, Pageable pageable);
 
     @Query(value = "SELECT bild.id, bild.bill_id," +

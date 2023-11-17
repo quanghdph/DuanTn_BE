@@ -7,8 +7,8 @@ import java.util.List;
 public interface BillDetailService {
 
     BillDetailDto createBillDetail(BillDetailDto billDetail);
-    BillDetailDto getBillDetailByBillDetailCode(Long billDetailCode);
-    BillDetailDto updateBillDetail(Long billDetailCode, BillDetailDto billDetail);
+    BillDetailDto getBillDetailById(Long billDetailId);
+    BillDetailDto updateBillDetail(Long billDetailId, BillDetailDto billDetail);
     void deleteBillDetail(Long billDetailId);
     List<BillDetailDto> getBillDetails(int page, int limit, String filter);
     Long count(String filter);

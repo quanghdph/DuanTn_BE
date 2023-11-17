@@ -10,13 +10,14 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/cart-detail")
+@RequestMapping("/cart-detail")
 public class CartDetailController {
 
     @Autowired
@@ -26,7 +27,7 @@ public class CartDetailController {
     public CartDetailRest getCartDetail(@PathVariable Long id) {
         CartDetailRest returnValue = new CartDetailRest();
 
-        CartDetailDto cartDetailDto = cartDetailService.getCartDetailByCartDetailCode(id);
+        CartDetailDto cartDetailDto = cartDetailService.getCartDetailById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(cartDetailDto, CartDetailRest.class);
 
@@ -75,10 +76,17 @@ public class CartDetailController {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        cartDetailService.deleteCartDetail(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            cartDetailService.deleteCartDetail(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Gio Hang Chi Tiet: Gio Hang Chi Tiet có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Gio Hang Chi Tiet: " + e.getMessage());
+        }return returnValue;
     }
 
 

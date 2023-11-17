@@ -9,6 +9,7 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,17 +24,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/waistband")
+@RequestMapping("/waistband")
 public class WaistbandController {
 
     @Autowired
     WaistbandService waistbandService;
 
     @GetMapping(path = "/{id}")
-    public WaistbandRest getWaistband(@PathVariable String id) {
+    public WaistbandRest getWaistband(@PathVariable Long id) {
         WaistbandRest returnValue = new WaistbandRest();
 
-        WaistbandDto waistbandDto = waistbandService.getWaistbandByWaistbandCode(id);
+        WaistbandDto waistbandDto = waistbandService.getWaistbandById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(waistbandDto, WaistbandRest.class);
 
@@ -71,7 +72,7 @@ public class WaistbandController {
 
 
     @PutMapping(path = "/{id}")
-    public WaistbandRest updateWaistband(@PathVariable String id, @RequestBody WaistbandRequest waistbandDetails) {
+    public WaistbandRest updateWaistband(@PathVariable Long id, @RequestBody WaistbandRequest waistbandDetails) {
         WaistbandRest returnValue = new WaistbandRest();
 
         WaistbandDto waistbandDto = new WaistbandDto();
@@ -84,14 +85,21 @@ public class WaistbandController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteWaistband(@PathVariable String id) {
+    public OperationStatusModel deleteWaistband(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        waistbandService.deleteWaistband(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            waistbandService.deleteWaistband(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Cap Quan: Cap Quan có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Cap Quan: " + e.getMessage());
+        }return returnValue;
     }
 
 

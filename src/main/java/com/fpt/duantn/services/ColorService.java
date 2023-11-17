@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ColorService {
     ColorDto createColor(ColorDto color);
-    ColorDto getColorByColorCode(String colorCode);
-    ColorDto updateColor(String colorCode, ColorDto color);
-    void deleteColor(String colorCode);
+    ColorDto getColorById(Long colorId);
+    ColorDto updateColor(Long colorId, ColorDto color);
+    void deleteColor(Long colorId);
     List<ColorDto> getColors(int page, int limit);
     List<ColorDto> getColorByColorName(String colorName, int page, int limit);
 

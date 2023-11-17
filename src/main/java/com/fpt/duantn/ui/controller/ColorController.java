@@ -10,6 +10,7 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-@RequestMapping("/api/color")
+@RequestMapping("/color")
 public class ColorController {
 
     @Autowired
@@ -26,10 +27,10 @@ public class ColorController {
 
 
     @GetMapping(path = "/{id}")
-    public ColorRest getColor(@PathVariable String id) {
+    public ColorRest getColor(@PathVariable Long id) {
         ColorRest returnValue = new ColorRest();
 
-        ColorDto colorDto = colorService.getColorByColorCode(id);
+        ColorDto colorDto = colorService.getColorById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(colorDto, ColorRest.class);
 
@@ -69,7 +70,7 @@ public class ColorController {
 
 
     @PutMapping(path = "/{id}")
-    public ColorRest updateColor(@PathVariable String id, @RequestBody ColorRequest colorDetails) {
+    public ColorRest updateColor(@PathVariable Long id, @RequestBody ColorRequest colorDetails) {
         ColorRest returnValue = new ColorRest();
 
         ColorDto colorDto = new ColorDto();
@@ -82,14 +83,21 @@ public class ColorController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteColor(@PathVariable String id) {
+    public OperationStatusModel deleteColor(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        colorService.deleteColor(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            colorService.deleteColor(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Mau San Pham: Mau San Pham có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Mau San Pham: " + e.getMessage());
+        }return returnValue;
     }
 
 

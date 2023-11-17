@@ -16,7 +16,7 @@ public class ProductDetailCardDetailsRest extends RepresentationModel<ProductDet
 
     private BigDecimal defaultPrice;
     private BigDecimal price;
-    private Integer amount;
+    private Integer quantity;
     private Integer status;
     private String colorCode;
     private String colorName;

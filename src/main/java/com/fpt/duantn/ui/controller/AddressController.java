@@ -17,17 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/address")
 public class AddressController {
 
     @Autowired
     AddressService addressService;
 
     @GetMapping(path = "/{id}")
-    public AddressRest getAddress(@PathVariable String id) {
+    public AddressRest getAddress(@PathVariable Long id) {
         AddressRest returnValue = new AddressRest();
 
-        AddressDto addressDto = addressService.getAddressByAddressCode(id);
+        AddressDto addressDto = addressService.getAddressById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(addressDto, AddressRest.class);
 
@@ -53,7 +53,7 @@ public class AddressController {
 
 
     @PutMapping(path = "/{id}")
-    public AddressRest updateAddress(@PathVariable String id, @RequestBody AddressRequest addressDetails) {
+    public AddressRest updateAddress(@PathVariable Long id, @RequestBody AddressRequest addressDetails) {
         AddressRest returnValue = new AddressRest();
 
         AddressDto addressDto = new AddressDto();
@@ -71,7 +71,7 @@ public class AddressController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteAddress(@PathVariable String id) {
+    public OperationStatusModel deleteAddress(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
@@ -86,25 +86,6 @@ public class AddressController {
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
             returnValue.setOperationMessage("Lỗi khi xóa Dia Chi: " + e.getMessage());
         }
-        return returnValue;
-    }
-
-
-
-    @GetMapping("/search")
-    public List<AddressRest> searchAddresss(@RequestParam(value = "addressName") String addressName,
-                                          @RequestParam(value = "page", defaultValue = "0") int page,
-                                          @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<AddressRest> returnValue = new ArrayList<>();
-
-        List<AddressDto> addresss = addressService.getAddressByAddressName(addressName, page, limit);
-
-        for (AddressDto addressDto : addresss) {
-            AddressRest addressModel = new AddressRest();
-            BeanUtils.copyProperties(addressDto, addressModel);
-            returnValue.add(addressModel);
-        }
-
         return returnValue;
     }
 

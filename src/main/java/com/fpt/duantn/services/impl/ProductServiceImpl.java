@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -60,9 +61,9 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public ProductDto getProductByProductCode(String productCode) {
+    public ProductDto getProductById(Long productId) {
         ProductDto returnValue = new ProductDto();
-        ProductEntity productEntity = productRepository.findByProductCode(productCode);
+        ProductEntity productEntity = productRepository.findProductEntityById(productId);
 
         if (productEntity == null)
             throw new ProductServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -73,10 +74,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateProduct(String productCode, ProductDto product) {
+    public ProductDto updateProduct(Long productId, ProductDto product) {
         ProductDto returnValue = new ProductDto();
 
-        ProductEntity productEntity = productRepository.findByProductCode(productCode);
+        ProductEntity productEntity = productRepository.findProductEntityById(productId);
 
         if (productEntity == null)
             throw new ProductServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -86,9 +87,9 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setBrand(product.getBrand());
         productEntity.setWaistband(product.getWaistband());
         productEntity.setMaterial(product.getMaterial());
+        productEntity.setTotalSold(product.getTotalSold());
         productEntity.setMainImage(product.getMainImage());
         productEntity.setDescription(product.getDescription());
-        productEntity.setProductCode(product.getProductCode());
         productEntity.setStatus(product.getStatus());
         productEntity.setUpdateDate(product.getUpdateDate());
         productEntity.setCreateDate(product.getCreateDate());
@@ -100,8 +101,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(String productCode) {
-        ProductEntity productEntity = productRepository.findByProductCode(productCode);
+    public void deleteProduct(Long productId) {
+        ProductEntity productEntity = productRepository.findProductEntityById(productId);
 
         if (productEntity == null)
             throw new ProductServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -154,4 +155,5 @@ public class ProductServiceImpl implements ProductService {
 
         return returnValue;
     }
+
 }

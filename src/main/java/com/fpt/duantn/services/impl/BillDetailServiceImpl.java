@@ -58,7 +58,7 @@ public class BillDetailServiceImpl implements BillDetailService {
 
 
     @Override
-    public BillDetailDto getBillDetailByBillDetailCode(Long billDetailId) {
+    public BillDetailDto getBillDetailById(Long billDetailId) {
         BillDetailDto returnValue = new BillDetailDto();
         BillDetailEntity billDetailEntity = billDetailRepository.findBillDetailEntityById(billDetailId);
 
@@ -71,10 +71,10 @@ public class BillDetailServiceImpl implements BillDetailService {
     }
 
     @Override
-    public BillDetailDto updateBillDetail(Long billDetailCode, BillDetailDto billDetail) {
+    public BillDetailDto updateBillDetail(Long billDetailId, BillDetailDto billDetail) {
         BillDetailDto returnValue = new BillDetailDto();
 
-        BillDetailEntity billDetailEntity = billDetailRepository.findBillDetailEntityById(billDetailCode);
+        BillDetailEntity billDetailEntity = billDetailRepository.findBillDetailEntityById(billDetailId);
 
         if (billDetailEntity == null)
             throw new BillDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

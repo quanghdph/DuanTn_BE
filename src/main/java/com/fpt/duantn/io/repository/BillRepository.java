@@ -15,6 +15,9 @@ public interface BillRepository extends JpaRepository<BillEntity, Long> {
 
     BillEntity findByBillCode(String billCode);
 
+    BillEntity findBillEntityById(Long billId);
+
+
     Page<BillEntity> findByCustomerNameContainingOrderByIdAsc(String billName, Pageable pageable);
 
     @Query(value = "SELECT bil.id, bil.customer_id," +

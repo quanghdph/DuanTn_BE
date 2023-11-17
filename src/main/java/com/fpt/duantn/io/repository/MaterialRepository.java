@@ -12,6 +12,9 @@ public interface MaterialRepository extends JpaRepository<MaterialEntity, Long> 
 
     MaterialEntity findByMaterialCode(String materialCode);
 
+    MaterialEntity findMaterialEntityById(Long materialId);
+
+
     Page<MaterialEntity> findByMaterialNameContainingOrderByIdAsc(String materialName, Pageable pageable);
 
 }

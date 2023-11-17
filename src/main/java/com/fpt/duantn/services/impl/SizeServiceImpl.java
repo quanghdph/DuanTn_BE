@@ -55,9 +55,9 @@ public class SizeServiceImpl implements SizeService {
 
 
     @Override
-    public SizeDto getSizeBySizeCode(String sizeCode) {
+    public SizeDto getSizeById(Long sizeId) {
         SizeDto returnValue = new SizeDto();
-        SizeEntity sizeEntity = sizeRepository.findBySizeCode(sizeCode);
+        SizeEntity sizeEntity = sizeRepository.findSizeEntityById(sizeId);
 
         if (sizeEntity == null)
             throw new SizeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -68,10 +68,10 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public SizeDto updateSize(String sizeCode, SizeDto size) {
+    public SizeDto updateSize(Long sizeId, SizeDto size) {
         SizeDto returnValue = new SizeDto();
 
-        SizeEntity sizeEntity = sizeRepository.findBySizeCode(sizeCode);
+        SizeEntity sizeEntity = sizeRepository.findSizeEntityById(sizeId);
 
         if (sizeEntity == null)
             throw new SizeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -85,8 +85,8 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public void deleteSize(String sizeCode) {
-        SizeEntity sizeEntity = sizeRepository.findBySizeCode(sizeCode);
+    public void deleteSize(Long sizeId) {
+        SizeEntity sizeEntity = sizeRepository.findSizeEntityById(sizeId);
 
         if (sizeEntity == null)
             throw new SizeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

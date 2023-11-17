@@ -55,7 +55,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public ProductDetailDto getProductDetailByProductDetailCode(Long productDetailId) {
+    public ProductDetailDto getProductDetailById(Long productDetailId) {
         ProductDetailDto returnValue = new ProductDetailDto();
         ProductDetailEntity productDetailEntity = productDetailRepository.findProductDetailEntityById(productDetailId);
 
@@ -81,7 +81,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setUpdateDate(productDetail.getUpdateDate());
         productDetailEntity.setCreateDate(productDetail.getCreateDate());
         productDetailEntity.setProduct(productDetail.getProduct());
-        productDetailEntity.setAmount(productDetail.getAmount());
+        productDetailEntity.setQuantity(productDetail.getQuantity());
         productDetailEntity.setColor(productDetail.getColor());
         productDetailEntity.setDefaultPrice(productDetail.getDefaultPrice());
         productDetailEntity.setPrice(productDetail.getPrice());
@@ -148,7 +148,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         dto.setSize(productDetailEntity.getSize());
         dto.setDefaultPrice(productDetailEntity.getDefaultPrice());
         dto.setPrice(productDetailEntity.getPrice());
-        dto.setAmount(productDetailEntity.getAmount());
+        dto.setQuantity(productDetailEntity.getQuantity());
         dto.setCreateDate(productDetailEntity.getCreateDate());
         dto.setUpdateDate(productDetailEntity.getUpdateDate());
         dto.setStatus(productDetailEntity.getStatus());

@@ -54,9 +54,9 @@ public class BrandServiceImpl implements BrandService {
 
 
     @Override
-    public BrandDto getBrandByBrandCode(String brandCode) {
+    public BrandDto getBrandById(Long brandId) {
         BrandDto returnValue = new BrandDto();
-        BrandEntity brandEntity = brandRepository.findByBrandCode(brandCode);
+        BrandEntity brandEntity = brandRepository.findBrandEntityById(brandId);
 
         if (brandEntity == null)
             throw new BrandServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -67,10 +67,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public BrandDto updateBrand(String brandCode, BrandDto brand) {
+    public BrandDto updateBrand(Long brandId, BrandDto brand) {
         BrandDto returnValue = new BrandDto();
 
-        BrandEntity brandEntity = brandRepository.findByBrandCode(brandCode);
+        BrandEntity brandEntity = brandRepository.findBrandEntityById(brandId);
 
         if (brandEntity == null)
             throw new BrandServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -87,8 +87,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void deleteBrand(String brandCode) {
-        BrandEntity brandEntity = brandRepository.findByBrandCode(brandCode);
+    public void deleteBrand(Long brandId) {
+        BrandEntity brandEntity = brandRepository.findBrandEntityById(brandId);
 
         if (brandEntity == null)
             throw new BrandServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

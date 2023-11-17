@@ -24,7 +24,7 @@ public class ProductDetailRest {
     private SizeEntity size;
     private BigDecimal defaultPrice;
     private BigDecimal price;
-    private Integer amount;
+    private Integer quantity;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)

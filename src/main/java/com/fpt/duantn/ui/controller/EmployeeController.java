@@ -17,17 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/employee")
+@RequestMapping("/employee")
 public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
 
     @GetMapping(path = "/{id}")
-    public EmployeeRest getEmployee(@PathVariable String id) {
+    public EmployeeRest getEmployee(@PathVariable Long id) {
         EmployeeRest returnValue = new EmployeeRest();
 
-        EmployeeDto employeeDto = employeeService.getEmployeeByEmployeeCode(id);
+        EmployeeDto employeeDto = employeeService.getEmployeeById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(employeeDto, EmployeeRest.class);
 
@@ -50,7 +50,7 @@ public class EmployeeController {
 
 
     @PutMapping(path = "/{id}")
-    public EmployeeRest updateEmployee(@PathVariable String id, @RequestBody EmployeeRequest employeeDetails) {
+    public EmployeeRest updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequest employeeDetails) {
         EmployeeRest returnValue = new EmployeeRest();
 
         EmployeeDto employeeDto = new EmployeeDto();
@@ -65,7 +65,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteEmployee(@PathVariable String id) {
+    public OperationStatusModel deleteEmployee(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
@@ -75,10 +75,10 @@ public class EmployeeController {
             returnValue.setOperationMessage("Xoa Thanh Cong.");
         }catch (DataIntegrityViolationException exception){
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: Sản phẩm có tham chiếu đến khoá ngoại.");
+            returnValue.setOperationMessage("Lỗi khi xóa Nhan Vien: Nhan Vien có tham chiếu đến khoá ngoại.");
         }catch (Exception e){
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-            returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: " + e.getMessage());
+            returnValue.setOperationMessage("Lỗi khi xóa Nhan Vien: " + e.getMessage());
         }
         return returnValue;
     }

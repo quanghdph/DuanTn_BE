@@ -7,8 +7,8 @@ import java.util.List;
 public interface CartDetailService {
 
     CartDetailDto createCartDetail(CartDetailDto cartDetail);
-    CartDetailDto getCartDetailByCartDetailCode(Long cartDetailCode);
-    CartDetailDto updateCartDetail(Long cartDetailCode, CartDetailDto cartDetail);
+    CartDetailDto getCartDetailById(Long cartDetailId);
+    CartDetailDto updateCartDetail(Long cartDetailId, CartDetailDto cartDetail);
     void deleteCartDetail(Long cartDetailId);
     List<CartDetailDto> getCartDetails(int page, int limit, String filter);
     Long count(String filter);
