@@ -38,11 +38,11 @@ public class BrandEntity implements Serializable {
     private String brandName;
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createDate;
 
     @Column(name = "update_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date updateDate;
 
     @Column(name = "status")

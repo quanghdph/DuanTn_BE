@@ -57,10 +57,11 @@ public class ProductEntity implements Serializable {
     private String description;
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createDate;
 
     @Column(name = "update_date")
+    @Temporal(TemporalType.DATE)
     private Date updateDate;
 
     @Column(name = "status")
