@@ -54,9 +54,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public CustomerDto getCustomerByCustomerCode(String customerCode) {
+    public CustomerDto getCustomerById(Long customerId) {
         CustomerDto returnValue = new CustomerDto();
-        CustomerEntity customerEntity = customerRepository.findByCustomerCode(customerCode);
+        CustomerEntity customerEntity = customerRepository.findCustomerEntityById(customerId);
 
         if (customerEntity == null)
             throw new CustomerServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -67,10 +67,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto updateCustomer(String customerCode, CustomerDto customer) {
+    public CustomerDto updateCustomer(Long customerId, CustomerDto customer) {
         CustomerDto returnValue = new CustomerDto();
 
-        CustomerEntity customerEntity = customerRepository.findByCustomerCode(customerCode);
+        CustomerEntity customerEntity = customerRepository.findCustomerEntityById(customerId);
 
         if (customerEntity == null)
             throw new CustomerServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -94,8 +94,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(String customerCode) {
-        CustomerEntity customerEntity = customerRepository.findByCustomerCode(customerCode);
+    public void deleteCustomer(Long customerId) {
+        CustomerEntity customerEntity = customerRepository.findCustomerEntityById(customerId);
 
         if (customerEntity == null)
             throw new CustomerServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

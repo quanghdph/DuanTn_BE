@@ -58,9 +58,9 @@ public class BillServiceImpl implements BillService {
 
 
     @Override
-    public BillDto getBillByBillCode(String billCode) {
+    public BillDto getBillById(Long billId) {
         BillDto returnValue = new BillDto();
-        BillEntity billEntity = billRepository.findByBillCode(billCode);
+        BillEntity billEntity = billRepository.findBillEntityById(billId);
 
         if (billEntity == null)
             throw new BillServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -71,10 +71,10 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public BillDto updateBill(String billCode, BillDto bill) {
+    public BillDto updateBill(Long billId, BillDto bill) {
         BillDto returnValue = new BillDto();
 
-        BillEntity billEntity = billRepository.findByBillCode(billCode);
+        BillEntity billEntity = billRepository.findBillEntityById(billId);
 
         if (billEntity == null)
             throw new BillServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -85,6 +85,7 @@ public class BillServiceImpl implements BillService {
         billEntity.setUpdateDate(bill.getUpdateDate());
         billEntity.setPaymentDate(bill.getPaymentDate());
         billEntity.setDeliveryDate(bill.getDeliveryDate());
+        billEntity.setBillCode(bill.getBillCode());
         billEntity.setAddress(bill.getAddress());
         billEntity.setCustomerName(bill.getCustomerName());
         billEntity.setPhoneNumber(bill.getPhoneNumber());
@@ -100,8 +101,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public void deleteBill(String billCode) {
-        BillEntity billEntity = billRepository.findByBillCode(billCode);
+    public void deleteBill(Long billId) {
+        BillEntity billEntity = billRepository.findBillEntityById(billId);
 
         if (billEntity == null)
             throw new BillServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

@@ -46,19 +46,19 @@ public class BillEntity implements Serializable {
     private String billCode;
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createDate;
 
     @Column(name = "update_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date updateDate;
 
     @Column(name = "payment_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date paymentDate;
 
     @Column(name = "delivery_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date deliveryDate;
 
     @Column(name = "address", length = 255, nullable = false)

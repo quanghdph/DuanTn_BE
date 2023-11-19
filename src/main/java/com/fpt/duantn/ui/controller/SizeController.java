@@ -10,13 +10,14 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/size")
+@RequestMapping("/size")
 public class SizeController {
 
     @Autowired
@@ -25,10 +26,10 @@ public class SizeController {
 
 
     @GetMapping(path = "/{id}")
-    public SizeRest getSize(@PathVariable String id) {
+    public SizeRest getSize(@PathVariable Long id) {
         SizeRest returnValue = new SizeRest();
 
-        SizeDto sizeDto = sizeService.getSizeBySizeCode(id);
+        SizeDto sizeDto = sizeService.getSizeById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(sizeDto, SizeRest.class);
 
@@ -68,7 +69,7 @@ public class SizeController {
 
 
     @PutMapping(path = "/{id}")
-    public SizeRest updateSize(@PathVariable String id, @RequestBody SizeRequest sizeDetails) {
+    public SizeRest updateSize(@PathVariable Long id, @RequestBody SizeRequest sizeDetails) {
         SizeRest returnValue = new SizeRest();
 
         SizeDto sizeDto = new SizeDto();
@@ -81,14 +82,21 @@ public class SizeController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteSize(@PathVariable String id) {
+    public OperationStatusModel deleteSize(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        sizeService.deleteSize(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            sizeService.deleteSize(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Kich Co: Kich Co có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Kich Co: " + e.getMessage());
+        }return returnValue;
     }
 
 

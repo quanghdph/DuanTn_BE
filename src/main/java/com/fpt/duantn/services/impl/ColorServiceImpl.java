@@ -55,9 +55,9 @@ public class ColorServiceImpl implements ColorService {
 
 
     @Override
-    public ColorDto getColorByColorCode(String colorCode) {
+    public ColorDto getColorById(Long colorId) {
         ColorDto returnValue = new ColorDto();
-        ColorEntity colorEntity = colorRepository.findByColorCode(colorCode);
+        ColorEntity colorEntity = colorRepository.findColorEntityById(colorId);
 
         if (colorEntity == null)
             throw new ColorServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -68,10 +68,10 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public ColorDto updateColor(String colorCode, ColorDto color) {
+    public ColorDto updateColor(Long colorId, ColorDto color) {
         ColorDto returnValue = new ColorDto();
 
-        ColorEntity colorEntity = colorRepository.findByColorCode(colorCode);
+        ColorEntity colorEntity = colorRepository.findColorEntityById(colorId);
 
         if (colorEntity == null)
             throw new ColorServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -85,8 +85,8 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public void deleteColor(String colorCode) {
-        ColorEntity colorEntity = colorRepository.findByColorCode(colorCode);
+    public void deleteColor(Long colorId) {
+        ColorEntity colorEntity = colorRepository.findColorEntityById(colorId);
 
         if (colorEntity == null)
             throw new ColorServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

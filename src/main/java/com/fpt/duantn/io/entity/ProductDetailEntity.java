@@ -40,14 +40,14 @@ public class ProductDetailEntity implements Serializable {
     @Column(name = "price", precision = 10, scale = 0)
     private BigDecimal price;
 
-    @Column(name = "amount")
-    private Integer amount;
+    @Column(name = "quantity")
+    private Integer quantity;
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createDate;
     @Column(name = "update_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date updateDate;
     @Column(name = "status")
     private Integer status;

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SizeRepository extends JpaRepository<SizeEntity, Long> {
 
+    SizeEntity findSizeEntityById(Long sizeId);
+
     SizeEntity findBySizeCode(String sizeCode);
 
     Page<SizeEntity> findBySizeNameContainingOrderByIdAsc(String sizeName, Pageable pageable);

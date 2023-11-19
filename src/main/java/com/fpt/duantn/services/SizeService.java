@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface SizeService {
     SizeDto createSize(SizeDto size);
-    SizeDto getSizeBySizeCode(String sizeCode);
-    SizeDto updateSize(String sizeCode, SizeDto size);
-    void deleteSize(String sizeCode);
+    SizeDto getSizeById(Long sizeId);
+    SizeDto updateSize(Long sizeId, SizeDto size);
+    void deleteSize(Long sizeId);
     List<SizeDto> getSizes(int page, int limit);
     List<SizeDto> getSizeBySizeName(String sizeName, int page, int limit);
 

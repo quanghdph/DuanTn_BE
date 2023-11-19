@@ -7,9 +7,9 @@ import java.util.List;
 public interface CategoryService {
 
     CategoryDto createCategory(CategoryDto category);
-    CategoryDto getCategoryByCategoryCode(String categoryCode);
-    CategoryDto updateCategory(String categoryCode, CategoryDto category);
-    void deleteCategory(String categoryCode);
+    CategoryDto getCategoryById(Long categoryId);
+    CategoryDto updateCategory(Long categoryId, CategoryDto category);
+    void deleteCategory(Long categoryId);
     List<CategoryDto> getCategorys(int page, int limit, String filter);
 
     Long count(String filter);

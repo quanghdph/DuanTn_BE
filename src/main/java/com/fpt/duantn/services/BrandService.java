@@ -7,9 +7,9 @@ import java.util.List;
 public interface BrandService {
 
     BrandDto createBrand(BrandDto brand);
-    BrandDto getBrandByBrandCode(String brandCode);
-    BrandDto updateBrand(String brandCode, BrandDto brand);
-    void deleteBrand(String brandCode);
+    BrandDto getBrandById(Long brandId);
+    BrandDto updateBrand(Long brandId, BrandDto brand);
+    void deleteBrand(Long brandId);
     List<BrandDto> getBrands(int page, int limit, String filter);
     Long count(String filter);
 

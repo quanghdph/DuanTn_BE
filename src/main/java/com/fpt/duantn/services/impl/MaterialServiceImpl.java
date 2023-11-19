@@ -54,9 +54,9 @@ public class MaterialServiceImpl implements MaterialService {
 
 
     @Override
-    public MaterialDto getMaterialByMaterialCode(String materialCode) {
+    public MaterialDto getMaterialById(Long materialId) {
         MaterialDto returnValue = new MaterialDto();
-        MaterialEntity materialEntity = materialRepository.findByMaterialCode(materialCode);
+        MaterialEntity materialEntity = materialRepository.findMaterialEntityById(materialId);
 
         if (materialEntity == null)
             throw new MaterialServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -67,10 +67,10 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public MaterialDto updateMaterial(String materialCode, MaterialDto material) {
+    public MaterialDto updateMaterial(Long materialId, MaterialDto material) {
         MaterialDto returnValue = new MaterialDto();
 
-        MaterialEntity materialEntity = materialRepository.findByMaterialCode(materialCode);
+        MaterialEntity materialEntity = materialRepository.findMaterialEntityById(materialId);
 
         if (materialEntity == null)
             throw new MaterialServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -84,8 +84,8 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public void deleteMaterial(String materialCode) {
-        MaterialEntity materialEntity = materialRepository.findByMaterialCode(materialCode);
+    public void deleteMaterial(Long materialId) {
+        MaterialEntity materialEntity = materialRepository.findMaterialEntityById(materialId);
 
         if (materialEntity == null)
             throw new MaterialServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

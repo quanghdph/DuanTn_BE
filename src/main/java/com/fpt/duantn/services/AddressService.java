@@ -7,11 +7,10 @@ import java.util.List;
 public interface AddressService {
 
     AddressDto createAddress(AddressDto address);
-    AddressDto getAddressByAddressCode(String addressCode);
-    AddressDto updateAddress(String addressCode, AddressDto address);
-    void deleteAddress(String addressCode);
+    AddressDto getAddressById(Long addressId);
+    AddressDto updateAddress(Long addressId, AddressDto address);
+    void deleteAddress(Long addressId);
     List<AddressDto> getAddresss(int page, int limit, String filter);
     Long count(String filter);
-    List<AddressDto> getAddressByAddressName(String addressName, int page, int limit);
 
 }

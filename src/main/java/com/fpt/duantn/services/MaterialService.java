@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface MaterialService {
     MaterialDto createMaterial(MaterialDto material);
-    MaterialDto getMaterialByMaterialCode(String materialCode);
-    MaterialDto updateMaterial(String materialCode, MaterialDto material);
-    void deleteMaterial(String materialCode);
+    MaterialDto getMaterialById(Long materialId);
+    MaterialDto updateMaterial(Long materialId, MaterialDto material);
+    void deleteMaterial(Long materialId);
     List<MaterialDto> getMaterials(int page, int limit);
     List<MaterialDto> getMaterialByMaterialName(String materialName, int page, int limit);
 

@@ -54,9 +54,9 @@ public class WaistbandServiceImpl implements WaistbandService {
 
 
     @Override
-    public WaistbandDto getWaistbandByWaistbandCode(String waistbandCode) {
+    public WaistbandDto getWaistbandById(Long waistbandId) {
         WaistbandDto returnValue = new WaistbandDto();
-        WaistbandEntity waistbandEntity = waistbandRepository.findByWaistbandCode(waistbandCode);
+        WaistbandEntity waistbandEntity = waistbandRepository.findWaistbandEntityById(waistbandId);
 
         if (waistbandEntity == null)
             throw new WaistbandServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -67,10 +67,10 @@ public class WaistbandServiceImpl implements WaistbandService {
     }
 
     @Override
-    public WaistbandDto updateWaistband(String waistbandCode, WaistbandDto waistband) {
+    public WaistbandDto updateWaistband(Long waistbandId, WaistbandDto waistband) {
         WaistbandDto returnValue = new WaistbandDto();
 
-        WaistbandEntity waistbandEntity = waistbandRepository.findByWaistbandCode(waistbandCode);
+        WaistbandEntity waistbandEntity = waistbandRepository.findWaistbandEntityById(waistbandId);
 
         if (waistbandEntity == null)
             throw new WaistbandServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -84,8 +84,8 @@ public class WaistbandServiceImpl implements WaistbandService {
     }
 
     @Override
-    public void deleteWaistband(String waistbandCode) {
-        WaistbandEntity waistbandEntity = waistbandRepository.findByWaistbandCode(waistbandCode);
+    public void deleteWaistband(Long waistbandId) {
+        WaistbandEntity waistbandEntity = waistbandRepository.findWaistbandEntityById(waistbandId);
 
         if (waistbandEntity == null)
             throw new WaistbandServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

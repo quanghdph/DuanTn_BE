@@ -1,11 +1,14 @@
 package com.fpt.duantn.io.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-
+import java.sql.Blob;
 
 
 @AllArgsConstructor
@@ -31,8 +34,10 @@ public class ImageEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonInclude
+    @Lob
     @Column(name = "image")
-    private byte[] image;
+    private Blob image;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

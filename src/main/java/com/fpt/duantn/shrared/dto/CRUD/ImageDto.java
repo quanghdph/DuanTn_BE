@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ public class ImageDto implements Serializable {
 
     private long id;
 
-    private byte[] image;
+    private Blob image;
 
     private ProductEntity product;
 

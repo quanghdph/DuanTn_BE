@@ -15,6 +15,9 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
 
     CartEntity findByCartCode(String cartCode);
 
+    CartEntity findCartEntityById(Long cartId);
+
+
     Page<CartEntity> findByCartCodeContainingOrderByIdAsc(String cartName, Pageable pageable);
 
     @Query(value = "SELECT c.id, c.cart_code," +

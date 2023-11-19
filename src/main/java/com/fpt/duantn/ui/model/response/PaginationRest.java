@@ -1,6 +1,7 @@
 package com.fpt.duantn.ui.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fpt.duantn.io.entity.ImageEntity;
 import lombok.Data;
 
 import java.util.Collections;
@@ -21,4 +22,6 @@ public class PaginationRest {
     private List<CartDetailRest> listCartDetail;
     private List<CustomerRest> listCustomer;
     private List<ProductDetailRest> listProductDetail;
+    private List<ImageRest> listImage;
+
 }

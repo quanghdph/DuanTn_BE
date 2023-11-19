@@ -10,23 +10,24 @@ import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/bill")
+@RequestMapping("/bill")
 public class BillController {
 
     @Autowired
     BillService billService;
 
     @GetMapping(path = "/{id}")
-    public BillRest getBill(@PathVariable String id) {
+    public BillRest getBill(@PathVariable Long id) {
         BillRest returnValue = new BillRest();
 
-        BillDto billDto = billService.getBillByBillCode(id);
+        BillDto billDto = billService.getBillById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(billDto, BillRest.class);
 
@@ -53,7 +54,7 @@ public class BillController {
 
 
     @PutMapping(path = "/{id}")
-    public BillRest updateBill(@PathVariable String id, @RequestBody BillRequest billDetails) {
+    public BillRest updateBill(@PathVariable Long id, @RequestBody BillRequest billDetails) {
         BillRest returnValue = new BillRest();
 
         BillDto billDto = new BillDto();
@@ -69,14 +70,21 @@ public class BillController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteBill(@PathVariable String id) {
+    public OperationStatusModel deleteBill(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
 
-        billService.deleteBill(id);
-
-        returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-        return returnValue;
+        try {
+            billService.deleteBill(id);
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+            returnValue.setOperationMessage("Xoa Thanh Cong.");
+        }catch (DataIntegrityViolationException exception){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Hoa Don: Hoa Don có tham chiếu đến khoá ngoại.");
+        }catch (Exception e){
+            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+            returnValue.setOperationMessage("Lỗi khi xóa Hoa Don: " + e.getMessage());
+        }return returnValue;
     }
 
 

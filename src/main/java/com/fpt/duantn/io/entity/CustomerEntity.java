@@ -60,11 +60,11 @@ public class CustomerEntity implements Serializable {
     private String phoneNumber;
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createDate;
 
     @Column(name = "update_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date updateDate;
 
     @Column(name = "customer_code", length = 255)

@@ -59,9 +59,9 @@ public class CartDetailServiceImpl implements CartDetailService {
 
 
     @Override
-    public CartDetailDto getCartDetailByCartDetailCode(Long cartDetailCode) {
+    public CartDetailDto getCartDetailById(Long cartDetailId) {
         CartDetailDto returnValue = new CartDetailDto();
-        CartDetailEntity cartDetailEntity = cartDetailRepository.findCartDetailEntityById(cartDetailCode);
+        CartDetailEntity cartDetailEntity = cartDetailRepository.findCartDetailEntityById(cartDetailId);
 
         if (cartDetailEntity == null)
             throw new CartDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -72,10 +72,10 @@ public class CartDetailServiceImpl implements CartDetailService {
     }
 
     @Override
-    public CartDetailDto updateCartDetail(Long cartDetailCode, CartDetailDto cartDetail) {
+    public CartDetailDto updateCartDetail(Long cartDetailId, CartDetailDto cartDetail) {
         CartDetailDto returnValue = new CartDetailDto();
 
-        CartDetailEntity cartDetailEntity = cartDetailRepository.findCartDetailEntityById(cartDetailCode);
+        CartDetailEntity cartDetailEntity = cartDetailRepository.findCartDetailEntityById(cartDetailId);
 
         if (cartDetailEntity == null)
             throw new CartDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

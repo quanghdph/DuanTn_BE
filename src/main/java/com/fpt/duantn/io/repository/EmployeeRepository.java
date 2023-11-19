@@ -15,6 +15,9 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
 
     EmployeeEntity findByEmployeeCode(String employeeCode);
 
+    EmployeeEntity findEmployeeEntityById(Long employeeId);
+
+
     Page<EmployeeEntity> findByLastNameContainingOrderByIdAsc(String employeeName, Pageable pageable);
 
 

@@ -54,9 +54,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public CategoryDto getCategoryByCategoryCode(String categoryCode) {
+    public CategoryDto getCategoryById(Long categoryId) {
         CategoryDto returnValue = new CategoryDto();
-        CategoryEntity categoryEntity = categoryRepository.findByCategoryCode(categoryCode);
+        CategoryEntity categoryEntity = categoryRepository.findCategoryEntityById(categoryId);
 
         if (categoryEntity == null)
             throw new CategoryServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -67,10 +67,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto updateCategory(String categoryCode, CategoryDto category) {
+    public CategoryDto updateCategory(Long categoryId, CategoryDto category) {
         CategoryDto returnValue = new CategoryDto();
 
-        CategoryEntity categoryEntity = categoryRepository.findByCategoryCode(categoryCode);
+        CategoryEntity categoryEntity = categoryRepository.findCategoryEntityById(categoryId);
 
         if (categoryEntity == null)
             throw new CategoryServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -87,8 +87,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(String categoryCode) {
-        CategoryEntity categoryEntity = categoryRepository.findByCategoryCode(categoryCode);
+    public void deleteCategory(Long categoryId) {
+        CategoryEntity categoryEntity = categoryRepository.findCategoryEntityById(categoryId);
 
         if (categoryEntity == null)
             throw new CategoryServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());

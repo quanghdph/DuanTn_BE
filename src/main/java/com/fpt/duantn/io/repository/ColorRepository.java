@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface ColorRepository extends JpaRepository<ColorEntity, Long> {
 
     ColorEntity findByColorCode(String colorCode);
-//    ColorEntity findByColorNameContainingOrderByIdAsc(String colorName);
+
+    ColorEntity findColorEntityById(Long colorId);
+
 
     Page<ColorEntity> findByColorNameContainingOrderByIdAsc(String colorName, Pageable pageable);
 

@@ -27,7 +27,7 @@ public class ProductDetailRequest {
 
     private BigDecimal price;
 
-    private Integer amount;
+    private Integer quantity;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;

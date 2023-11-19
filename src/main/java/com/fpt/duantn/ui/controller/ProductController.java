@@ -17,17 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
     @GetMapping(path = "/{id}")
-    public ProductRest getProduct(@PathVariable String id) {
+    public ProductRest getProduct(@PathVariable Long id) {
         ProductRest returnValue = new ProductRest();
 
-        ProductDto productDto = productService.getProductByProductCode(id);
+        ProductDto productDto = productService.getProductById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(productDto, ProductRest.class);
 
@@ -56,7 +56,7 @@ public class ProductController {
 
 
     @PutMapping(path = "/{id}")
-    public ProductRest updateProduct(@PathVariable String id, @RequestBody ProductRequest productDetails) {
+    public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productDetails) {
         ProductRest returnValue = new ProductRest();
 
         ProductDto productDto = new ProductDto();
@@ -77,7 +77,7 @@ public class ProductController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteProduct(@PathVariable String id) {
+    public OperationStatusModel deleteProduct(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
             try {
@@ -86,10 +86,10 @@ public class ProductController {
                 returnValue.setOperationMessage("Xoa Thanh Cong.");
             }catch (DataIntegrityViolationException exception){
                 returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-                returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: Sản phẩm có tham chiếu đến khoá ngoại.");
+                returnValue.setOperationMessage("Lỗi khi xóa San Pham: San Pham có tham chiếu đến khoá ngoại.");
             }catch (Exception e){
                 returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-                returnValue.setOperationMessage("Lỗi khi xóa sản phẩm: " + e.getMessage());
+                returnValue.setOperationMessage("Lỗi khi xóa San Pham: " + e.getMessage());
             }
         return returnValue;
     }

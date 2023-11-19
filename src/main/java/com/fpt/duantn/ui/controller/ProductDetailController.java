@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product-detail")
+@RequestMapping("/product-detail")
 public class ProductDetailController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class ProductDetailController {
     public ProductDetailRest getProductDetail(@PathVariable Long id) {
         ProductDetailRest returnValue = new ProductDetailRest();
 
-        ProductDetailDto productDetailDto = productDetailService.getProductDetailByProductDetailCode(id);
+        ProductDetailDto productDetailDto = productDetailService.getProductDetailById(id);
         ModelMapper modelMapper = new ModelMapper();
         returnValue = modelMapper.map(productDetailDto, ProductDetailRest.class);
 

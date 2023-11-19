@@ -1,10 +1,12 @@
 package com.fpt.duantn.services.impl;
 
 import com.fpt.duantn.exceptions.ImageServiceException;
+import com.fpt.duantn.io.entity.AddressEntity;
 import com.fpt.duantn.io.entity.ImageEntity;
 import com.fpt.duantn.io.repository.ImageRepository;
 import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.shrared.Utils;
+import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 import com.fpt.duantn.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -33,9 +36,9 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageDto getImageByImageCode(Long imageCode) {
+    public ImageDto getImageById(Long imageId) {
         ImageDto returnValue = new ImageDto();
-        ImageEntity imageEntity = imageRepository.findImageById(imageCode);
+        ImageEntity imageEntity = imageRepository.findImageById(imageId);
 
         if (imageEntity == null)
             throw new ImageServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
@@ -46,7 +49,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageDto updateImage(Long imageCode, ImageDto image) {
+    public ImageDto updateImage(Long imageId, ImageDto image) {
         return null;
     }
 
@@ -59,6 +62,8 @@ public class ImageServiceImpl implements ImageService {
 
         imageRepository.delete(imageEntity);
     }
+
+
 
     @Override
     public List<ImageDto> getImages(int page, int limit) {
@@ -98,4 +103,37 @@ public class ImageServiceImpl implements ImageService {
 
         return returnValue;
     }
+
+    @Override
+    public List<ImageDto> getImages(int page, int limit, String filter) {
+        List<ImageDto> returnValue = new ArrayList<>();
+
+        if(page>0) page = page-1;
+
+        Pageable pageableRequest = PageRequest.of(page, limit);
+
+        Page<ImageEntity> imagePage = imageRepository.filter(filter, pageableRequest);
+        List<ImageEntity> images = imagePage.getContent();
+
+        for (ImageEntity imageEntity : images) {
+            ImageDto imageDto = new ImageDto();
+            BeanUtils.copyProperties(imageEntity, imageDto);
+            returnValue.add(imageDto);
+        }
+
+        return returnValue;
+    }
+
+    @Override
+    public Long count(String filter) {
+
+        Long total = imageRepository.count(filter);
+        return total;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return imageRepository.existsById(id);
+    }
+
 }

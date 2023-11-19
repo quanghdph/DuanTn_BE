@@ -15,6 +15,9 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 
     CustomerEntity findByCustomerCode(String customerCode);
 
+    CustomerEntity findCustomerEntityById(Long customerId);
+
+
     Page<CustomerEntity> findByLastNameContainingOrderByIdAsc(String customerName, Pageable pageable);
 
     @Query(value = "SELECT cust.id, cust.email_verification_status," +

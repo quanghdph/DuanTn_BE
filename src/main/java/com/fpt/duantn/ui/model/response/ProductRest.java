@@ -26,6 +26,9 @@ public class ProductRest {
 
     private String mainImage;
 
+    private Long totalSold;
+
+
     @Lob
     private String description;
 
