@@ -17,8 +17,6 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
     CategoryEntity findByCategoryCode(String categoryCode);
 
     CategoryEntity findCategoryEntityById(Long categoryId);
-
-
     @Query(value = "SELECT c.id, c.category_name, c.status, c.category_code, " +
             "pt.id AS product_type_id, p.price " +
             "FROM categories c " +

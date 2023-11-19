@@ -94,14 +94,14 @@ public class WaistbandServiceImpl implements WaistbandService {
     }
 
     @Override
-    public List<WaistbandDto> getWaistbands(int page, int limit) {
+    public List<WaistbandDto> getWaistbands(int page, int limit, String filter) {
         List<WaistbandDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<WaistbandEntity> waistbandPage = waistbandRepository.findAll(pageableRequest);
+        Page<WaistbandEntity> waistbandPage = waistbandRepository.filter(filter, pageableRequest);
         List<WaistbandEntity> waistbands = waistbandPage.getContent();
 
         for (WaistbandEntity waistbandEntity : waistbands) {
@@ -114,21 +114,8 @@ public class WaistbandServiceImpl implements WaistbandService {
     }
 
     @Override
-    public List<WaistbandDto> getWaistbandByWaistbandName(String waistbandName, int page, int limit) {
-        List<WaistbandDto> returnValue = new ArrayList<>();
-
-        if(page>0) page = page-1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<WaistbandEntity> waistbandPage = waistbandRepository.findByWaistbandNameContainingOrderByIdAsc(waistbandName, pageableRequest);
-        List<WaistbandEntity> waistbands = waistbandPage.getContent();
-
-        for (WaistbandEntity waistbandEntity : waistbands) {
-            WaistbandDto waistbandDto = new WaistbandDto();
-            BeanUtils.copyProperties(waistbandEntity, waistbandDto);
-            returnValue.add(waistbandDto);
-        }
-
-        return returnValue;
+    public Long count(String filter) {
+        Long total = waistbandRepository.count(filter);
+        return total;
     }
 }

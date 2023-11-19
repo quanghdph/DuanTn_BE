@@ -23,5 +23,9 @@ public class PaginationRest {
     private List<CustomerRest> listCustomer;
     private List<ProductDetailRest> listProductDetail;
     private List<ImageRest> listImage;
+    private List<ColorRest> listColors;
+    private List<MaterialRest> listMaterials;
+    private List<SizeRest> listSizes;
+    private List<WaistbandRest> listWaistbands;
 
 }

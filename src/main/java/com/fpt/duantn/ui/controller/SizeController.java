@@ -4,6 +4,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.services.SizeService;
 import com.fpt.duantn.shrared.dto.CRUD.SizeDto;
 import com.fpt.duantn.ui.model.request.SizeRequest;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.SizeRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -52,19 +53,23 @@ public class SizeController {
 
 
     @GetMapping()
-    public List<SizeRest> getSizes(@RequestParam(value = "page", defaultValue = "0") int page,
-                                     @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getSizes(@RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                   @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<SizeRest> returnValue = new ArrayList<>();
 
-        List<SizeDto> sizes = sizeService.getSizes(page, limit);
+        List<SizeDto> sizes = sizeService.getSizes(page, limit, filter);
 
         for (SizeDto sizeDto : sizes) {
             SizeRest sizeModel = new SizeRest();
             BeanUtils.copyProperties(sizeDto, sizeModel);
             returnValue.add(sizeModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListSizes(returnValue);
+        paginationRest.setTotal(sizeService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
@@ -98,25 +103,4 @@ public class SizeController {
             returnValue.setOperationMessage("Lỗi khi xóa Kich Co: " + e.getMessage());
         }return returnValue;
     }
-
-
-
-    @GetMapping("/search")
-    public List<SizeRest> searchSizes(@RequestParam(value = "sizeName") String sizeName,
-                                        @RequestParam(value = "page", defaultValue = "0") int page,
-                                        @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<SizeRest> returnValue = new ArrayList<>();
-
-        List<SizeDto> sizes = sizeService.getSizeBySizeName(sizeName, page, limit);
-
-        for (SizeDto sizeDto : sizes) {
-            SizeRest sizeModel = new SizeRest();
-            BeanUtils.copyProperties(sizeDto, sizeModel);
-            returnValue.add(sizeModel);
-        }
-
-        return returnValue;
-    }
-
-
 }

@@ -9,7 +9,8 @@ public interface SizeService {
     SizeDto getSizeById(Long sizeId);
     SizeDto updateSize(Long sizeId, SizeDto size);
     void deleteSize(Long sizeId);
-    List<SizeDto> getSizes(int page, int limit);
-    List<SizeDto> getSizeBySizeName(String sizeName, int page, int limit);
+    List<SizeDto> getSizes(int page, int limit, String filter);
+    Long count(String filter);
+
 
 }

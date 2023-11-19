@@ -32,9 +32,6 @@ public class ProductDto implements Serializable {
 
     private byte[] mainImage;
 
-    private Long totalSold;
-
-
     @Lob
     private String description;
 

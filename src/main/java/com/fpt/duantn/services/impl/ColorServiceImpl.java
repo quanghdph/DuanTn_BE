@@ -94,15 +94,22 @@ public class ColorServiceImpl implements ColorService {
         colorRepository.delete(colorEntity);
     }
 
+
     @Override
-    public List<ColorDto> getColors(int page, int limit) {
+    public Long count(String filter) {
+        Long total = colorRepository.count(filter);
+        return total;
+    }
+
+    @Override
+    public List<ColorDto> getColors(int page, int limit, String filter) {
         List<ColorDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<ColorEntity> colorPage = colorRepository.findAll(pageableRequest);
+        Page<ColorEntity> colorPage = colorRepository.filter(filter, pageableRequest);
         List<ColorEntity> colors = colorPage.getContent();
 
         for (ColorEntity colorEntity : colors) {
@@ -113,25 +120,5 @@ public class ColorServiceImpl implements ColorService {
 
         return returnValue;
     }
-
-    @Override
-    public List<ColorDto> getColorByColorName(String colorName, int page, int limit) {
-        List<ColorDto> returnValue = new ArrayList<>();
-
-        if(page>0) page = page-1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<ColorEntity> colorPage = colorRepository.findByColorNameContainingOrderByIdAsc(colorName, pageableRequest);
-        List<ColorEntity> colors = colorPage.getContent();
-
-        for (ColorEntity colorEntity : colors) {
-            ColorDto colorDto = new ColorDto();
-            BeanUtils.copyProperties(colorEntity, colorDto);
-            returnValue.add(colorDto);
-        }
-
-        return returnValue;
-    }
-
 
 }

@@ -6,6 +6,7 @@ import com.fpt.duantn.shrared.dto.CRUD.ColorDto;
 import com.fpt.duantn.ui.model.request.ColorRequest;
 import com.fpt.duantn.ui.model.response.ColorRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -53,19 +54,23 @@ public class ColorController {
 
 
     @GetMapping()
-    public List<ColorRest> getColors(@RequestParam(value = "page", defaultValue = "0") int page,
-                                             @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getColors(@RequestParam(value = "page", defaultValue = "0") int page,
+                                             @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                     @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<ColorRest> returnValue = new ArrayList<>();
 
-        List<ColorDto> colors = colorService.getColors(page, limit);
+        List<ColorDto> colors = colorService.getColors(page, limit, filter);
 
         for (ColorDto colorDto : colors) {
             ColorRest colorModel = new ColorRest();
             BeanUtils.copyProperties(colorDto, colorModel);
             returnValue.add(colorModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListColors(returnValue);
+        paginationRest.setTotal(colorService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
@@ -100,24 +105,6 @@ public class ColorController {
         }return returnValue;
     }
 
-
-
-    @GetMapping("/search")
-    public List<ColorRest> searchColors(@RequestParam(value = "colorName") String colorName,
-                                        @RequestParam(value = "page", defaultValue = "0") int page,
-                                        @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<ColorRest> returnValue = new ArrayList<>();
-
-        List<ColorDto> colors = colorService.getColorByColorName(colorName, page, limit);
-
-        for (ColorDto colorDto : colors) {
-            ColorRest colorModel = new ColorRest();
-            BeanUtils.copyProperties(colorDto, colorModel);
-            returnValue.add(colorModel);
-        }
-
-        return returnValue;
-    }
 
 
 }

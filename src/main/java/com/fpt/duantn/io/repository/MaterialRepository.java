@@ -1,9 +1,12 @@
 package com.fpt.duantn.io.repository;
 
+import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -15,6 +18,16 @@ public interface MaterialRepository extends JpaRepository<MaterialEntity, Long> 
     MaterialEntity findMaterialEntityById(Long materialId);
 
 
-    Page<MaterialEntity> findByMaterialNameContainingOrderByIdAsc(String materialName, Pageable pageable);
+    @Query(value = "SELECT m.id, m.material_name," +
+            "m.material_code " +
+            "FROM materials m " +
+            "where 1=1 and (:filter is null or :filter = '' or (m.material_name like %:filter% or m.material_code like %:filter%))",
+            nativeQuery = true)
+    Page<MaterialEntity> filter(@Param("filter") String filter, Pageable pageable);
 
+    @Query(value = "SELECT count(1) " +
+            "FROM materials m " +
+            "where 1=1 and (:filter is null or :filter = '' or (m.material_name like %:filter% or m.material_code like %:filter%))",
+            nativeQuery = true)
+    Long count(@Param("filter") String filter);
 }
