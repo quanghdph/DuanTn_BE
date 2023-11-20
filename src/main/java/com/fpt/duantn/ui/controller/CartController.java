@@ -91,7 +91,7 @@ public class CartController {
     @GetMapping("/search")
     public List<CartRest> searchCarts(@RequestParam(value = "cartName") String cartName,
                                               @RequestParam(value = "page", defaultValue = "0") int page,
-                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                              @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<CartRest> returnValue = new ArrayList<>();
 
         List<CartDto> carts = cartService.getCartByCartName(cartName, page, limit);
@@ -107,7 +107,7 @@ public class CartController {
 
     @GetMapping()
     public PaginationRest getCarts(@RequestParam(value = "page", defaultValue = "0") int page,
-                                   @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                   @RequestParam(value = "limit", defaultValue = "5") int limit,
                                    @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<CartRest> returnValue = new ArrayList<>();
 

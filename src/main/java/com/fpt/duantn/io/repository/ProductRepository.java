@@ -2,8 +2,7 @@ package com.fpt.duantn.io.repository;
 
 
 import com.fpt.duantn.io.entity.ProductEntity;
-import com.fpt.duantn.io.entity.ProductEntity;
-import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +17,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "SELECT p.id, p.description, p.product_code, p.product_name, p.status, p.main_image, " +
-            "pd.id AS product_detail_id, pd.price, " +
+            "pd.id AS product_detail_id, pd.price, p.material_id,p.waistband_id " +
             "c.id AS color_id, c.color_code " +
             "FROM products p " +
             "JOIN product_detail pd ON p.id = pd.product_id " +

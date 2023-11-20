@@ -90,7 +90,7 @@ public class CategoryController {
     @GetMapping("/search")
     public List<CategoryRest> searchCategorys(@RequestParam(value = "categoryName") String categoryName,
                                           @RequestParam(value = "page", defaultValue = "0") int page,
-                                          @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                          @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<CategoryRest> returnValue = new ArrayList<>();
 
         List<CategoryDto> categorys = categoryService.getCategoryByCategoryName(categoryName, page, limit);

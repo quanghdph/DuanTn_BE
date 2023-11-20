@@ -22,7 +22,7 @@ public class ProductDetailCardController {
 
     @GetMapping()
     public List<ProductDetailCardDetailsRest> getProductDetail(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                         @RequestParam(value = "limit", defaultValue = "2") int limit) {
+                                                         @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<ProductDetailCardDetailsRest> returnValue = new ArrayList<>();
 
         List<ProductDetailDto> productsDetail = productDetailCardService.getProductDetailCard(page, limit);
