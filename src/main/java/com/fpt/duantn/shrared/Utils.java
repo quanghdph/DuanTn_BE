@@ -29,23 +29,23 @@ public class Utils {
         return new String(returnValue);
     }
 
-    public static boolean hasTokenExpired(String token) {
-        boolean returnValue = false;
-
-        try {
-            Claims claims = Jwts.parser().setSigningKey(SecurityConstants.getTokenSecret()).parseClaimsJws(token)
-                    .getBody();
-
-            Date tokenExpirationDate = claims.getExpiration();
-            Date todayDate = new Date();
-
-            returnValue = tokenExpirationDate.before(todayDate);
-        } catch (ExpiredJwtException ex) {
-            returnValue = true;
-        }
-
-        return returnValue;
-    }
+//    public static boolean hasTokenExpired(String token) {
+//        boolean returnValue = false;
+//
+//        try {
+//            Claims claims = Jwts.parser().setSigningKey(SecurityConstants.getTokenSecret()).parseClaimsJws(token)
+//                    .getBody();
+//
+//            Date tokenExpirationDate = claims.getExpiration();
+//            Date todayDate = new Date();
+//
+//            returnValue = tokenExpirationDate.before(todayDate);
+//        } catch (ExpiredJwtException ex) {
+//            returnValue = true;
+//        }
+//
+//        return returnValue;
+//    }
 
 //    public String generateEmailVerificationToken(String userId) {
 //        String token = Jwts.builder()

@@ -1,0 +1,18 @@
+version: '3.0'
+
+services:
+  datn-mysql:
+    image: mysql
+    hostname: datn-mysql
+    volumes:
+      - mysql-datn:/var/lib/mysql
+      - ./mysql_init/init-database.sql:/docker-entrypoint-initdb.d/init-database.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456789"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql-datn:
+    driver: local

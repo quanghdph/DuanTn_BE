@@ -21,16 +21,18 @@ spring:
     console:
       enabled: true
 
-#custom-config:
-#  security:
-#    jwtSecret: jf9i4jgu83nfl0jfu57ejf7shdvffhdsvfsdvdshfhsdfvsdhfjf9i4jgu83nfl0jfu57ejf7shdvffhdsvfsdvdshfhsdfvsdhf
-#    jwtExpiration: 604800000
-#
-#    endpointAuthorizations:
-#      - { urlPattern: "/api/v1/certs/**", method: "POST", roles: [ "ADMIN", "NWA" ] }
-#    unprotectedEndpoints:
-#      - { urlPattern: "/api/auth/login", method: "POST" }
-#      - { urlPattern: "/api/auth/register", method: "POST" }
+custom-config:
+  security:
+    jwtSecret: jf9i4jgu83nfl0jfu57ejf7shdvffhdsvfsdvdshfhsdfvsdhfjf9i4jgu83nfl0jfu57ejf7shdvffhdsvfsdvdshfhsdfvsdhf
+    jwtExpiration: 604800000
+
+    endpointAuthorizations:
+      - { urlPattern: "/product", method: "POST", roles: ["ADMIN", "EMPLOYEE"] }
+
+    unprotectedEndpoints:
+      - { urlPattern: "/api/auth/login", method: "POST" }
+      - { urlPattern: "/api/auth/register", method: "POST" }
+      - { urlPattern: "/product", method: "GET" }
 
 server:
   port: 8080

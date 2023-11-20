@@ -1,5 +1,6 @@
 package com.fpt.duantn.io.entity;
 
+import com.fpt.duantn.constants.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
