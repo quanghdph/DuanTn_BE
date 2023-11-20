@@ -17,10 +17,7 @@ public interface ImageService {
 
     List<ImageDto> getImages(int page, int limit);
     List<ImageDto> getImageByProductId(String imageName, int page, int limit);
-
-
     List<ImageDto> getImages(int page, int limit, String filter);
-
     Long count(String filter);
 
 }

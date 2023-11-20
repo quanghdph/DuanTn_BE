@@ -1,31 +1,20 @@
 package com.fpt.duantn.ui.controller;
 
-import com.fpt.duantn.io.entity.ImageEntity;
+
 import com.fpt.duantn.services.ImageService;
-import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 import com.fpt.duantn.ui.model.request.ImageRequest;
-import com.fpt.duantn.ui.model.response.AddressRest;
 import com.fpt.duantn.ui.model.response.ImageRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
