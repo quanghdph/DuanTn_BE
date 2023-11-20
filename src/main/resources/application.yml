@@ -27,10 +27,12 @@ custom-config:
     jwtExpiration: 604800000
 
     endpointAuthorizations:
-      - { urlPattern: "/api/v1/certs/**", method: "POST", roles: [ "ADMIN", "NWA" ] }
+      - { urlPattern: "/product", method: "POST", roles: ["ADMIN", "EMPLOYEE"] }
+
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login", method: "POST" }
       - { urlPattern: "/api/auth/register", method: "POST" }
+      - { urlPattern: "/product", method: "GET" }
 
 server:
   port: 8080
