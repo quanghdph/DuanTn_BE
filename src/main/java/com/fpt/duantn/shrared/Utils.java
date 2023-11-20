@@ -1,6 +1,5 @@
 package com.fpt.duantn.shrared;
 
-import com.fpt.duantn.security.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
