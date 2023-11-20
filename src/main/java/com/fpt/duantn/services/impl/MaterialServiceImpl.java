@@ -94,14 +94,14 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<MaterialDto> getMaterials(int page, int limit) {
+    public List<MaterialDto> getMaterials(int page, int limit, String filter) {
         List<MaterialDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<MaterialEntity> materialPage = materialRepository.findAll(pageableRequest);
+        Page<MaterialEntity> materialPage = materialRepository.filter(filter, pageableRequest);
         List<MaterialEntity> materials = materialPage.getContent();
 
         for (MaterialEntity materialEntity : materials) {
@@ -114,21 +114,8 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<MaterialDto> getMaterialByMaterialName(String materialName, int page, int limit) {
-        List<MaterialDto> returnValue = new ArrayList<>();
-
-        if(page>0) page = page-1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<MaterialEntity> materialPage = materialRepository.findByMaterialNameContainingOrderByIdAsc(materialName, pageableRequest);
-        List<MaterialEntity> materials = materialPage.getContent();
-
-        for (MaterialEntity materialEntity : materials) {
-            MaterialDto materialDto = new MaterialDto();
-            BeanUtils.copyProperties(materialEntity, materialDto);
-            returnValue.add(materialDto);
-        }
-
-        return returnValue;
+    public Long count(String filter) {
+        Long total = materialRepository.count(filter);
+        return total;
     }
 }

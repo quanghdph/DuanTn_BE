@@ -5,6 +5,7 @@ import com.fpt.duantn.shrared.dto.CRUD.MaterialDto;
 import com.fpt.duantn.ui.model.request.MaterialRequest;
 import com.fpt.duantn.ui.model.response.MaterialRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -49,19 +50,23 @@ public class MaterialController {
 
 
     @GetMapping()
-    public List<MaterialRest> getMaterials(@RequestParam(value = "page", defaultValue = "0") int page,
-                                     @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getMaterials(@RequestParam(value = "page", defaultValue = "0") int page,
+                                     @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                           @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<MaterialRest> returnValue = new ArrayList<>();
 
-        List<MaterialDto> materials = materialService.getMaterials(page, limit);
+        List<MaterialDto> materials = materialService.getMaterials(page, limit, filter);
 
         for (MaterialDto materialDto : materials) {
             MaterialRest materialModel = new MaterialRest();
             BeanUtils.copyProperties(materialDto, materialModel);
             returnValue.add(materialModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListMaterials(returnValue);
+        paginationRest.setTotal(materialService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
@@ -94,24 +99,5 @@ public class MaterialController {
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
             returnValue.setOperationMessage("Lỗi khi xóa Chat Lieu: " + e.getMessage());
         }return returnValue;
-    }
-
-
-
-    @GetMapping("/search")
-    public List<MaterialRest> searchMaterials(@RequestParam(value = "materialName") String materialName,
-                                        @RequestParam(value = "page", defaultValue = "0") int page,
-                                        @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<MaterialRest> returnValue = new ArrayList<>();
-
-        List<MaterialDto> materials = materialService.getMaterialByMaterialName(materialName, page, limit);
-
-        for (MaterialDto materialDto : materials) {
-            MaterialRest materialModel = new MaterialRest();
-            BeanUtils.copyProperties(materialDto, materialModel);
-            returnValue.add(materialModel);
-        }
-
-        return returnValue;
     }
 }

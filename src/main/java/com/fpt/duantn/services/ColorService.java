@@ -9,7 +9,7 @@ public interface ColorService {
     ColorDto getColorById(Long colorId);
     ColorDto updateColor(Long colorId, ColorDto color);
     void deleteColor(Long colorId);
-    List<ColorDto> getColors(int page, int limit);
-    List<ColorDto> getColorByColorName(String colorName, int page, int limit);
+    List<ColorDto> getColors(int page, int limit, String filter);
+    Long count(String filter);
 
 }

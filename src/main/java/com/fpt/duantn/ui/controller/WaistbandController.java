@@ -3,6 +3,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.services.WaistbandService;
 import com.fpt.duantn.shrared.dto.CRUD.WaistbandDto;
 import com.fpt.duantn.ui.model.request.WaistbandRequest;
+import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.WaistbandRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
@@ -55,19 +56,23 @@ public class WaistbandController {
     }
 
     @GetMapping()
-    public List<WaistbandRest> getWaistbands(@RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
+    public PaginationRest getWaistbands(@RequestParam(value = "page", defaultValue = "0") int page,
+                                        @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                        @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<WaistbandRest> returnValue = new ArrayList<>();
 
-        List<WaistbandDto> waistbands = waistbandService.getWaistbands(page, limit);
+        List<WaistbandDto> waistbands = waistbandService.getWaistbands(page, limit, filter);
 
         for (WaistbandDto waistbandDto : waistbands) {
             WaistbandRest waistbandModel = new WaistbandRest();
             BeanUtils.copyProperties(waistbandDto, waistbandModel);
             returnValue.add(waistbandModel);
         }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListWaistbands(returnValue);
+        paginationRest.setTotal(waistbandService.count(filter));
 
-        return returnValue;
+        return paginationRest;
     }
 
 
@@ -101,24 +106,4 @@ public class WaistbandController {
             returnValue.setOperationMessage("Lỗi khi xóa Cap Quan: " + e.getMessage());
         }return returnValue;
     }
-
-
-
-    @GetMapping("/search")
-    public List<WaistbandRest> searchWaistbands(@RequestParam(value = "waistbandName") String waistbandName,
-                                          @RequestParam(value = "page", defaultValue = "0") int page,
-                                          @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<WaistbandRest> returnValue = new ArrayList<>();
-
-        List<WaistbandDto> waistbands = waistbandService.getWaistbandByWaistbandName(waistbandName, page, limit);
-
-        for (WaistbandDto waistbandDto : waistbands) {
-            WaistbandRest waistbandModel = new WaistbandRest();
-            BeanUtils.copyProperties(waistbandDto, waistbandModel);
-            returnValue.add(waistbandModel);
-        }
-
-        return returnValue;
-    }
-
 }

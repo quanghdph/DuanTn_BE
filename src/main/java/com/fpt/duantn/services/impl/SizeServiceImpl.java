@@ -95,14 +95,14 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public List<SizeDto> getSizes(int page, int limit) {
+    public List<SizeDto> getSizes(int page, int limit, String filter) {
         List<SizeDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<SizeEntity> sizePage = sizeRepository.findAll(pageableRequest);
+        Page<SizeEntity> sizePage = sizeRepository.filter(filter, pageableRequest);
         List<SizeEntity> sizes = sizePage.getContent();
 
         for (SizeEntity sizeEntity : sizes) {
@@ -115,22 +115,9 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public List<SizeDto> getSizeBySizeName(String sizeName, int page, int limit) {
-        List<SizeDto> returnValue = new ArrayList<>();
-
-        if(page>0) page = page-1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<SizeEntity> sizePage = sizeRepository.findBySizeNameContainingOrderByIdAsc(sizeName, pageableRequest);
-        List<SizeEntity> sizes = sizePage.getContent();
-
-        for (SizeEntity sizeEntity : sizes) {
-            SizeDto sizeDto = new SizeDto();
-            BeanUtils.copyProperties(sizeEntity, sizeDto);
-            returnValue.add(sizeDto);
-        }
-
-        return returnValue;
+    public Long count(String filter) {
+        Long total = sizeRepository.count(filter);
+        return total;
     }
 
 
