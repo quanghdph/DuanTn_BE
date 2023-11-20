@@ -87,7 +87,6 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setBrand(product.getBrand());
         productEntity.setWaistband(product.getWaistband());
         productEntity.setMaterial(product.getMaterial());
-        productEntity.setTotalSold(product.getTotalSold());
         productEntity.setMainImage(product.getMainImage());
         productEntity.setDescription(product.getDescription());
         productEntity.setStatus(product.getStatus());
