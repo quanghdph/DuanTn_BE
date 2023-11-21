@@ -53,8 +53,6 @@ public class ProductController {
         return returnValue;
     }
 
-
-
     @PutMapping(path = "/{id}")
     public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productDetails) {
         ProductRest returnValue = new ProductRest();
@@ -93,8 +91,6 @@ public class ProductController {
             }
         return returnValue;
     }
-
-
 
     @GetMapping("/search")
     public List<ProductRest> searchProducts(@RequestParam(value = "productName") String productName,
