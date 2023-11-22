@@ -28,14 +28,90 @@ custom-config:
 
     endpointAuthorizations:
 #      - { urlPattern: "/product", method: "POST", roles: ["ADMIN", "EMPLOYEE"] }
-      - { urlPattern: "/bill", method: "POST", roles: ["ADMIN"] }
+      -
 
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
       - { urlPattern: "/api/auth/register", method: "POST" }
-      - { urlPattern: "/product", method: "GET" }
-      - { urlPattern: "/product/**" }
+      - { urlPattern: "/product/**", method: "GET" }
+      - { urlPattern: "/product", method: "POST" }
+      - { urlPattern: "/product/**",method: "PUT" }
+      - { urlPattern: "/product/**",method: "DELETE" }
 
+      - { urlPattern: "/bill/**", method: "GET"}
+      - { urlPattern: "/bill", method: "POST"}
+      - { urlPattern: "/bill/**", method: "PUT"}
+      - { urlPattern: "/bill/**", method: "DELETE"}
+      -
+      - { urlPattern: "/bill-detail/**", method: "GET"}
+      - { urlPattern: "/bill-detail", method: "POST"}
+      - { urlPattern: "/bill-detail/**", method: "PUT"}
+      - { urlPattern: "/bill-detail/**", method: "DELETE"}
+
+      - { urlPattern: "/brand/**", method: "GET"}
+      - { urlPattern: "/brand", method: "POST"}
+      - { urlPattern: "/brand/**", method: "PUT"}
+      - { urlPattern: "/brand/**", method: "DELETE"}
+
+      - { urlPattern: "/address/**", method: "GET" }
+      - { urlPattern: "/address", method: "POST" }
+      - { urlPattern: "/address/**", method: "PUT" }
+      - { urlPattern: "/address/**", method: "DELETE" }
+
+      - { urlPattern: "/cart/**", method: "GET" }
+      - { urlPattern: "/cart", method: "POST" }
+      - { urlPattern: "/cart/**", method: "PUT" }
+      - { urlPattern: "/cart/**", method: "DELETE" }
+
+      - { urlPattern: "/cart-detail/**", method: "GET" }
+      - { urlPattern: "/cart-detail", method: "POST" }
+      - { urlPattern: "/cart-detail/**", method: "PUT" }
+      - { urlPattern: "/cart-detail/**", method: "DELETE" }
+
+      - { urlPattern: "/category/**", method: "GET" }
+      - { urlPattern: "/category", method: "POST" }
+      - { urlPattern: "/category/**", method: "PUT" }
+      - { urlPattern: "/category/**", method: "DELETE" }
+
+      - { urlPattern: "/color/**", method: "GET" }
+      - { urlPattern: "/color", method: "POST" }
+      - { urlPattern: "/color/**", method: "PUT" }
+      - { urlPattern: "/color/**", method: "DELETE" }
+
+      - { urlPattern: "/customer/**", method: "GET" }
+      - { urlPattern: "/customer", method: "POST" }
+      - { urlPattern: "/customer/**", method: "PUT" }
+      - { urlPattern: "/customer/**", method: "DELETE" }
+
+      - { urlPattern: "/employee/**", method: "GET" }
+      - { urlPattern: "/employee", method: "POST" }
+      - { urlPattern: "/employee/**", method: "PUT" }
+      - { urlPattern: "/employee/**", method: "DELETE" }
+
+      - { urlPattern: "/image/**", method: "GET" }
+      - { urlPattern: "/image", method: "POST" }
+      - { urlPattern: "/image/**", method: "PUT" }
+      - { urlPattern: "/image/**", method: "DELETE" }
+
+      - { urlPattern: "/material/**", method: "GET" }
+      - { urlPattern: "/material", method: "POST" }
+      - { urlPattern: "/material/**", method: "PUT" }
+      - { urlPattern: "/material/**", method: "DELETE" }
+
+      - { urlPattern: "/product-detail/**", method: "GET" }
+      - { urlPattern: "/product-detail", method: "POST" }
+      - { urlPattern: "/product-detail/**", method: "PUT" }
+      - { urlPattern: "/product-detail/**", method: "DELETE" }
+
+      - { urlPattern: "/size/**", method: "GET" }
+      - { urlPattern: "/size", method: "POST" }
+      - { urlPattern: "/size/**", method: "PUT" }
+      - { urlPattern: "/size/**", method: "DELETE" }
+
+      - { urlPattern: "/waistband/**", method: "GET" }
+      - { urlPattern: "/waistband", method: "POST" }
+      - { urlPattern: "/waistband/**", method: "PUT" }
+      - { urlPattern: "/waistband/**", method: "DELETE" }
 server:
   port: 8080
 
