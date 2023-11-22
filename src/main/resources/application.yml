@@ -28,11 +28,12 @@ custom-config:
 
     endpointAuthorizations:
 #      - { urlPattern: "/product", method: "POST", roles: ["ADMIN", "EMPLOYEE"] }
-      -
+
 
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
       - { urlPattern: "/api/auth/register", method: "POST" }
+
       - { urlPattern: "/product/**", method: "GET" }
       - { urlPattern: "/product", method: "POST" }
       - { urlPattern: "/product/**",method: "PUT" }
@@ -42,7 +43,7 @@ custom-config:
       - { urlPattern: "/bill", method: "POST"}
       - { urlPattern: "/bill/**", method: "PUT"}
       - { urlPattern: "/bill/**", method: "DELETE"}
-      -
+
       - { urlPattern: "/bill-detail/**", method: "GET"}
       - { urlPattern: "/bill-detail", method: "POST"}
       - { urlPattern: "/bill-detail/**", method: "PUT"}
