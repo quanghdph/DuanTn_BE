@@ -2,12 +2,9 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.ProductDetailCardService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
-import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.ui.model.response.ProductDetailCardDetailsRest;
-import com.fpt.duantn.ui.model.response.ProductDetailCardRest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

@@ -13,6 +13,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MaterialRepository extends JpaRepository<MaterialEntity, Long> {
 
+    @Query(value = "SELECT m.id, m.material_name, m.material_code " +
+            "FROM materials m ", nativeQuery = true)
+
+    Page<MaterialEntity> getMaterials(Pageable pageable);
+
+
     MaterialEntity findByMaterialCode(String materialCode);
 
     MaterialEntity findMaterialEntityById(Long materialId);

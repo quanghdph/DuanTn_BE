@@ -1,5 +1,6 @@
 package com.fpt.duantn.io.repository;
 
+import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WaistbandRepository extends JpaRepository<WaistbandEntity, Long> {
+
+    @Query(value = "SELECT w.id, w.waistband_name, w.waistband_code " +
+            "FROM waistbands w ", nativeQuery = true)
+
+    Page<WaistbandEntity> getWaistbands(Pageable pageable);
+
 
     WaistbandEntity findByWaistbandCode(String waistbandCode);
 

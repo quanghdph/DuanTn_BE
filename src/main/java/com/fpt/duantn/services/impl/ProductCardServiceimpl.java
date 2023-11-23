@@ -57,9 +57,9 @@ public class ProductCardServiceimpl implements ProductCardService {
         List<ProductEntity> productCart = productCardPage.getContent();
 
         for (ProductEntity productCartEntity : productCart) {
-            ProductDto colorDto = new ProductDto();
-            BeanUtils.copyProperties(productCartEntity, colorDto);
-            returnValue.add(colorDto);
+            ProductDto productDto = new ProductDto();
+            BeanUtils.copyProperties(productCartEntity, productDto);
+            returnValue.add(productDto);
         }
 
         return returnValue;

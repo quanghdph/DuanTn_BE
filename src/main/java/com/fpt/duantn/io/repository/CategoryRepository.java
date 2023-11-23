@@ -14,6 +14,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
+    @Query(value = "SELECT c.id, c.category_name, c.status, c.category_code, " +
+            "p.id AS product_id, p.product_name " +
+            "FROM categories c " +
+            "JOIN products p ON c.id = p.category_id " +
+            "JOIN brands b ON p.brand_id = b.id", nativeQuery = true)
+
+    Page<CategoryEntity> getCategoryAndBrands(Pageable pageable);
+
+
     CategoryEntity findByCategoryCode(String categoryCode);
 
     CategoryEntity findCategoryEntityById(Long categoryId);

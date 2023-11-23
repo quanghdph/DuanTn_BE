@@ -13,6 +13,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
 
+    @Query(value = "SELECT e.id, e.first_name, e.last_name, e.gender, e.dateof_birth, e.email, e.phone_number " +
+            "b.id AS bill_id, b.total_amount, " +
+            "e.id AS customer_id, c.customer_code " +
+            "FROM employees e " +
+            "JOIN bill b ON e.id = b.employee_id " +
+            "JOIN customers c ON b.customer_id = c.id", nativeQuery = true)
+
+    Page<EmployeeEntity> getEmployees(Pageable pageable);
+
+
     EmployeeEntity findByEmployeeCode(String employeeCode);
 
     EmployeeEntity findEmployeeEntityById(Long employeeId);

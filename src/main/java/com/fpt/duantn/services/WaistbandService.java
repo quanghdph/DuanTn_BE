@@ -12,7 +12,4 @@ public interface WaistbandService {
     void deleteWaistband(Long waistbandId);
     List<WaistbandDto> getWaistbands(int page, int limit, String filter);
     Long count(String filter);
-
-
-
 }
