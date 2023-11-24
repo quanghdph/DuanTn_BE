@@ -12,10 +12,11 @@
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**")
 //                .allowedOrigins("http://localhost:8080")
-////                .allowedOrigins("http://localhost:8000")
-//                .allowedMethods("GET", "POST")
+//                //.allowedOrigins("http://localhost:3000")
+//                .allowedMethods("GET", "POST").allowedHeaders("*")
 //                .allowCredentials(false).maxAge(3600);
 //
 //        // Add more mappings...
 //    }
+//
 //}

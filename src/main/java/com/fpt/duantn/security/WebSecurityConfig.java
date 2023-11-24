@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,6 +28,7 @@ import java.util.Objects;
 
 
 @Configuration
+//@EnableMethodSecurity
 @EnableWebSecurity
 @EnableConfigurationProperties({AppProperties.class})
 public class WebSecurityConfig {
@@ -34,6 +36,9 @@ public class WebSecurityConfig {
     private AppProperties appProperties;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
@@ -45,7 +50,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(){
+    public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userService);
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -54,16 +59,50 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**")
+//                                .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // Cho phép OPTIONS request
+
+                                .requestMatchers("/**")
+//                                .authenticated()
+
 //                        .anyRequest().authenticated().requestMatchers("/login").permitAll()
                 )
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .formLogin((form) -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout((logout) -> logout.permitAll())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable);
+                .cors(AbstractHttpConfigurer::disable)
+        ;
+
+//        http.csrf(csrf -> csrf.disable())
+//                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(auth ->
+//                        auth.requestMatchers("/api/auth/**").permitAll()
+//                                .requestMatchers("/api/test/**").permitAll()
+//                                .anyRequest().authenticated()
+//                );
+
+//        http
+//                .authorizeHttpRequests((requests) -> requests
+//                        .requestMatchers("/", "/home")
+//                        .anyRequest().authenticated()
+//                )
+//                .formLogin((form) -> form
+//                        .loginPage("/login")
+//                        .permitAll()
+//                )
+//                .logout((logout) -> logout.permitAll());
+
+//        return http.build();
 
         // Anyone can access unprotected endponts declared in application.yml
         List<AppProperties.UnprotectedEndpoint> unprotectedEndpoints = appProperties.getSecurity().getUnprotectedEndpoints();
@@ -112,6 +151,10 @@ public class WebSecurityConfig {
                 );
             }
         }
+
         return http.build();
     }
+
+
+
 }
