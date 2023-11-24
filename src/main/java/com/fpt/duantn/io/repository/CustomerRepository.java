@@ -13,6 +13,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
 
+    @Query(value = "SELECT c.id, c.first_name, c.last_name, c.email, c.gender, c.dateof_birth, c.phone_number, c. customer_code, " +
+            "b.id AS bill_id, b.total_amount, " +
+            "e.id AS employee_id, e.employee_code " +
+            "FROM customers c " +
+            "JOIN bill b ON c.id = b.customer_id " +
+            "JOIN employees e ON b.employee_id = e.id", nativeQuery = true)
+
+    Page<CustomerEntity> getCustomersAndBills(Pageable pageable);
+
+
     CustomerEntity findByCustomerCode(String customerCode);
 
     CustomerEntity findCustomerEntityById(Long customerId);

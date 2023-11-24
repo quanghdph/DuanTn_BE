@@ -16,6 +16,7 @@ public class ProductCardRest {
     private String productCode;
     private String productName;
     private String mainImage;
+    private Integer status;
 
     private List<ProductDetailCardRest> productDetails;
 }

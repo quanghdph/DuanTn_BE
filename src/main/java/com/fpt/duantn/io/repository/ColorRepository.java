@@ -2,6 +2,7 @@ package com.fpt.duantn.io.repository;
 
 import com.fpt.duantn.io.entity.AddressEntity;
 import com.fpt.duantn.io.entity.ColorEntity;
+import com.fpt.duantn.io.entity.EmployeeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +15,12 @@ import java.awt.*;
 
 @Repository
 public interface ColorRepository extends JpaRepository<ColorEntity, Long> {
+
+    @Query(value = "SELECT c.id, c.color_name, c.color_code " +
+            "FROM colors c ", nativeQuery = true)
+
+    Page<ColorEntity> getColors(Pageable pageable);
+
 
     ColorEntity findByColorCode(String colorCode);
     ColorEntity findColorEntityById(Long colorId);

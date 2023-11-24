@@ -1,5 +1,6 @@
 package com.fpt.duantn.io.repository;
 
+import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SizeRepository extends JpaRepository<SizeEntity, Long> {
+
+    @Query(value = "SELECT s.id, s.size_name, s.size_code " +
+            "FROM sizes s ", nativeQuery = true)
+
+    Page<SizeEntity> getSizes(Pageable pageable);
 
     SizeEntity findSizeEntityById(Long sizeId);
 

@@ -12,7 +12,5 @@ public class CategoryCardDetailsRest extends RepresentationModel<ProductDetailCa
     private String categoryName;
     private String categoryCode;
     private Integer status;
-    private String productTypeCode;
-    private String productTypeName;
 
 }
