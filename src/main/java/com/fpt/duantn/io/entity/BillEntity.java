@@ -42,9 +42,6 @@ public class BillEntity implements Serializable {
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;
 
-    @Column(name = "bill_code", length = 255, nullable = false)
-    private String billCode;
-
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
@@ -64,17 +61,11 @@ public class BillEntity implements Serializable {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
-    @Column(name = "customer_name", length = 255, nullable = false)
-    private String customerName;
-
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
     @Column(name = "transport_fee", precision = 10, scale = 0)
     private BigDecimal transportFee;
-
-    @Column(name = "total_amount", precision = 10, scale = 0)
-    private BigDecimal totalAmount;
 
     @Column(name = "note", length = 255)
     private String note;

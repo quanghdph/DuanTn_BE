@@ -12,7 +12,7 @@ public interface CartService {
     void deleteCart(Long cartId);
     List<CartDto> getCarts(int page, int limit, String filter);
     Long count(String filter);
-    List<CartDto> getCartByCartName(String cartName, int page, int limit);
+//    List<CartDto> getCartByCartName(String cartName, int page, int limit);
 
 
 }

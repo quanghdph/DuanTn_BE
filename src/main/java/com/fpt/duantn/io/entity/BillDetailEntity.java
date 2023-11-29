@@ -40,17 +40,8 @@ public class BillDetailEntity implements Serializable {
     @JoinColumn(name = "product_detail_id")
     private ProductDetailEntity productDetail;
 
-    @Column(name = "product_name")
-    private String productName;
-
-    @Column(name = "color")
-    private String color;
-
-    @Column(name = "size")
-    private String size;
-
-    @Column(name = "amount")
-    private Integer amount;
+    @Column(name = "quantity")
+    private Integer quantity;
 
     @Column(name = "default_price")
     private BigDecimal defaultPrice;

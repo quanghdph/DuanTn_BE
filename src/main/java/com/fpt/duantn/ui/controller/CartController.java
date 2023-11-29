@@ -88,7 +88,7 @@ public class CartController {
 
 
 
-    @GetMapping("/search")
+/*    @GetMapping("/search")
     public List<CartRest> searchCarts(@RequestParam(value = "cartName") String cartName,
                                               @RequestParam(value = "page", defaultValue = "0") int page,
                                               @RequestParam(value = "limit", defaultValue = "5") int limit) {
@@ -103,7 +103,7 @@ public class CartController {
         }
 
         return returnValue;
-    }
+    }*/
 
     @GetMapping()
     public PaginationRest getCarts(@RequestParam(value = "page", defaultValue = "0") int page,

@@ -17,13 +17,7 @@ public class CartDetailRest {
 
     private ProductDetailEntity productDetail;
 
-    private BillEntity bill;
-
     private CartEntity cart;
-
-    private BigDecimal price;
-
-    private Integer amount;
 
     private Date createDate;
 

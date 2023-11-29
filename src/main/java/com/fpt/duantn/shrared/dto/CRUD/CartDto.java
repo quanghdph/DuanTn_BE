@@ -16,8 +16,6 @@ public class CartDto implements Serializable {
 
     private long id;
 
-    private String cartCode;
-
     private EmployeeEntity employee;
 
     private Date createDate;

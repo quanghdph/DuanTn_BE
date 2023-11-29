@@ -21,13 +21,7 @@ public class BillDetailRest {
 
     private ProductDetailEntity productDetail;
 
-    private String productName;
-
-    private String color;
-
-    private String size;
-
-    private Integer amount;
+    private Integer quantity;
 
     private BigDecimal defaultPrice;
 

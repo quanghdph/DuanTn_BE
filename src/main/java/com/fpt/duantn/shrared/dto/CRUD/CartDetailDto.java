@@ -20,13 +20,7 @@ public class CartDetailDto implements Serializable {
 
     private ProductDetailEntity productDetail;
 
-    private BillEntity bill;
-
     private CartEntity cart;
-
-    private BigDecimal price;
-
-    private Integer amount;
 
     private Date createDate;
 

@@ -31,9 +31,6 @@ public class CartEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "cart_code")
-    private String cartCode;
-
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;

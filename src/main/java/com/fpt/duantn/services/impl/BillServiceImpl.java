@@ -30,9 +30,9 @@ public class BillServiceImpl implements BillService {
     @Override
     public BillDto createBill(BillDto bill) {
         // Kiểm tra xem BillCode đã tồn tại hay chưa
-        if (billRepository.findByBillCode(bill.getBillCode()) != null) {
-            throw new BillServiceException("Bill with the same code already exists");
-        }
+//        if (billRepository.findByBillCode(bill.getBillCode()) != null) {
+//            throw new BillServiceException("Bill with the same code already exists");
+//        }
 
         // Chuyển đổi BillDto thành BillEntity
         ModelMapper modelMapper = new ModelMapper();
@@ -85,12 +85,9 @@ public class BillServiceImpl implements BillService {
         billEntity.setUpdateDate(bill.getUpdateDate());
         billEntity.setPaymentDate(bill.getPaymentDate());
         billEntity.setDeliveryDate(bill.getDeliveryDate());
-        billEntity.setBillCode(bill.getBillCode());
         billEntity.setAddress(bill.getAddress());
-        billEntity.setCustomerName(bill.getCustomerName());
         billEntity.setPhoneNumber(bill.getPhoneNumber());
         billEntity.setTransportFee(bill.getTransportFee());
-        billEntity.setTotalAmount(bill.getTotalAmount());
         billEntity.setNote(bill.getNote());
         billEntity.setStatus(bill.getStatus());
 
@@ -137,22 +134,22 @@ public class BillServiceImpl implements BillService {
         return total;
     }
 
-    @Override
-    public List<BillDto> getBillByBillName(String billName, int page, int limit) {
-        List<BillDto> returnValue = new ArrayList<>();
-
-        if(page>0) page = page-1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<BillEntity> billPage = billRepository.findByCustomerNameContainingOrderByIdAsc(billName, pageableRequest);
-        List<BillEntity> bills = billPage.getContent();
-
-        for (BillEntity billEntity : bills) {
-            BillDto billDto = new BillDto();
-            BeanUtils.copyProperties(billEntity, billDto);
-            returnValue.add(billDto);
-        }
-
-        return returnValue;
-    }
+//    @Override
+//    public List<BillDto> getBillByBillName(String billName, int page, int limit) {
+//        List<BillDto> returnValue = new ArrayList<>();
+//
+//        if(page>0) page = page-1;
+//
+//        Pageable pageableRequest = PageRequest.of(page, limit);
+//        Page<BillEntity> billPage = billRepository.findByCustomerNameContainingOrderByIdAsc(billName, pageableRequest);
+//        List<BillEntity> bills = billPage.getContent();
+//
+//        for (BillEntity billEntity : bills) {
+//            BillDto billDto = new BillDto();
+//            BeanUtils.copyProperties(billEntity, billDto);
+//            returnValue.add(billDto);
+//        }
+//
+//        return returnValue;
+//    }
 }

@@ -44,7 +44,6 @@ public class CartDetailServiceImpl implements CartDetailService {
 
         //them khoa ngoai
         cartDetailEntity.setCart(cartDetailEntity.getCart());
-        cartDetailEntity.setBill(cartDetailEntity.getBill());
         cartDetailEntity.setProductDetail(cartDetailEntity.getProductDetail());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
@@ -84,10 +83,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         cartDetailEntity.setStatus(cartDetail.getStatus());
         cartDetailEntity.setUpdateDate(cartDetail.getUpdateDate());
         cartDetailEntity.setCreateDate(cartDetail.getCreateDate());
-        cartDetailEntity.setBill(cartDetail.getBill());
         cartDetailEntity.setProductDetail(cartDetail.getProductDetail());
-        cartDetailEntity.setAmount(cartDetail.getAmount());
-        cartDetailEntity.setPrice(cartDetail.getPrice());
         cartDetailEntity.setCart(cartDetail.getCart());
 
 

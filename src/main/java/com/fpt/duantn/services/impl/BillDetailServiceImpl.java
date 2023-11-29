@@ -81,16 +81,12 @@ public class BillDetailServiceImpl implements BillDetailService {
 
 
         billDetailEntity.setStatus(billDetail.getStatus());
-        billDetailEntity.setColor(billDetail.getColor());
         billDetailEntity.setCreateDate(billDetail.getCreateDate());
         billDetailEntity.setProductDetail(billDetail.getProductDetail());
-        billDetailEntity.setAmount(billDetail.getAmount());
         billDetailEntity.setPrice(billDetail.getPrice());
         billDetailEntity.setBill(billDetail.getBill());
-        billDetailEntity.setSize(billDetail.getSize());
         billDetailEntity.setDefaultPrice(billDetail.getDefaultPrice());
         billDetailEntity.setUpdateTime(billDetail.getUpdateTime());
-        billDetailEntity.setProductName(billDetail.getProductName());
 
 
         BillDetailEntity updatedBillDetails = billDetailRepository.save(billDetailEntity);

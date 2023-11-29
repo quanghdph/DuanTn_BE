@@ -30,17 +30,17 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartDto createCart(CartDto cart) {
         // Kiểm tra xem CartCode đã tồn tại hay chưa
-        if (cartRepository.findByCartCode(cart.getCartCode()) != null) {
-            throw new CartServiceException("Cart with the same code already exists");
-        }
+//        if (cartRepository.findByCartCode(cart.getCartCode()) != null) {
+//            throw new CartServiceException("Cart with the same code already exists");
+//        }
 
         // Chuyển đổi CartDto thành CartEntity
         ModelMapper modelMapper = new ModelMapper();
         CartEntity cartEntity = modelMapper.map(cart, CartEntity.class);
 
         // Tạo một mã ngẫu nhiên cho CartCode (tùy theo yêu cầu)
-        String publicCartCode = utils.generateColorCode(8);
-        cartEntity.setCartCode(publicCartCode);
+//        String publicCartCode = utils.generateColorCode(8);
+//        cartEntity.setCartCode(publicCartCode);
 
         //them khoa ngoai
         cartEntity.setEmployee(cart.getEmployee());
@@ -128,23 +128,23 @@ public class CartServiceImpl implements CartService {
         Long total = cartRepository.count(filter);
         return total;
     }
-
-    @Override
-    public List<CartDto> getCartByCartName(String cartName, int page, int limit) {
-        List<CartDto> returnValue = new ArrayList<>();
-
-        if(page>0) page = page-1;
-
-        Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<CartEntity> cartPage = cartRepository.findByCartCodeContainingOrderByIdAsc(cartName, pageableRequest);
-        List<CartEntity> carts = cartPage.getContent();
-
-        for (CartEntity cartEntity : carts) {
-            CartDto cartDto = new CartDto();
-            BeanUtils.copyProperties(cartEntity, cartDto);
-            returnValue.add(cartDto);
-        }
-
-        return returnValue;
-    }
+//
+//    @Override
+//    public List<CartDto> getCartByCartName(String cartName, int page, int limit) {
+//        List<CartDto> returnValue = new ArrayList<>();
+//
+//        if(page>0) page = page-1;
+//
+//        Pageable pageableRequest = PageRequest.of(page, limit);
+//        Page<CartEntity> cartPage = cartRepository.findByCartCodeContainingOrderByIdAsc(cartName, pageableRequest);
+//        List<CartEntity> carts = cartPage.getContent();
+//
+//        for (CartEntity cartEntity : carts) {
+//            CartDto cartDto = new CartDto();
+//            BeanUtils.copyProperties(cartEntity, cartDto);
+//            returnValue.add(cartDto);
+//        }
+//
+//        return returnValue;
+//    }
 }

@@ -20,8 +20,6 @@ public class BillRest {
 
     private EmployeeEntity employee;
 
-    private String billCode;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
@@ -36,13 +34,9 @@ public class BillRest {
 
     private String address;
 
-    private String customerName;
-
     private String phoneNumber;
 
     private BigDecimal transportFee;
-
-    private BigDecimal totalAmount;
 
     private String note;
 

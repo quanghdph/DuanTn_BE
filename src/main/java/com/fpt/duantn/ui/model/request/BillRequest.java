@@ -19,8 +19,6 @@ public class BillRequest {
 
     private EmployeeEntity employee;
 
-    private String billCode;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
@@ -35,13 +33,9 @@ public class BillRequest {
 
     private String address;
 
-    private String customerName;
-
     private String phoneNumber;
 
     private BigDecimal transportFee;
-
-    private BigDecimal totalAmount;
 
     private String note;
 

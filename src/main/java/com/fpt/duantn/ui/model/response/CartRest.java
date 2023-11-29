@@ -13,8 +13,6 @@ public class CartRest {
 
     private Long id;
 
-    private String cartCode;
-
     private EmployeeEntity employee;
 
     private Date createDate;

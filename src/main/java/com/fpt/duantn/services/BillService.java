@@ -13,7 +13,7 @@ public interface BillService {
     List<BillDto> getBills(int page, int limit, String filter);
     Long count(String filter);
 
-    List<BillDto> getBillByBillName(String billName, int page, int limit);
+//    List<BillDto> getBillByBillName(String billName, int page, int limit);
 
 
 }

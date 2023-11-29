@@ -89,22 +89,22 @@ public class BillController {
 
 
 
-    @GetMapping("/search")
-    public List<BillRest> searchBills(@RequestParam(value = "billName") String billName,
-                                              @RequestParam(value = "page", defaultValue = "0") int page,
-                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
-        List<BillRest> returnValue = new ArrayList<>();
-
-        List<BillDto> bills = billService.getBillByBillName(billName, page, limit);
-
-        for (BillDto billDto : bills) {
-            BillRest billModel = new BillRest();
-            BeanUtils.copyProperties(billDto, billModel);
-            returnValue.add(billModel);
-        }
-
-        return returnValue;
-    }
+//    @GetMapping("/search")
+//    public List<BillRest> searchBills(@RequestParam(value = "billName") String billName,
+//                                              @RequestParam(value = "page", defaultValue = "0") int page,
+//                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
+//        List<BillRest> returnValue = new ArrayList<>();
+//
+//        List<BillDto> bills = billService.getBillByBillName(billName, page, limit);
+//
+//        for (BillDto billDto : bills) {
+//            BillRest billModel = new BillRest();
+//            BeanUtils.copyProperties(billDto, billModel);
+//            returnValue.add(billModel);
+//        }
+//
+//        return returnValue;
+//    }
 
     @GetMapping()
     public PaginationRest getBills(@RequestParam(value = "page", defaultValue = "0") int page,

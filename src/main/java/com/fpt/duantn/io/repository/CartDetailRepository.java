@@ -19,16 +19,16 @@ public interface CartDetailRepository extends JpaRepository<CartDetailEntity, Lo
 
 
     @Query(value = "SELECT cd.id, cd.product_detail_id," +
-            "cd.bill_id,cd.cart_id,cd.amount,cd.create_date,cd.update_date, " +
-            "cd.status,cd.price " +
+            "cd.cart_id,cd.create_date,cd.update_date, " +
+            "cd.status " +
             "FROM cart_detail cd " +
-            "where 1=1 and (:filter is null or :filter = '' or (cd.bill_id like %:filter% or cd.status like %:filter% or cd.cart_id like %:filter%))",
+            "where 1=1 and (:filter is null or :filter = '' or (cd.cart_id like %:filter% or cd.status like %:filter% or cd.product_detail_id like %:filter%))",
             nativeQuery = true)
     Page<CartDetailEntity> filter(@Param("filter") String filter, Pageable pageable);
 
     @Query(value = "SELECT count(1) " +
             "FROM cart_detail cd " +
-            "where 1=1 and (:filter is null or :filter = '' or (cd.bill_id like %:filter% or cd.status like %:filter% or cd.cart_id like %:filter%))",
+            "where 1=1 and (:filter is null or :filter = '' or (cd.cart_id like %:filter% or cd.status like %:filter% or cd.product_detail_id like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
 }
