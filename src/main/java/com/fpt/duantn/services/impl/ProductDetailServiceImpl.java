@@ -83,7 +83,6 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         productDetailEntity.setProduct(productDetail.getProduct());
         productDetailEntity.setQuantity(productDetail.getQuantity());
         productDetailEntity.setColor(productDetail.getColor());
-        productDetailEntity.setDefaultPrice(productDetail.getDefaultPrice());
         productDetailEntity.setPrice(productDetail.getPrice());
         productDetailEntity.setSize(productDetail.getSize());
 
@@ -146,7 +145,6 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         dto.setProduct(productDetailEntity.getProduct());
         dto.setColor(productDetailEntity.getColor());
         dto.setSize(productDetailEntity.getSize());
-        dto.setDefaultPrice(productDetailEntity.getDefaultPrice());
         dto.setPrice(productDetailEntity.getPrice());
         dto.setQuantity(productDetailEntity.getQuantity());
         dto.setCreateDate(productDetailEntity.getCreateDate());

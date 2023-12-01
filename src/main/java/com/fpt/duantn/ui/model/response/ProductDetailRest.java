@@ -22,7 +22,6 @@ public class ProductDetailRest {
     private ProductEntity product;
     private ColorEntity color;
     private SizeEntity size;
-    private BigDecimal defaultPrice;
     private BigDecimal price;
     private Integer quantity;
     @Temporal(TemporalType.TIMESTAMP)

@@ -15,7 +15,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetailEnti
 
     ProductDetailEntity findProductDetailEntityById(Long productDetailId);
 
-    @Query(value = "SELECT pd.id, pd.default_price, pd.price, pd.quantity, " +
+    @Query(value = "SELECT pd.id, pd.price, pd.quantity, " +
             "pd.status, " +
             "p.id AS product_id, p.price " +
             "FROM product_detail pd " +
@@ -27,7 +27,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetailEnti
 //    Page<ProductDetailEntity> findByProductContainingOrderByIdAsc(String productDetailCode,Pageable pageable);
 
     @Query(value = "SELECT pd.id, pd.product_id, " +
-            "pd.color_id,pd.size_id,pd.default_price,pd.quantity,pd.create_date,pd.update_date, " +
+            "pd.color_id,pd.size_id,pd.quantity,pd.create_date,pd.update_date, " +
             "pd.status,pd.price " +
             "FROM product_detail pd " +
             "where 1=1 and (:filter is null or :filter = '' or (pd.price like %:filter% or pd.status like %:filter% or pd.quantity like %:filter%))",

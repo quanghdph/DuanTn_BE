@@ -23,8 +23,6 @@ public class ProductDetailRequest {
 
     private SizeEntity size;
 
-    private BigDecimal defaultPrice;
-
     private BigDecimal price;
 
     private Integer quantity;

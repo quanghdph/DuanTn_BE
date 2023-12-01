@@ -29,8 +29,6 @@ public class ProductDetailDto implements Serializable {
 
     private SizeEntity size;
 
-    private BigDecimal defaultPrice;
-
     private BigDecimal price;
 
     private Integer quantity;

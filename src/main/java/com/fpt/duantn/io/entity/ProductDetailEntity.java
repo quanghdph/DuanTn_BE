@@ -34,9 +34,6 @@ public class ProductDetailEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "default_price", precision = 10, scale = 0)
-    private BigDecimal defaultPrice;
-
     @Column(name = "price", precision = 10, scale = 0)
     private BigDecimal price;
 
