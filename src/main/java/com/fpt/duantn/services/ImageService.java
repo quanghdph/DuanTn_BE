@@ -10,6 +10,9 @@ public interface ImageService {
 
     ImageDto createImage(ImageDto image);
     ImageDto getImageById(Long imageId);
+
+    <S extends ImageEntity> List<S> saveAll(Iterable<S> entities);
+
     ImageDto updateImage(Long imageId, ImageDto image);
 
     void deleteImage(Long imageId);

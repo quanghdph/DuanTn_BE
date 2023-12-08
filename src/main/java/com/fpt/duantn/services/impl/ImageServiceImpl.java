@@ -49,6 +49,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public <S extends ImageEntity> List<S> saveAll(Iterable<S> entities) {
+        return imageRepository.saveAll(entities);
+    }
+
+    @Override
     public ImageDto updateImage(Long imageId, ImageDto image) {
         return null;
     }

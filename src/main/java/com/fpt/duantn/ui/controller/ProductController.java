@@ -1,5 +1,8 @@
 package com.fpt.duantn.ui.controller;
 
+import com.fpt.duantn.io.entity.ImageEntity;
+import com.fpt.duantn.io.entity.ProductEntity;
+import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.services.ProductService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.ui.model.request.ProductRequest;
@@ -7,21 +10,30 @@ import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.ProductRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.util.FileImgUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:4201")
 @RestController
 @RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    FileImgUtil fileImgUtil;
+    @Autowired
+    ImageService imageService;
 
     @GetMapping(path = "/{id}")
     public ProductRest getProduct(@PathVariable Long id) {
@@ -35,7 +47,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductRest createProduct(@RequestBody ProductRequest productDetails) throws Exception {
+    public ProductRest createProduct(@RequestBody ProductRequest productDetails, @RequestPart(value = "images",required = false) MultipartFile... multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
 
         ModelMapper modelMapper = new ModelMapper();
@@ -47,8 +59,32 @@ public class ProductController {
         productDto.setWaistband(productDetails.getWaistband());
 
 
-        ProductDto createdUser = productService.createProduct(productDto);
-        returnValue = modelMapper.map(createdUser, ProductRest.class);
+        ProductDto productDto1 = productService.createProduct(productDto);
+        ProductEntity product = new ProductEntity();
+        product.setId(productDto1.getId());
+        List<ImageEntity> imagesList= new ArrayList<>();
+        boolean imgSelect = true;
+        for (MultipartFile multipartFile : multipartFiles){
+            try {
+                Blob blob =fileImgUtil.convertMultipartFileToBlob(multipartFile);
+                if (blob!=null){
+                    ImageEntity image = new ImageEntity();
+                    image.setProduct(product);
+                    image.setImage(blob);
+                    if (imgSelect){
+                        image.setType(true);
+                        imgSelect=false;
+                    }else {
+                        image.setType(true);
+                    }
+                    imagesList.add(image);
+                }
+            } catch (IOException | SQLException e) {
+                System.out.println("Không đọc ghi được ảnh (kiểm tra lại sản phảm vừa tạo");
+            }
+        }
+        imageService.saveAll(imagesList);
+        returnValue = modelMapper.map(productDto1, ProductRest.class);
 
         return returnValue;
     }
