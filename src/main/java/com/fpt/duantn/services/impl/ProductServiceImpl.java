@@ -106,7 +106,8 @@ public class ProductServiceImpl implements ProductService {
         if (productEntity == null)
             throw new ProductServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        productRepository.delete(productEntity);
+        productEntity.setStatus(0);
+        productRepository.save(productEntity);
     }
 
     @Override
