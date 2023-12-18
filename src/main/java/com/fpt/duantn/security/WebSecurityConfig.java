@@ -28,7 +28,7 @@ import java.util.Objects;
 
 
 @Configuration
-//@EnableMethodSecurity
+@EnableMethodSecurity
 @EnableWebSecurity
 @EnableConfigurationProperties({AppProperties.class})
 public class WebSecurityConfig {
@@ -62,18 +62,10 @@ public class WebSecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-//                                .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // Cho phép OPTIONS request
+                                .requestMatchers(HttpMethod.OPTIONS, "/api/auth/**").permitAll() // Cho phép
 
-                                .requestMatchers("/**")
-//                                .authenticated()
-
-//                        .anyRequest().authenticated().requestMatchers("/login").permitAll()
                 )
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
+//                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .logout((logout) -> logout.permitAll())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
