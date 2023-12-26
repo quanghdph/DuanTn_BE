@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/category-list")
 public class CategoryCardController {
