@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ProductDto implements Serializable {
 
     private BrandEntity brand;
 
-    private byte[] mainImage;
+    private Blob mainImage;
 
     @Lob
     private String description;

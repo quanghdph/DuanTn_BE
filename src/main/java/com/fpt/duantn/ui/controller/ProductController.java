@@ -15,15 +15,23 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
 @RequestMapping("/product")
@@ -40,53 +48,66 @@ public class ProductController {
     public ProductRest getProduct(@PathVariable Long id) {
         ProductRest returnValue = new ProductRest();
 
-//        ProductDto productDto = productService.getProductById(id);
-//        ModelMapper modelMapper = new ModelMapper();
-//        returnValue = modelMapper.map(productDto, ProductRest.class);
+        ProductDto productDto = productService.getProductById(id);
+        ModelMapper modelMapper = new ModelMapper();
+        returnValue = modelMapper.map(productDto, ProductRest.class);
 
         return returnValue;
     }
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-    @PostMapping()
+    @GetMapping(path = "/passWord")
+    public String SignPass (){
+        return passwordEncoder.encode("1");
+    }
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ProductRest createProduct(@RequestBody ProductRequest productDetails, @RequestPart(value = "images",required = false) MultipartFile... multipartFiles) throws Exception {
+    public ProductRest createProduct(@RequestBody ProductRequest productDetails, @RequestPart(value = "images",required = false) MultipartFile  []multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
 
-//        ModelMapper modelMapper = new ModelMapper();
-//        ProductDto productDto = modelMapper.map(productDetails, ProductDto.class);
-//
-//        productDto.setCategory(productDetails.getCategory());
-//        productDto.setBrand(productDetails.getBrand());
-//        productDto.setMaterial(productDetails.getMaterial());
-//        productDto.setWaistband(productDetails.getWaistband());
-//
-//
-//        ProductDto productDto1 = productService.createProduct(productDto);
-//        ProductEntity product = new ProductEntity();
-//        product.setId(productDto1.getId());
-//        List<ImageEntity> imagesList= new ArrayList<>();
-//        boolean imgSelect = true;
-//        for (MultipartFile multipartFile : multipartFiles){
-//            try {
-//                Blob blob =fileImgUtil.convertMultipartFileToBlob(multipartFile);
-//                if (blob!=null){
-//                    ImageEntity image = new ImageEntity();
-//                    image.setProduct(product);
-//                    image.setImage(blob);
-//                    if (imgSelect){
-//                        image.setType(true);
-//                        imgSelect=false;
-//                    }else {
-//                        image.setType(true);
-//                    }
-//                    imagesList.add(image);
-//                }
-//            } catch (IOException | SQLException e) {
-//                System.out.println("Không đọc ghi được ảnh (kiểm tra lại sản phảm vừa tạo");
-//            }
-//        }
-//        imageService.saveAll(imagesList);
-//        returnValue = modelMapper.map(productDto1, ProductRest.class);
+        ModelMapper modelMapper = new ModelMapper();
+        ProductDto productDto = modelMapper.map(productDetails, ProductDto.class);
+
+        productDto.setCategory(productDetails.getCategory());
+        productDto.setBrand(productDetails.getBrand());
+        productDto.setMaterial(productDetails.getMaterial());
+        productDto.setWaistband(productDetails.getWaistband());
+        if (multipartFiles != null ){
+            if (multipartFiles.length>0){
+                productDto.setMainImage(new SerialBlob(multipartFiles[0].getBytes()));
+            }
+        }
+
+        ProductDto productDto1 = productService.createProduct(productDto);
+        ProductEntity product = new ProductEntity();
+        product.setId(productDto1.getId());
+        List<ImageEntity> imagesList= new ArrayList<>();
+        boolean imgSelect = true;
+      if (multipartFiles != null){
+          for (MultipartFile multipartFile : multipartFiles){
+              try {
+                  Blob blob =fileImgUtil.convertMultipartFileToBlob(multipartFile);
+                  if (blob!=null){
+                      ImageEntity image = new ImageEntity();
+                      image.setProduct(product);
+                      image.setImage(blob);
+                      if (imgSelect){
+                          image.setType(true);
+                          imgSelect=false;
+                      }else {
+                          image.setType(true);
+                      }
+                      imagesList.add(image);
+                  }
+              } catch (IOException | SQLException e) {
+                  System.out.println("Không đọc ghi được ảnh (kiểm tra lại sản phảm vừa tạo");
+              }
+          }
+      }
+        imageService.saveAll(imagesList);
+        returnValue = modelMapper.map(productDto1, ProductRest.class);
 
         return returnValue;
     }
@@ -168,6 +189,45 @@ public class ProductController {
         paginationRest.setTotal(productService.count(filter));
 
         return paginationRest;
+    }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<?> getImage(@PathVariable Long id) {
+        Optional<ImageEntity> image = imageService.findById(id);
+        if (!image.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tồn tại");
+        }
+        byte[] imageBytes = new byte[0];
+        try {
+            imageBytes = fileImgUtil.convertBlobToByteArray(image.get().getImage());
+        } catch (SQLException | IOException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lỗi đọc ảnh");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/image-main")
+    public ResponseEntity<?> getImageMain(@PathVariable Long id) {
+        Optional<ProductEntity> productEntity = productService.findById(id);
+        if (!productEntity.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tồn tại");
+        }
+        byte[] imageBytes = new byte[0];
+        try {
+            imageBytes = fileImgUtil.convertBlobToByteArray(productEntity.get().getMainImage());
+        } catch (SQLException | IOException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lỗi đọc ảnh");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+    }
+    @GetMapping("/imageID/{id}")
+    public ResponseEntity<?> getProductIDImage(@PathVariable Long id) {
+        List<Long> ids = imageService.findIdByProductId(id);
+        return ResponseEntity.ok(ids);
     }
 
 }

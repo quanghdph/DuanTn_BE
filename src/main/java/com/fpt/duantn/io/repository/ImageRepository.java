@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
@@ -29,4 +31,6 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
             "where 1=1 and (:filter is null or :filter = '' or (i.type like %:filter% or i.product_id like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
+    @Query("select i.id from ImageEntity i where i.product.id =:id ")
+    List<Long> findIdByProductId(Long id);
 }

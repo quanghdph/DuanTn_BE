@@ -74,6 +74,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Optional<ProductEntity> findById(Long aLong) {
+        return productRepository.findById(aLong);
+    }
+
+    @Override
     public ProductDto updateProduct(Long productId, ProductDto product) {
         ProductDto returnValue = new ProductDto();
 
@@ -109,6 +114,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setStatus(0);
         productRepository.save(productEntity);
     }
+
 
     @Override
     public List<ProductDto> getProducts(int page, int limit, String filter) {

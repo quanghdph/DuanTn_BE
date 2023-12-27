@@ -5,10 +5,16 @@ import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ImageService {
 
     ImageDto createImage(ImageDto image);
+
+    Optional<ImageEntity> findById(Long aLong);
+
+    List<Long> findIdByProductId(Long id);
+
     ImageDto getImageById(Long imageId);
 
     <S extends ImageEntity> List<S> saveAll(Iterable<S> entities);

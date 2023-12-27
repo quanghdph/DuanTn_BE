@@ -12,7 +12,6 @@ public class ImageRequest {
 
     private Blob image;
 
-
     private ProductEntity product;
 
     private boolean type;

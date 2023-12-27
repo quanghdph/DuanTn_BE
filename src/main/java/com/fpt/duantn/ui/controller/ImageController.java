@@ -1,22 +1,36 @@
 package com.fpt.duantn.ui.controller;
 
 
+import com.fpt.duantn.io.entity.ImageEntity;
+import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.services.ImageService;
+import com.fpt.duantn.services.ProductService;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 import com.fpt.duantn.ui.model.request.ImageRequest;
 import com.fpt.duantn.ui.model.response.ImageRest;
 import com.fpt.duantn.ui.model.response.PaginationRest;
+import com.fpt.duantn.util.FileImgUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
 @RequestMapping("/image")
 public class ImageController {
@@ -24,6 +38,11 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    FileImgUtil fileImgUtil;
     @GetMapping(path = "/{id}")
     public ImageRest getImage(@PathVariable Long id) {
         ImageRest returnValue = new ImageRest();
@@ -76,22 +95,33 @@ public class ImageController {
     }
 
     @PostMapping()
-    public ImageRest createImage(@RequestBody ImageRequest imageDetails) throws Exception {
-        ImageRest returnValue = new ImageRest();
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
 
-        ModelMapper modelMapper = new ModelMapper();
-        ImageDto imageDto = modelMapper.map(imageDetails, ImageDto.class);
+    public List<ImageDto> createImage(@RequestParam Long id, @RequestPart("images") MultipartFile []multipartFile) throws Exception {
+         List<ImageDto> returnValue = new ArrayList<>();
+        ProductEntity productEntity = productService.findById(id).orElse(null);
+        if (productEntity == null){
 
-        imageDto.setProduct(imageDetails.getProduct());
+        } else {
+            ModelMapper modelMapper = new ModelMapper();
+            for (int i = 0; i< multipartFile.length; i++){
+                ImageDto imageDto = new ImageDto();
+                imageDto.setProduct(productEntity);
+                imageDto.setImage(new SerialBlob(multipartFile[i].getBytes()));
+                ImageDto createdUser = imageService.createImage(imageDto);
+                createdUser.setImage(null);
+                returnValue.add(createdUser);
 
-        ImageDto createdUser = imageService.createImage(imageDto);
-        returnValue = modelMapper.map(createdUser, ImageRest.class);
+            }
+
+        }
 
         return returnValue;
     }
 
 
     @PutMapping(path = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ImageRest updateImage(@PathVariable Long id, @RequestBody ImageRequest imageDetails) {
         ImageRest returnValue = new ImageRest();
 
@@ -107,6 +137,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity delete(@PathVariable Long id) {
         if (imageService.existsById(id)){
             imageService.deleteImage(id);

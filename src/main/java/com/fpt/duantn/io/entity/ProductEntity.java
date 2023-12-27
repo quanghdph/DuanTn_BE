@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 
@@ -48,7 +49,7 @@ public class ProductEntity implements Serializable {
 
     @Lob
     @Column(name = "main_image")
-    private byte[] mainImage;
+    private Blob mainImage;
 
     @Column(name = "description")
     private String description;

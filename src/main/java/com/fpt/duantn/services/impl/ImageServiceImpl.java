@@ -1,15 +1,12 @@
 package com.fpt.duantn.services.impl;
 
 import com.fpt.duantn.exceptions.ImageServiceException;
-import com.fpt.duantn.io.entity.AddressEntity;
 import com.fpt.duantn.io.entity.ImageEntity;
 import com.fpt.duantn.io.repository.ImageRepository;
 import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.shrared.Utils;
-import com.fpt.duantn.shrared.dto.CRUD.AddressDto;
 import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 import com.fpt.duantn.ui.model.response.ErrorMessages;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -32,7 +29,21 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDto createImage(ImageDto image) {
-        return null;
+        ImageEntity imageEntity = new ImageEntity(null, image.getImage(), image.getProduct(),true);
+
+        ImageEntity saved = imageRepository.save(imageEntity);
+        image.setId(saved.getId());
+        return image;
+    }
+
+    @Override
+    public Optional<ImageEntity> findById(Long aLong) {
+        return imageRepository.findById(aLong);
+    }
+
+    @Override
+    public List<Long> findIdByProductId(Long id) {
+        return imageRepository.findIdByProductId(id);
     }
 
     @Override
