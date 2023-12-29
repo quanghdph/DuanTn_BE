@@ -62,7 +62,7 @@ public class ProductController {
         return passwordEncoder.encode("1");
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ProductRest createProduct(@RequestBody ProductRequest productDetails, @RequestPart(value = "images",required = false) MultipartFile  []multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
