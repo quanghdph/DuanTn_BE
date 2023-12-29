@@ -123,11 +123,15 @@ public class CustomerServiceImpl implements CustomerService {
         return returnValue;
     }
 
+
+    @Override
+    public Long count() {
+        return this.customerRepository.count();
+    }
+
     @Override
     public Long count(String filter) {
-
-        Long total = customerRepository.count(filter);
-        return total;
+        return  this.customerRepository.count(filter);
     }
 
     @Override

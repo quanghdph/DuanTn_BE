@@ -17,6 +17,9 @@ public interface ProductService {
     void deleteProduct(Long productId);
     List<ProductDto> getProducts(int page, int limit, String filter);
     Long count(String filter);
+
+    Long count();
+
     List<ProductDto> getProductByProductName(String productName, int page, int limit);
 
 }

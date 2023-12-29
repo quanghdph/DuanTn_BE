@@ -11,6 +11,7 @@ public interface BillService {
     BillDto updateBill(Long billId, BillDto bill);
     void deleteBill(Long billId);
     List<BillDto> getBills(int page, int limit, String filter);
+    Long count();
     Long count(String filter);
 
 //    List<BillDto> getBillByBillName(String billName, int page, int limit);

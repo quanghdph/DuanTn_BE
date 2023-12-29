@@ -10,6 +10,7 @@ import com.fpt.duantn.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -127,11 +128,16 @@ public class BillServiceImpl implements BillService {
         return returnValue;
     }
 
+
+    @Override
+    public Long count() {
+
+        return this.billRepository.count();
+    }
+
     @Override
     public Long count(String filter) {
-
-        Long total = billRepository.count(filter);
-        return total;
+        return this.billRepository.count(filter);
     }
 
 //    @Override

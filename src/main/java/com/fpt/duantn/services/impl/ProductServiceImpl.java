@@ -73,6 +73,8 @@ public class ProductServiceImpl implements ProductService {
         return returnValue;
     }
 
+
+
     @Override
     public Optional<ProductEntity> findById(Long aLong) {
         return productRepository.findById(aLong);
@@ -138,9 +140,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Long count(String filter) {
+        return this.productRepository.count(filter);
+    }
 
-        Long total = productRepository.count(filter);
-        return total;
+    @Override
+    public Long count() {
+        return this.productRepository.count();
     }
 
     @Override

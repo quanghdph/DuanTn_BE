@@ -11,6 +11,7 @@ public interface EmployeeService {
     EmployeeDto updateEmployee(Long employeeId, EmployeeDto employee);
     void deleteEmployee(Long employeeId);
     List<EmployeeDto> getEmployees(int page, int limit, String filter);
+    Long count();
     Long count(String filter);
     List<EmployeeDto> getEmployeeByEmployeeName(String employeeName, int page, int limit);
 

@@ -124,11 +124,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         return returnValue;
     }
 
+
+    @Override
+    public Long count() {
+
+        return this.employeeRepository.count();
+    }
+
     @Override
     public Long count(String filter) {
-
-        Long total = employeeRepository.count(filter);
-        return total;
+        return this.employeeRepository.count(filter);
     }
 
     @Override
