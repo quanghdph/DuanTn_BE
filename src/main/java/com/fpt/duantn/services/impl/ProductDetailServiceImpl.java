@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductDetailServiceImpl implements ProductDetailService {
@@ -65,6 +67,11 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         BeanUtils.copyProperties(productDetailEntity, returnValue);
 
         return returnValue;
+    }
+
+    @Override
+    public Optional<ProductDetailEntity> findById(Long aLong) {
+        return productDetailRepository.findById(aLong);
     }
 
     @Override
@@ -136,6 +143,21 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Optional<Double> sumMoneyByBillIdAndType(Long id, Integer type) {
+        return Optional.empty();
+    }
+
+    @Override
+    public <S extends ProductDetailEntity> List<S> saveAll(Iterable<S> entities) {
+        return productDetailRepository.saveAll(entities);
+    }
+
+    @Override
+    public <S extends ProductDetailEntity> S save(S entity) {
+        return productDetailRepository.save(entity);
     }
 
     private ProductDetailDto convertToDto(ProductDetailEntity productDetailEntity) {

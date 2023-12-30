@@ -1,8 +1,11 @@
 package com.fpt.duantn.services;
 
+import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
+import com.fpt.duantn.ui.model.response.CustomerResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerService {
 
@@ -11,8 +14,14 @@ public interface CustomerService {
     CustomerDto updateCustomer(Long customerId, CustomerDto customer);
     void deleteCustomer(Long customerId);
     List<CustomerDto> getCustomers(int page, int limit, String filter);
+
+    Optional<CustomerEntity> findById(Long aLong);
+
     Long count();
     Long count(String filter);
+
+    CustomerResponse findByPhoneNumber(String phoneNumber);
+
     List<CustomerDto> getCustomerByCustomerName(String customerName, int page, int limit);
 
 

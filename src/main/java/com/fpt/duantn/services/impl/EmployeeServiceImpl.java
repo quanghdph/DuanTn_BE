@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -124,6 +125,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return returnValue;
     }
 
+    @Override
+    public Optional<EmployeeEntity> findById(Long aLong) {
+        return employeeRepository.findById(aLong);
+    }
 
     @Override
     public Long count() {

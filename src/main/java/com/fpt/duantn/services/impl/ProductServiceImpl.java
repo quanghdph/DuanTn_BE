@@ -149,6 +149,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public  ProductEntity save(ProductEntity productEntity) {
+        return productRepository.save(productEntity);
+    }
+
+    @Override
     public List<ProductDto> getProductByProductName(String productName, int page, int limit) {
         List<ProductDto> returnValue = new ArrayList<>();
 

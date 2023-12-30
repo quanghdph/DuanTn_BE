@@ -10,6 +10,10 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 
 @Repository
 public interface BillDetailRepository extends JpaRepository<BillDetailEntity, Long> {
@@ -32,4 +36,13 @@ public interface BillDetailRepository extends JpaRepository<BillDetailEntity, Lo
             "where 1=1 and (:filter is null or :filter = '' or (bild.bill_id like %:filter% or bild.status like %:filter% or bild.create_date like %:filter% or bild.update_time like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
+
+    public List<BillDetailEntity> findByBillIdAndStatus(Long id, Integer status);
+
+    @Query("SELECT sum(bd.price * bd.quantity) as summoney FROM BillDetailEntity bd WHERE (:status IS NULL OR bd.status = :status) AND bd.bill.id = :billId ORDER BY summoney DESC")
+    Optional<Double> sumMoneyByBillIdAndType(@Param("billId") Long billId, @Param("status") Integer status);
+
+    @Query("SELECT sum(bd.quantity) as sumquantity FROM BillDetailEntity bd WHERE (:status IS NULL OR bd.status = :status) AND bd.bill.id = :billId ORDER BY sumquantity DESC")
+    Optional<Long> sumQuantityByBillIdAndType(@Param("billId") Long billId, @Param("status") Integer status);
+
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -61,6 +62,7 @@ public class BillEntity implements Serializable {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
+    @Pattern(regexp = "^(0|\\+\\d{2})\\d{9}$")
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 

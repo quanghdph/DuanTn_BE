@@ -128,11 +128,20 @@ public class BillServiceImpl implements BillService {
         return returnValue;
     }
 
+    @Override
+    public boolean existsById(Long aLong) {
+        return billRepository.existsById(aLong);
+    }
 
     @Override
     public Long count() {
 
         return this.billRepository.count();
+    }
+
+    @Override
+    public <S extends BillEntity> S save(S entity) {
+        return billRepository.save(entity);
     }
 
     @Override

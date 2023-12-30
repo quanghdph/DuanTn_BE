@@ -1,20 +1,26 @@
 package com.fpt.duantn.ui.controller;
 
+import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.services.CustomerService;
+import com.fpt.duantn.services.EmployeeService;
 import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
 import com.fpt.duantn.ui.model.request.CustomerRequest;
-import com.fpt.duantn.ui.model.response.CustomerRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
-import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.ui.model.response.*;
+import com.fpt.duantn.util.FormErrorUtil;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
 @RequestMapping("/customer")
@@ -22,6 +28,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+    @Autowired
+    EmployeeService employeeService;
+
 
     @GetMapping(path = "/{id}")
     public CustomerRest getCustomer(@PathVariable Long id) {
@@ -81,7 +90,14 @@ public class CustomerController {
         }return returnValue;
     }
 
-
+    @GetMapping("/phone-number")
+    @ResponseBody
+    public CustomerResponse findByPhone(
+            @RequestParam(value = "phoneNumber") Optional<String> phoneNumber
+    ) {
+        CustomerResponse customerReponse = customerService.findByPhoneNumber(phoneNumber.orElse(null));
+        return customerReponse;
+    }
 
     @GetMapping("/search")
     public List<CustomerRest> searchCustomers(@RequestParam(value = "customerName") String customerName,
@@ -120,4 +136,34 @@ public class CustomerController {
         return paginationRest;
     }
 
+    @PostMapping ( "/fast")
+    public ResponseEntity<?> addCustomerFast(@Valid @ModelAttribute CustomerEntity customer, BindingResult bindingResult) {
+        if (bindingResult.getFieldError("phoneNumber")!=null||bindingResult.getFieldError("name")!=null||bindingResult.getFieldError("gender")!=null){
+            Map<String, String> errors = FormErrorUtil.changeToMapError(bindingResult);
+            return ResponseEntity.badRequest().body(errors);
+        }
+        if(!customer.getEmail().equals("")){
+            if (customerService.findByEmail(customer.getEmail()).orElse(null)!=null||employeeService.findByEmail(customer.getEmail()).orElse(null)!=null){
+                Map<String, String> errors = FormErrorUtil.changeToMapError(bindingResult);
+                errors.put("email","Email đã tồn tại");
+                return ResponseEntity.badRequest().body(errors);
+            }
+        }
+        if (customerService.findByPhoneNumber(customer.getPhoneNumber())!=null||employeeService.findEByPhoneNumber(customer.getPhoneNumber()).isPresent()){
+            Map<String, String> errors = FormErrorUtil.changeToMapError(bindingResult);
+            errors.put("phoneNumber","Số điện thoại đã tồn tại");
+            return ResponseEntity.badRequest().body(errors);
+        }
+        Customer customerSave = new Customer();
+        customerSave.setName(customer.getName());
+        customerSave.setPhoneNumber(customer.getPhoneNumber());
+        customerSave.setGender(customer.getGender());
+        if(!customer.getEmail().equals("")){
+            customerSave.setEmail(customer.getEmail());
+        }
+        customerSave.setType(2);
+        Customer customerSaved = customerService.save(customerSave);
+        customerSaved.setPassword(null);
+        return ResponseEntity.ok(customerSaved);
+    }
 }

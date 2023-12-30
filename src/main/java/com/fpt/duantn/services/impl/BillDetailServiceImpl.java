@@ -13,10 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BillDetailServiceImpl implements BillDetailService {
@@ -55,7 +58,25 @@ public class BillDetailServiceImpl implements BillDetailService {
         return returnValue;
     }
 
+    @Override
+    public Optional<Double> sumMoneyByBillIdAndType(Long billId, Integer status) {
+        return billDetailRepository.sumMoneyByBillIdAndType(billId, status);
+    }
 
+    @Override
+    public Optional<Long> sumQuantityByBillIdAndType(Long billId, Integer status) {
+        return billDetailRepository.sumQuantityByBillIdAndType(billId, status);
+    }
+
+    @Override
+    public <S extends BillDetailEntity> List<S> saveAll(Iterable<S> entities) {
+        return billDetailRepository.saveAll(entities);
+    }
+
+    @Override
+    public <S extends BillDetailEntity> S save(S entity) {
+        return billDetailRepository.save(entity);
+    }
 
     @Override
     public BillDetailDto getBillDetailById(Long billDetailId) {
@@ -78,7 +99,6 @@ public class BillDetailServiceImpl implements BillDetailService {
 
         if (billDetailEntity == null)
             throw new BillDetailServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
 
         billDetailEntity.setStatus(billDetail.getStatus());
         billDetailEntity.setCreateDate(billDetail.getCreateDate());

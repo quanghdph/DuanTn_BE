@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 @Getter
@@ -39,7 +40,7 @@ public class EmployeeDto implements Serializable {
     private Date updateDate;
 
     @Lob
-    private byte[] image;
+    private Blob image;
 
     private String employeeCode;
 

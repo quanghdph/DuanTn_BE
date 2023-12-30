@@ -6,6 +6,7 @@ import com.fpt.duantn.io.repository.CustomerRepository;
 import com.fpt.duantn.services.CustomerService;
 import com.fpt.duantn.shrared.Utils;
 import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
+import com.fpt.duantn.ui.model.response.CustomerResponse;
 import com.fpt.duantn.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -13,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -123,6 +126,10 @@ public class CustomerServiceImpl implements CustomerService {
         return returnValue;
     }
 
+    @Override
+    public Optional<CustomerEntity> findById(Long aLong) {
+        return customerRepository.findById(aLong);
+    }
 
     @Override
     public Long count() {
@@ -132,6 +139,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Long count(String filter) {
         return  this.customerRepository.count(filter);
+    }
+
+    @Override
+    public CustomerResponse findByPhoneNumber(String phoneNumber) {
+        return customerRepository.findByPhoneNumber(phoneNumber);
     }
 
     @Override

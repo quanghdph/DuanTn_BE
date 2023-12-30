@@ -10,12 +10,10 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -23,6 +21,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name="employees")
 public class EmployeeEntity implements Serializable {
 
@@ -64,7 +63,7 @@ public class EmployeeEntity implements Serializable {
 
     @Lob
     @Column(name = "image")
-    private byte[] image;
+    private Blob image;
 
     @Column(name = "employee_code", length = 255, nullable = false)
     private String employeeCode;

@@ -2,12 +2,15 @@ package com.fpt.duantn.io.repository;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.io.entity.ProductEntity;
+import com.fpt.duantn.ui.model.response.CustomerResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 
 @Repository
@@ -43,4 +46,14 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
             "where 1=1 and (:filter is null or :filter = '' or (cust.last_name like %:filter% or cust.create_date like %:filter% or cust.customer_code like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
+
+    @Query("SELECT e from  CustomerEntity c where c.phoneNumber like :phoneNumber" )
+    public Optional<CustomerEntity> findCByPhoneNumber(String phoneNumber);
+
+    @Query("SELECT new com.fpt.duantn.ui.model.response.CustomerResponse(c.id,c.firstName,c.lastName,c.email,c.gender,c.dateOfBirth,c.phoneNumber,c.createDate,c.updateDate,c.customerCode) from  CustomerEntity c where c.phoneNumber like :phoneNumber" )
+    public CustomerResponse findByPhoneNumber(String phoneNumber);
+    public Optional<CustomerEntity> findByEmail(String email);
+
+
+
 }
