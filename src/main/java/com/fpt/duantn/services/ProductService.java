@@ -20,6 +20,8 @@ public interface ProductService {
 
     Long count();
 
+      ProductEntity save(ProductEntity productEntity);
+
     List<ProductDto> getProductByProductName(String productName, int page, int limit);
 
 }

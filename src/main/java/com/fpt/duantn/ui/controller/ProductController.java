@@ -62,7 +62,7 @@ public class ProductController {
         return passwordEncoder.encode("1");
     }
 
-
+    @PostMapping()
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ProductRest createProduct(@RequestBody ProductRequest productDetails, @RequestPart(value = "images",required = false) MultipartFile  []multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
@@ -74,6 +74,7 @@ public class ProductController {
         productDto.setBrand(productDetails.getBrand());
         productDto.setMaterial(productDetails.getMaterial());
         productDto.setWaistband(productDetails.getWaistband());
+
         if (multipartFiles != null ){
             if (multipartFiles.length>0){
                 productDto.setMainImage(new SerialBlob(multipartFiles[0].getBytes()));
@@ -85,6 +86,7 @@ public class ProductController {
         product.setId(productDto1.getId());
         List<ImageEntity> imagesList= new ArrayList<>();
         boolean imgSelect = true;
+
       if (multipartFiles != null){
           for (MultipartFile multipartFile : multipartFiles){
               try {
@@ -114,19 +116,26 @@ public class ProductController {
 
     @PutMapping(path = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productDetails) {
+    public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
         ProductRest returnValue = new ProductRest();
 
-        ProductDto productDto = new ProductDto();
-        productDto = new ModelMapper().map(productDetails, ProductDto.class);
+        ProductEntity productEntity = productService.findById(id).orElse(null);
+        if (productEntity == null){
 
-        productDto.setCategory(productDetails.getCategory());
-        productDto.setBrand(productDetails.getBrand());
-        productDto.setMaterial(productDetails.getMaterial());
-        productDto.setWaistband(productDetails.getWaistband());
+        }else {
+            productEntity.setCategory(productRequest.getCategory());
+            productEntity.setBrand(productRequest.getBrand());
+            productEntity.setMaterial(productRequest.getMaterial());
+            productEntity.setWaistband(productRequest.getWaistband());
+            productEntity.setStatus(productRequest.getStatus());
+            productEntity.setProductName(productRequest.getProductName());
+            productEntity.setDescription(productRequest.getDescription());
+            productEntity.setCreateDate(productRequest.getCreateDate());
+            productEntity.setUpdateDate(productRequest.getUpdateDate());
+        }
 
         try {
-            ProductDto updateProduct = productService.updateProduct(id, productDto);
+            ProductEntity updateProduct = productService.save(productEntity);
             returnValue = new ModelMapper().map(updateProduct, ProductRest.class);
         }catch (Exception e){
             System.out.println(e);
