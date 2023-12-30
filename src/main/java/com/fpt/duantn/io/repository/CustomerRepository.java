@@ -47,7 +47,7 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
             nativeQuery = true)
     Long count(@Param("filter") String filter);
 
-    @Query("SELECT e from  CustomerEntity c where c.phoneNumber like :phoneNumber" )
+    @Query("SELECT c from  CustomerEntity c where c.phoneNumber like :phoneNumber" )
     public Optional<CustomerEntity> findCByPhoneNumber(String phoneNumber);
 
     @Query("SELECT new com.fpt.duantn.ui.model.response.CustomerResponse(c.id,c.firstName,c.lastName,c.email,c.gender,c.dateOfBirth,c.phoneNumber,c.createDate,c.updateDate,c.customerCode) from  CustomerEntity c where c.phoneNumber like :phoneNumber" )

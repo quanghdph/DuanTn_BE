@@ -22,7 +22,11 @@ public interface CustomerService {
 
     CustomerResponse findByPhoneNumber(String phoneNumber);
 
-    List<CustomerDto> getCustomerByCustomerName(String customerName, int page, int limit);
+    Optional<CustomerEntity> findCByPhoneNumber(String phoneNumber);
 
+    Optional<CustomerEntity> findByEmail(String email);
+
+    List<CustomerDto> getCustomerByCustomerName(String customerName, int page, int limit);
+    <S extends CustomerEntity> S save(S entity);
 
 }

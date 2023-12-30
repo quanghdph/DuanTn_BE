@@ -147,6 +147,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Optional<CustomerEntity> findCByPhoneNumber(String phoneNumber) {
+        return customerRepository.findCByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public Optional<CustomerEntity> findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+    @Override
+    public <S extends CustomerEntity> S save(S entity) {
+        return customerRepository.save(entity);
+    }
+
+    @Override
     public List<CustomerDto> getCustomerByCustomerName(String customerName, int page, int limit) {
         List<CustomerDto> returnValue = new ArrayList<>();
 

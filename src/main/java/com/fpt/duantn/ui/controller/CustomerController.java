@@ -154,16 +154,17 @@ public class CustomerController {
             errors.put("phoneNumber","Số điện thoại đã tồn tại");
             return ResponseEntity.badRequest().body(errors);
         }
-        Customer customerSave = new Customer();
-        customerSave.setName(customer.getName());
+        CustomerEntity customerSave = new CustomerEntity();
+        customerSave.setFirstName(customer.getFirstName());
+        customerSave.setLastName(customer.getLastName());
         customerSave.setPhoneNumber(customer.getPhoneNumber());
         customerSave.setGender(customer.getGender());
         if(!customer.getEmail().equals("")){
             customerSave.setEmail(customer.getEmail());
         }
-        customerSave.setType(2);
-        Customer customerSaved = customerService.save(customerSave);
-        customerSaved.setPassword(null);
+        customerSave.setEmailVerificationStatus(true);
+        CustomerEntity customerSaved = customerService.save(customerSave);
+        customerSaved.setEmailVerificationToken(null);
         return ResponseEntity.ok(customerSaved);
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
@@ -26,6 +28,12 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
     EmployeeEntity findByEmployeeCode(String employeeCode);
 
     EmployeeEntity findEmployeeEntityById(Long employeeId);
+
+    public Boolean existsByEmail(String email);
+    public Optional<EmployeeEntity> findByEmail(String email);
+
+    @Query("SELECT e from  EmployeeEntity e where e.phoneNumber like :phoneNumber" )
+    public Optional<EmployeeEntity> findEByPhoneNumber(String phoneNumber);
 
 
     Page<EmployeeEntity> findByLastNameContainingOrderByIdAsc(String employeeName, Pageable pageable);

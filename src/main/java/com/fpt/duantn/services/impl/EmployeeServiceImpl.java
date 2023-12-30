@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -134,6 +135,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Long count() {
 
         return this.employeeRepository.count();
+    }
+
+    @Override
+    public Boolean existsByEmail(String email) {
+        return employeeRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Optional<EmployeeEntity> findByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
+
+    @Override
+    @Query("SELECT e from  EmployeeEntity e where e.phoneNumber like :phoneNumber")
+    public Optional<EmployeeEntity> findEByPhoneNumber(String phoneNumber) {
+        return employeeRepository.findEByPhoneNumber(phoneNumber);
     }
 
     @Override
