@@ -12,6 +12,7 @@ spring:
   http:
     encoding: UTF-8
     charset: UTF-8
+    enabled: true
 
   datasource:
     username: root
