@@ -15,8 +15,8 @@ spring:
 
   datasource:
     username: root
-    password: 1234
-    url: jdbc:mysql://localhost:3306/duantn
+    password: 123456
+    url: jdbc:mysql://localhost:3306/datn
   jpa:
     hibernate:
       ddl-auto: none

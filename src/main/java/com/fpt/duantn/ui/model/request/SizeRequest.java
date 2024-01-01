@@ -9,4 +9,5 @@ import lombok.Setter;
 public class SizeRequest {
 
     private String sizeName;
+    private String sizeCode;
 }

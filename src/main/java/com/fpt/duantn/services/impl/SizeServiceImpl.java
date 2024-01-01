@@ -39,10 +39,6 @@ public class SizeServiceImpl implements SizeService {
         ModelMapper modelMapper = new ModelMapper();
         SizeEntity sizeEntity = modelMapper.map(size, SizeEntity.class);
 
-        // Tạo một mã ngẫu nhiên cho sizeCode (tùy theo yêu cầu)
-        String publicSizeCode = utils.generateColorCode(8);
-        sizeEntity.setSizeCode(publicSizeCode);
-
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
         SizeEntity storedSizeDetails = sizeRepository.save(sizeEntity);
 
@@ -77,6 +73,7 @@ public class SizeServiceImpl implements SizeService {
             throw new SizeServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
         sizeEntity.setSizeName(size.getSizeName());
+        sizeEntity.setSizeCode(size.getSizeCode());
 
         SizeEntity updatedSizes = sizeRepository.save(sizeEntity);
         returnValue = new ModelMapper().map(updatedSizes, SizeDto.class);
