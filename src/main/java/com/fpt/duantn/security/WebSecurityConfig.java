@@ -64,6 +64,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(HttpMethod.OPTIONS, "/api/auth/**").permitAll()
                                     .requestMatchers("/DashBoard").permitAll()// Cho phép
+                                    .requestMatchers("/selloff").permitAll()
 
                 )
 //                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
