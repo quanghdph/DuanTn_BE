@@ -2,6 +2,7 @@ package com.fpt.duantn.io.repository;
 
 import com.fpt.duantn.io.entity.ColorEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
+import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ public interface WaistbandRepository extends JpaRepository<WaistbandEntity, Long
             "FROM waistbands w ", nativeQuery = true)
 
     Page<WaistbandEntity> getWaistbands(Pageable pageable);
+    Page<WaistbandEntity> findByWaistBandContainingOrderByIdAsc(String waistBandName, Pageable pageable);
 
 
     WaistbandEntity findByWaistbandCode(String waistbandCode);

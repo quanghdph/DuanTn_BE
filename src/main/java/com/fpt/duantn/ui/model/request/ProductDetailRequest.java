@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,5 +35,5 @@ public class ProductDetailRequest {
     private Date updateDate;
 
     private Integer status;
-
+    List<ProductEntity> productEntities;
 }

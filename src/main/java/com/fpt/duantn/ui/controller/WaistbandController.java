@@ -1,12 +1,10 @@
 package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.WaistbandService;
+import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.shrared.dto.CRUD.WaistbandDto;
 import com.fpt.duantn.ui.model.request.WaistbandRequest;
-import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.WaistbandRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.ui.model.response.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +95,22 @@ public class WaistbandController {
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
             returnValue.setOperationMessage("Lỗi khi xóa Cap Quan: " + e.getMessage());
         }return returnValue;
+    }
+
+    @GetMapping("/search")
+    public List<WaistbandRest> searchWaistband(@RequestParam(value = "waistbandName") String waistbandName,
+                                            @RequestParam(value = "page", defaultValue = "0") int page,
+                                            @RequestParam(value = "limit", defaultValue = "5") int limit) {
+        List<WaistbandRest> returnValue = new ArrayList<>();
+
+        List<WaistbandDto> waistbands = waistbandService.getWaistbandByWaistbandName(waistbandName, page, limit);
+
+        for (WaistbandDto waistbandDto : waistbands) {
+            WaistbandRest waistbandModel = new WaistbandRest();
+            BeanUtils.copyProperties(waistbandDto, waistbandModel);
+            returnValue.add(waistbandModel);
+        }
+
+        return returnValue;
     }
 }

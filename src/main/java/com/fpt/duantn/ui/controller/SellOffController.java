@@ -137,7 +137,6 @@ public class SellOffController {
         }
 
 
-
         BillEntity newBillSaved = null;
         try {
             newBillSaved = billService.save(newBill);

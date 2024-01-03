@@ -1,10 +1,12 @@
 package com.fpt.duantn.services.impl;
 
 import com.fpt.duantn.exceptions.WaistbandServiceException;
+import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.entity.WaistbandEntity;
 import com.fpt.duantn.io.repository.WaistbandRepository;
 import com.fpt.duantn.services.WaistbandService;
 import com.fpt.duantn.shrared.Utils;
+import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.shrared.dto.CRUD.WaistbandDto;
 import com.fpt.duantn.ui.model.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
@@ -51,6 +53,24 @@ public class WaistbandServiceImpl implements WaistbandService {
         return returnValue;
     }
 
+    @Override
+    public List<WaistbandDto> getWaistbandByWaistbandName(String waistbandName, int page, int limit) {
+        List<WaistbandDto> returnValue = new ArrayList<>();
+
+        if(page>0) page = page-1;
+
+        Pageable pageableRequest = PageRequest.of(page, limit);
+        Page<WaistbandEntity> waistBandPage = waistbandRepository.findByWaistBandContainingOrderByIdAsc(waistbandName, pageableRequest);
+        List<WaistbandEntity> waistBands = waistBandPage.getContent();
+
+        for (WaistbandEntity waistbandEntity : waistBands) {
+            WaistbandDto waistbandDto = new WaistbandDto();
+            BeanUtils.copyProperties(waistbandEntity, waistbandDto);
+            returnValue.add(waistbandDto);
+        }
+
+        return returnValue;
+    }
 
 
     @Override
