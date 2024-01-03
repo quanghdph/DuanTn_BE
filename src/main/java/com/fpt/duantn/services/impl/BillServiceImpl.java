@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BillServiceImpl implements BillService {
@@ -56,7 +57,10 @@ public class BillServiceImpl implements BillService {
         return returnValue;
     }
 
-
+    @Override
+    public Optional<BillEntity> findById(Long id) {
+        return billRepository.findById(id);
+    }
 
     @Override
     public BillDto getBillById(Long billId) {

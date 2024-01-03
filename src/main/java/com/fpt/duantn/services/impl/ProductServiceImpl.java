@@ -73,7 +73,10 @@ public class ProductServiceImpl implements ProductService {
         return returnValue;
     }
 
-
+    @Override
+    public ProductEntity findByProductCode(String productCode) {
+        return productRepository.findByProductCode(productCode);
+    }
 
     @Override
     public Optional<ProductEntity> findById(Long aLong) {
@@ -170,10 +173,5 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return returnValue;
-    }
-
-    @Override
-    public ProductEntity findByCode(String code) {
-        return productRepository.findByCode(code).orElse(null);
     }
 }

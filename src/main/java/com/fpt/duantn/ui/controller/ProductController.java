@@ -121,7 +121,7 @@ public class ProductController {
         return returnValue;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping(value = "/add")
     public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult, @RequestPart(value = "imgs", required = false) MultipartFile[] files) {
 
@@ -131,7 +131,7 @@ public class ProductController {
         }
 
         // Kiểm tra mã trùng
-        ProductEntity existingProduct = productService.findByCode(productRequest.getCode());
+        ProductEntity existingProduct = productService.findByProductCode(productRequest.getCode());
         if (existingProduct != null) {
             Map<String, String> errors = new HashMap<>();
             errors.put("code", "Mã đã tồn tại");
