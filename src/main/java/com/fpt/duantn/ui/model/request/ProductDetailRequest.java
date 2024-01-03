@@ -18,22 +18,14 @@ import java.util.List;
 @Setter
 public class ProductDetailRequest {
 
-    private ProductEntity product;
+    private Long colorId;
 
-    private ColorEntity color;
-
-    private SizeEntity size;
+    private Long sizeId;
 
     private BigDecimal price;
 
     private Integer quantity;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
-
     private Integer status;
-    List<ProductEntity> productEntities;
+
 }

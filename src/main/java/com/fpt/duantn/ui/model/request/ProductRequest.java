@@ -8,16 +8,17 @@ import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class ProductRequest {
-
+    private String code;
     private String productName;
 
     private CategoryEntity category;
@@ -40,5 +41,7 @@ public class ProductRequest {
     private WaistbandEntity waistband;
 
     private MaterialEntity material;
+
+    private List<ProductDetailRequest> productDetails;
 
 }

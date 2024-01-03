@@ -172,4 +172,8 @@ public class ProductServiceImpl implements ProductService {
         return returnValue;
     }
 
+    @Override
+    public ProductEntity findByCode(String code) {
+        return productRepository.findByCode(code).orElse(null);
+    }
 }

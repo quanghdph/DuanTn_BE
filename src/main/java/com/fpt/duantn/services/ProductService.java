@@ -23,5 +23,5 @@ public interface ProductService {
       ProductEntity save(ProductEntity productEntity);
 
     List<ProductDto> getProductByProductName(String productName, int page, int limit);
-
+    ProductEntity findByCode(String code);
 }

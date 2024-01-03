@@ -58,4 +58,5 @@ public class ProductDetailEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "size_id")
     private SizeEntity size;
+
 }
