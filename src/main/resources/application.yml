@@ -42,14 +42,17 @@ custom-config:
       - { urlPattern: "/image/**", method: "PUT",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/image/**", method: "DELETE",roles: [ "ADMIN", "EMPLOYEE" ] }
 
+      - { urlPattern: "/selloff/calculate-money/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
+
+
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
       - { urlPattern: "/api/auth/register", method: "POST" }
 
+      - { urlPattern: "/selloff/**", method: "POST" }
+
       - { urlPattern: "/product/**" }
       - { urlPattern: "/product/**", method: "GET" }
-
-
 
       - { urlPattern: "/bill/**" }
       - { urlPattern: "/bill/**", method: "GET" }
