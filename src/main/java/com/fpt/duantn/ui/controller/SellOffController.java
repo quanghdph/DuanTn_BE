@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/selloff")
-@PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+
 public class SellOffController {
     @Autowired
     private CustomerService customerService;
@@ -40,11 +40,7 @@ public class SellOffController {
 //    @Autowired
 //    private Authenti authenticationService;
 
-    @GetMapping("/view")
-    public String getView (){
-        return "/admin/view/selloff/view";
-    }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE','CUSTOMER')")
     @PostMapping("/calculate-money")
     public ResponseEntity<?> calculateMoney(@ModelAttribute() SellOfRequest sellOffRequest){
         List<SellOfProductRequest> sellOffProductRequests= sellOffRequest.getSanPhams();

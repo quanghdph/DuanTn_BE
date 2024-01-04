@@ -19,7 +19,7 @@ public interface WaistbandRepository extends JpaRepository<WaistbandEntity, Long
             "FROM waistbands w ", nativeQuery = true)
 
     Page<WaistbandEntity> getWaistbands(Pageable pageable);
-    Page<WaistbandEntity> findByWaistBandContainingOrderByIdAsc(String waistBandName, Pageable pageable);
+    Page<WaistbandEntity> findByWaistbandNameContainingOrderByIdAsc(String waistBandName, Pageable pageable);
 
 
     WaistbandEntity findByWaistbandCode(String waistbandCode);

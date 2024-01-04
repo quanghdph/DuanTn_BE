@@ -51,5 +51,4 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             "where 1=1 and (:filter is null or :filter = '' or (p.product_name like %:filter% or p.status like %:filter% or p.product_code like %:filter%))",
             nativeQuery = true)
     Long count(@Param("filter") String filter);
-    Optional<ProductEntity> findByCode(String code);
 }

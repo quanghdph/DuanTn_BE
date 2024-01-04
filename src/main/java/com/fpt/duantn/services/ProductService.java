@@ -11,6 +11,8 @@ public interface ProductService {
     ProductDto createProduct(ProductDto product);
     ProductDto getProductById(Long productId);
 
+    ProductEntity findByProductCode(String productCode);
+
     Optional<ProductEntity> findById(Long aLong);
 
     ProductDto updateProduct(Long productId, ProductDto product);
@@ -23,5 +25,5 @@ public interface ProductService {
       ProductEntity save(ProductEntity productEntity);
 
     List<ProductDto> getProductByProductName(String productName, int page, int limit);
-    ProductEntity findByCode(String code);
+
 }
