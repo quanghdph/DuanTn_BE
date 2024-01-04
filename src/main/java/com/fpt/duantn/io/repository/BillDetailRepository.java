@@ -45,4 +45,5 @@ public interface BillDetailRepository extends JpaRepository<BillDetailEntity, Lo
     @Query("SELECT sum(bd.quantity) as sumquantity FROM BillDetailEntity bd WHERE (:status IS NULL OR bd.status = :status) AND bd.bill.id = :billId ORDER BY sumquantity DESC")
     Optional<Long> sumQuantityByBillIdAndType(@Param("billId") Long billId, @Param("status") Integer status);
 
+    List<BillDetailEntity> findByBillId(Long id);
 }

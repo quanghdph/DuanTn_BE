@@ -7,6 +7,7 @@ import com.fpt.duantn.ui.model.response.BrandRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class BrandController {
     }
 
     @PostMapping()
-    public BrandRest createBrand(@RequestBody BrandRequest brandDetails) throws Exception {
+    public BrandRest createBrand(@Valid @RequestBody BrandRequest brandDetails) throws Exception {
         BrandRest returnValue = new BrandRest();
 
         ModelMapper modelMapper = new ModelMapper();

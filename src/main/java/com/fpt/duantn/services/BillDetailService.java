@@ -25,6 +25,6 @@ public interface BillDetailService {
     List<BillDetailDto> getBillDetails(int page, int limit, String filter);
     Long count(String filter);
 //    List<BillDetailDto> getBillDetailByBillDetailName(String billDetailName, int page, int limit);
-
+    List<BillDetailEntity> findByBillId(Long id);
 
 }

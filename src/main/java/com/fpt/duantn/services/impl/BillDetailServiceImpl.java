@@ -170,4 +170,10 @@ public class BillDetailServiceImpl implements BillDetailService {
 //
 //        return returnValue;
 //    }
+
+
+    @Override
+    public List<BillDetailEntity> findByBillId(Long id) {
+        return billDetailRepository.findByBillId(id);
+    }
 }

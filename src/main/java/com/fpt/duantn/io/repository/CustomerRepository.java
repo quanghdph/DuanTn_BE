@@ -54,6 +54,7 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     public CustomerResponse findByPhoneNumber(String phoneNumber);
     public Optional<CustomerEntity> findByEmail(String email);
 
+    public Boolean existsByEmail(String email);
 
 
 }

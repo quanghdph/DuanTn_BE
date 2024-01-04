@@ -71,7 +71,7 @@ public class ProductController {
 
     @PostMapping()
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ProductRest createProduct(@ModelAttribute ProductRequest productDetails, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
+    public ProductRest createProduct(@Valid @ModelAttribute ProductRequest productDetails, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
         System.out.println(multipartFiles.length);
         ModelMapper modelMapper = new ModelMapper();

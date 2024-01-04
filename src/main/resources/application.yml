@@ -14,9 +14,21 @@ spring:
     charset: UTF-8
     enabled: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hoangquang2000@gmail.com
+    password: ypnfapviyuxdkvon
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   datasource:
     username: root
-    password: 1234
+    password: 123456
     url: jdbc:mysql://localhost:3306/duantn
   jpa:
     hibernate:
@@ -45,9 +57,11 @@ custom-config:
       - { urlPattern: "/selloff/calculate-money/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/fast/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
 
+
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
       - { urlPattern: "/api/auth/register", method: "POST" }
+      - { urlPattern: "/api/send-mail/otp/**", method: "POST" }
 
       - { urlPattern: "/selloff/**", method: "POST" }
 
