@@ -66,6 +66,7 @@ public class WebSecurityConfig {
                                     .requestMatchers("/DashBoard").permitAll()// Cho phép
                                     .requestMatchers("/selloff").permitAll()
 
+
                 )
 //                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .logout((logout) -> logout.permitAll())

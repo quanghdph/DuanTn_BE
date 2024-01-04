@@ -43,7 +43,7 @@ custom-config:
       - { urlPattern: "/image/**", method: "DELETE",roles: [ "ADMIN", "EMPLOYEE" ] }
 
       - { urlPattern: "/selloff/calculate-money/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
-
+      - { urlPattern: "/customer/fast/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
 
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
