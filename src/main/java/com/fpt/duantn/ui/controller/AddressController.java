@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class AddressController {
 
         return returnValue;
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @PostMapping()
     public AddressRest createAddress(@RequestBody AddressRequest addressDetails) throws Exception {
         AddressRest returnValue = new AddressRest();
@@ -48,8 +49,6 @@ public class AddressController {
 
         return returnValue;
     }
-
-
 
 
     @PutMapping(path = "/{id}")

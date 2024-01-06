@@ -3,6 +3,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.io.entity.CustomerEntity;
 import com.fpt.duantn.services.CustomerService;
 import com.fpt.duantn.services.EmployeeService;
+import com.fpt.duantn.shrared.Utils;
 import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
 import com.fpt.duantn.ui.model.request.CustomerRequest;
 import com.fpt.duantn.ui.model.response.*;
@@ -30,7 +31,8 @@ public class CustomerController {
     CustomerService customerService;
     @Autowired
     EmployeeService employeeService;
-
+    @Autowired
+    Utils utils;
 
     @GetMapping(path = "/{id}")
     public CustomerRest getCustomer(@PathVariable Long id) {
@@ -137,8 +139,8 @@ public class CustomerController {
     }
 
     @PostMapping ( "/fast")
-    public ResponseEntity<?> addCustomerFast(@Valid @ModelAttribute CustomerEntity customer, BindingResult bindingResult) {
-        if (bindingResult.getFieldError("phoneNumber")!=null||bindingResult.getFieldError("name")!=null||bindingResult.getFieldError("gender")!=null){
+    public ResponseEntity<?> addCustomerFast(@Valid @RequestBody CustomerEntity customer, BindingResult bindingResult) {
+        if (bindingResult.getFieldError("phoneNumber")!=null||bindingResult.getFieldError("lastName")!=null||bindingResult.getFieldError("gender")!=null){
             Map<String, String> errors = FormErrorUtil.changeToMapError(bindingResult);
             return ResponseEntity.badRequest().body(errors);
         }
@@ -159,6 +161,8 @@ public class CustomerController {
         customerSave.setLastName(customer.getLastName());
         customerSave.setPhoneNumber(customer.getPhoneNumber());
         customerSave.setGender(customer.getGender());
+        String publicCustomerCode = utils.generateColorCode(8);
+        customerSave.setCustomerCode(publicCustomerCode);
         if(!customer.getEmail().equals("")){
             customerSave.setEmail(customer.getEmail());
         }
