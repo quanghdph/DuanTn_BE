@@ -43,7 +43,7 @@ public class CartDetailServiceImpl implements CartDetailService {
 //        CartDetailEntity.setId(publicCartDetailCode);
 
         //them khoa ngoai
-        cartDetailEntity.setCart(cartDetailEntity.getCart());
+
         cartDetailEntity.setProductDetail(cartDetailEntity.getProductDetail());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
@@ -84,7 +84,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         cartDetailEntity.setUpdateDate(cartDetail.getUpdateDate());
         cartDetailEntity.setCreateDate(cartDetail.getCreateDate());
         cartDetailEntity.setProductDetail(cartDetail.getProductDetail());
-        cartDetailEntity.setCart(cartDetail.getCart());
+
 
 
         CartDetailEntity updatedCartDetails = cartDetailRepository.save(cartDetailEntity);
