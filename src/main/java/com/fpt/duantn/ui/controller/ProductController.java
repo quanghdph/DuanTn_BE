@@ -123,7 +123,7 @@ public class ProductController {
 
 
     @PostMapping(value = "/add")
-    public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult, @RequestPart(value = "imgs", required = false) MultipartFile[] files,@RequestPart(value = "mainImage", required = false) MultipartFile mainImage) {
+    public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult, @RequestPart(value = "imgs", required = false) MultipartFile[] files, @RequestPart(value = "mainImage", required = false) MultipartFile[] mainImage) {
 
         if (bindingResult.hasErrors()) {
             Map errors = FormErrorUtil.changeToMapError(bindingResult);
@@ -148,7 +148,7 @@ public class ProductController {
         product.setCategory(productRequest.getCategory());
         product.setDescription(productRequest.getDescription());
         try {
-            product.setMainImage(new SerialBlob(mainImage.getBytes()));
+            product.setMainImage(new SerialBlob(mainImage[0].getBytes()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (IOException e) {
