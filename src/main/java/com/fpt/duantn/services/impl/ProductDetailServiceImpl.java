@@ -130,6 +130,26 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
+    public List<ProductDetailDto> getProductsDetail(Long idProduct,int page, int limit, String filter) {
+        List<ProductDetailDto> returnValue = new ArrayList<>();
+
+        if(page>0) page = page-1;
+
+        Pageable pageableRequest = PageRequest.of(page, limit);
+
+        Page<ProductDetailEntity> productDetailPage = productDetailRepository.filter(idProduct,filter, pageableRequest);
+        List<ProductDetailEntity> productsDetails = productDetailPage.getContent();
+
+        for (ProductDetailEntity productDetailEntity : productsDetails) {
+            ProductDetailDto productDetailDto = new ProductDetailDto();
+            BeanUtils.copyProperties(productDetailEntity, productDetailDto);
+            returnValue.add(productDetailDto);
+        }
+
+        return returnValue;
+    }
+
+    @Override
     public Long count(String filter) {
         Long total = productDetailRepository.count(filter);
         return total;
