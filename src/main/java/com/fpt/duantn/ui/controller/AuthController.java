@@ -8,16 +8,23 @@ import com.fpt.duantn.io.entity.User;
 import com.fpt.duantn.io.repository.RoleRepository;
 import com.fpt.duantn.io.repository.UserRepository;
 import com.fpt.duantn.security.CustomUserDetails;
+import com.fpt.duantn.security.JwtAuthenticationFilter;
 import com.fpt.duantn.security.JwtTokenProvider;
+import com.fpt.duantn.services.SendMailService;
 import com.fpt.duantn.services.impl.UserServiceImpl;
 import com.fpt.duantn.ui.model.request.LoginRequest;
 import com.fpt.duantn.ui.model.request.RegisterRequest;
 import com.fpt.duantn.ui.model.response.LoginResponse;
+import com.fpt.duantn.ui.model.response.MailInfo;
 import com.fpt.duantn.ui.model.response.RegisterResponse;
 import com.fpt.duantn.ui.model.response.base.BaseResponse;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +35,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -50,6 +60,11 @@ public class AuthController {
     private RoleRepository roleRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Autowired
+    SendMailService sendMailService;
 
     @PostMapping("/login")
     public ResponseEntity<BaseResponse<?>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -126,4 +141,29 @@ public class AuthController {
         );
     }
 
+    @PostMapping("/signout")
+    public ResponseEntity<?> logoutUser() {
+        ResponseCookie cookie = ResponseCookie.from("", null).path("/").build();
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(("You've been signed out!"));
+    }
+
+
+    public static String generateRandomPassword(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new SecureRandom();
+        return random.ints(length, 0, characters.length())
+                .mapToObj(characters::charAt)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
+
+
+    // sendmail
+    public void sendMailPassword(String email, String password, String title) throws IOException, MessagingException {
+        String body = "<div>\r\n" + "        <h3>Mật khẩu của bạn là: <span style=\"color:red; font-weight: bold;\">"
+                + password + "</span></h3>\r\n" + "    </div>";
+        sendMailService.send( new MailInfo(email,title,body));
+    }
 }

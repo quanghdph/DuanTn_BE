@@ -1,13 +1,10 @@
 package com.fpt.duantn.shrared.dto.CRUD;
 
-import com.fpt.duantn.io.entity.BillEntity;
-import com.fpt.duantn.io.entity.CartEntity;
 import com.fpt.duantn.io.entity.ProductDetailEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -20,7 +17,6 @@ public class CartDetailDto implements Serializable {
 
     private ProductDetailEntity productDetail;
 
-    private CartEntity cart;
 
     private Date createDate;
 

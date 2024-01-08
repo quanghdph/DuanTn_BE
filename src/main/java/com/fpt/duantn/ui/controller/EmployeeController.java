@@ -9,6 +9,7 @@ import com.fpt.duantn.shrared.dto.CRUD.EmployeeDto;
 import com.fpt.duantn.ui.model.request.EmployeeRequest;
 import com.fpt.duantn.ui.model.response.*;
 import com.fpt.duantn.util.FileImgUtil;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class EmployeeController {
 
     @PostMapping()
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public EmployeeRest createEmployee(@RequestBody EmployeeRequest employeeDetails, @RequestPart(value = "images",required = false) MultipartFile []multipartFiles) throws Exception {
+    public EmployeeRest createEmployee(@Valid @RequestBody EmployeeRequest employeeDetails, @RequestPart(value = "images",required = false) MultipartFile []multipartFiles) throws Exception {
         EmployeeRest returnValue = new EmployeeRest();
 
         ModelMapper modelMapper = new ModelMapper();

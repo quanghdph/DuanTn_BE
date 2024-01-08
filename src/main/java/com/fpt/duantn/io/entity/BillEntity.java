@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -45,10 +47,12 @@ public class BillEntity implements Serializable {
 
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
+    @CreatedDate
     private Date createDate;
 
     @Column(name = "update_date")
     @Temporal(TemporalType.DATE)
+    @UpdateTimestamp
     private Date updateDate;
 
     @Column(name = "payment_date")
@@ -62,7 +66,7 @@ public class BillEntity implements Serializable {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
-    @Pattern(regexp = "^(0|\\+\\d{2})\\d{9}$")
+//    @Pattern(regexp = "^(0|\\+\\d{2})\\d{9}$")
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 

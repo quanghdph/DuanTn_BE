@@ -18,7 +18,6 @@ public class PaginationRest {
     private List<BillDetailRest> listBillDetails;
     private List<BillRest> listBill;
     private List<BrandRest> listBrand;
-    private List<CartRest> listCart;
     private List<CartDetailRest> listCartDetail;
     private List<CustomerRest> listCustomer;
     private List<ProductDetailRest> listProductDetail;

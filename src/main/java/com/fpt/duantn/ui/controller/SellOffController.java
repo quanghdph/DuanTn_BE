@@ -23,7 +23,7 @@ import java.util.UUID;
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
 @RequestMapping("/selloff")
-@PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+
 public class SellOffController {
     @Autowired
     private CustomerService customerService;
@@ -40,11 +40,7 @@ public class SellOffController {
 //    @Autowired
 //    private Authenti authenticationService;
 
-    @GetMapping("/view")
-    public String getView (){
-        return "/admin/view/selloff/view";
-    }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @PostMapping("/calculate-money")
     public ResponseEntity<?> calculateMoney(@ModelAttribute() SellOfRequest sellOffRequest){
         List<SellOfProductRequest> sellOffProductRequests= sellOffRequest.getSanPhams();
@@ -79,9 +75,9 @@ public class SellOffController {
         Optional<Double> sumMoney = billDetailService.sumMoneyByBillIdAndType(billID.orElse(null),null);
         return ResponseEntity.ok(sumMoney.orElse(null));
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE','CUSTOMER')")
     @PostMapping ()
-    public ResponseEntity<?> add(@ModelAttribute() SellOfRequest sellOffRequest, Authentication authentication) {
+    public ResponseEntity<?> add(@RequestBody() SellOfRequest sellOffRequest, Authentication authentication) {
         if (sellOffRequest.getThanhToan()==null||sellOffRequest.getTrangThaiTT()==null||sellOffRequest.getSanPhams()==null){
             return ResponseEntity.badRequest().body("Thông tin Không đầy đủ");
         }
@@ -146,6 +142,7 @@ public class SellOffController {
             productDetailService.saveAll(productDetails);
             billDetailService.saveAll(billDetails);
         }catch (Exception e){
+            System.out.println(e);
             return ResponseEntity.ok("Lỗi , Kiểm tra lại hóa đơn");
         }
         return ResponseEntity.ok(newBillSaved.getId());

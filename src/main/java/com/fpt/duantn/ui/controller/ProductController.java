@@ -71,7 +71,7 @@ public class ProductController {
 
     @PostMapping()
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ProductRest createProduct(@ModelAttribute ProductRequest productDetails, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
+    public ProductRest createProduct(@Valid @ModelAttribute ProductRequest productDetails, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
         System.out.println(multipartFiles.length);
         ModelMapper modelMapper = new ModelMapper();
@@ -121,9 +121,11 @@ public class ProductController {
         return returnValue;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping(value = "/add")
+
     public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult) {
+
 
         if (bindingResult.hasErrors()) {
             Map errors = FormErrorUtil.changeToMapError(bindingResult);
@@ -131,7 +133,7 @@ public class ProductController {
         }
 
         // Kiểm tra mã trùng
-        ProductEntity existingProduct = productService.findByCode(productRequest.getCode());
+        ProductEntity existingProduct = productService.findByProductCode(productRequest.getCode());
         if (existingProduct != null) {
             Map<String, String> errors = new HashMap<>();
             errors.put("code", "Mã đã tồn tại");
@@ -147,7 +149,13 @@ public class ProductController {
         product.setBrand(productRequest.getBrand());
         product.setCategory(productRequest.getCategory());
         product.setDescription(productRequest.getDescription());
-
+        try {
+            product.setMainImage(new SerialBlob(mainImage[0].getBytes()));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ProductEntity productSaved = productService.save(product);
 
         try {

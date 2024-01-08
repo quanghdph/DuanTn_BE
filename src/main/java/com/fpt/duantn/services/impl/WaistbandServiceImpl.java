@@ -60,7 +60,7 @@ public class WaistbandServiceImpl implements WaistbandService {
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<WaistbandEntity> waistBandPage = waistbandRepository.findByWaistBandContainingOrderByIdAsc(waistbandName, pageableRequest);
+        Page<WaistbandEntity> waistBandPage = waistbandRepository.findByWaistbandNameContainingOrderByIdAsc(waistbandName, pageableRequest);
         List<WaistbandEntity> waistBands = waistBandPage.getContent();
 
         for (WaistbandEntity waistbandEntity : waistBands) {

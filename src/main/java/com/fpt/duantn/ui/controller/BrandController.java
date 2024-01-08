@@ -7,10 +7,12 @@ import com.fpt.duantn.ui.model.response.BrandRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,9 +36,9 @@ public class BrandController {
 
         return returnValue;
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @PostMapping()
-    public BrandRest createBrand(@RequestBody BrandRequest brandDetails) throws Exception {
+    public BrandRest createBrand(@Valid @RequestBody BrandRequest brandDetails) throws Exception {
         BrandRest returnValue = new BrandRest();
 
         ModelMapper modelMapper = new ModelMapper();

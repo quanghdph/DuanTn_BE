@@ -4,6 +4,8 @@ import com.fpt.duantn.io.entity.BillEntity;
 import com.fpt.duantn.shrared.dto.CRUD.BillDto;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface BillService {
 
@@ -22,6 +24,6 @@ public interface BillService {
     Long count(String filter);
 
 //    List<BillDto> getBillByBillName(String billName, int page, int limit);
-
+Optional<BillEntity> findById(Long id);
 
 }
