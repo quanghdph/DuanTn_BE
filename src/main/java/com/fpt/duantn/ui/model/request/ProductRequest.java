@@ -9,6 +9,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -43,5 +44,7 @@ public class ProductRequest {
     private MaterialEntity material;
 
     private List<ProductDetailRequest> productDetails;
+
+    MultipartFile[] imgs;
 
 }

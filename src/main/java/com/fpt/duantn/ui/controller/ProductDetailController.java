@@ -7,16 +7,25 @@ import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.ProductDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
 @RequestMapping("/product-detail")
@@ -36,9 +45,40 @@ public class ProductDetailController {
         return returnValue;
     }
 
+<<<<<<< Updated upstream
     @PostMapping()
     public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
         ProductDetailRest returnValue = new ProductDetailRest();
+=======
+
+
+//    @PostMapping()
+//    public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
+//        ProductDetailRest returnValue = new ProductDetailRest();
+//
+//        ModelMapper modelMapper = new ModelMapper();
+//
+//        ProductDetailEntity productDetailEntity = new ProductDetailEntity();
+//        productDetailEntity.setProduct(productDetailDetails.ge);
+//        ColorEntity colorEntity = new ColorEntity();
+//        colorEntity.setId(item.getColorId());
+//        productDetailEntity.setColor(colorEntity);
+//        SizeEntity sizeEntity = new SizeEntity();
+//        sizeEntity.setId(item.getSizeId());
+//        productDetailEntity.setSize(sizeEntity);
+//        productDetailEntity.setQuantity(item.getQuantity());
+//        productDetailEntity.setPrice(item.getPrice());
+//        productDetailEntity.setStatus(item.getStatus());
+//
+//
+//
+//
+//        ProductDetailDto createdUser = productDetailService.createProductDetail(productDetailDto);
+//        returnValue = modelMapper.map(createdUser, ProductDetailRest.class);
+//
+//        return returnValue;
+//    }
+>>>>>>> Stashed changes
 
         ModelMapper modelMapper = new ModelMapper();
         ProductDetailDto productDetailDto = modelMapper.map(productDetailDetails, ProductDetailDto.class);
