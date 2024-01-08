@@ -123,7 +123,9 @@ public class ProductController {
 
 
     @PostMapping(value = "/add")
-    public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult, @RequestPart(value = "imgs", required = false) MultipartFile[] files, @RequestPart(value = "mainImage", required = false) MultipartFile[] mainImage) {
+
+    public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult) {
+
 
         if (bindingResult.hasErrors()) {
             Map errors = FormErrorUtil.changeToMapError(bindingResult);
@@ -141,7 +143,7 @@ public class ProductController {
 
 //        Conver dữ liệu sang domain
         ProductEntity product = new ProductEntity();
-        product.setProductCode(productRequest.getCode());
+        product.setProductCode(new Random().nextInt(100)+"");
         product.setProductName(productRequest.getProductName());
         product.setStatus(productRequest.getStatus());
         product.setBrand(productRequest.getBrand());
@@ -172,7 +174,7 @@ public class ProductController {
                 productDetailEntity.setQuantity(item.getQuantity());
                 productDetailEntity.setPrice(item.getPrice());
                 productDetailEntity.setStatus(item.getStatus());
-
+                productDetailEntities.add(productDetailEntity);
             });
 
             productDetailService.saveAll(productDetailEntities);
@@ -180,34 +182,37 @@ public class ProductController {
             //        Thêm ảnh
             List<ImageEntity> imagesList = new ArrayList<>();
             boolean imgSelect = true;
-            for (MultipartFile multipartFile : files) {
-                try {
-                    Blob blob = fileImgUtil.convertMultipartFileToBlob(multipartFile);
+            if (productRequest.getImgs()!=null){
+                for (MultipartFile multipartFile : productRequest.getImgs()) {
+                    try {
+                        Blob blob = fileImgUtil.convertMultipartFileToBlob(multipartFile);
 
-                    if (blob != null) {
-                        ImageEntity image = new ImageEntity();
-                        image.setProduct(productSaved);
-                        image.setImage(blob);
-                        if (imgSelect) {
-                            image.setType(true);
-                            imgSelect = false;
-                        } else {
-                            image.setType(true);
+                        if (blob != null) {
+                            ImageEntity image = new ImageEntity();
+                            image.setProduct(productSaved);
+                            image.setImage(blob);
+                            if (imgSelect) {
+                                image.setType(true);
+                                imgSelect = false;
+                            } else {
+                                image.setType(true);
+                            }
+                            imagesList.add(image);
                         }
-                        imagesList.add(image);
+
+
+                    } catch (IOException | SQLException e) {
+                        return ResponseEntity.badRequest().body("Không đọc ghi được ảnh (kiểm tra lại sản phảm vừa tạo)");
                     }
-
-
-                } catch (IOException | SQLException e) {
-                    return ResponseEntity.badRequest().body("Không đọc ghi được ảnh (kiểm tra lại sản phảm vừa tạo)");
                 }
             }
             imageService.saveAll(imagesList);
 
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.badRequest().body("Có lỗi sảy ra (kiểm tra lại sản phảm vừa tạo)");
         }
-        return ResponseEntity.ok("thành công");
+        return ResponseEntity.ok(productSaved.getId());
     }
 
     @PutMapping(path = "/{id}")

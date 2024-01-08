@@ -55,7 +55,7 @@ public class ColorController {
 
     @GetMapping()
     public PaginationRest getColors(@RequestParam(value = "page", defaultValue = "0") int page,
-                                             @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                             @RequestParam(value = "limit", defaultValue = "10") int limit,
                                      @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<ColorRest> returnValue = new ArrayList<>();
 
