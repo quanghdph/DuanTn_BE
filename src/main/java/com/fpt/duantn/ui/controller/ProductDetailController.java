@@ -56,7 +56,6 @@ public class ProductDetailController {
         ProductDetailRest returnValue = new ProductDetailRest();
 
 
-
 //    @PostMapping()
 //    public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
 //        ProductDetailRest returnValue = new ProductDetailRest();
@@ -83,11 +82,10 @@ public class ProductDetailController {
 //
 //        return returnValue;
 //    }
-
-
         ModelMapper modelMapper = new ModelMapper();
         ProductDetailDto productDetailDto = modelMapper.map(productDetailDetails, ProductDetailDto.class);
-
+    return  returnValue;
+    }
     @GetMapping()
     public PaginationRest getProductDetail(@RequestParam(value = "page", defaultValue = "0") int page,
                                       @RequestParam(value = "limit", defaultValue = "5") int limit,

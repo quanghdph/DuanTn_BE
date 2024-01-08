@@ -149,13 +149,13 @@ public class ProductController {
         product.setBrand(productRequest.getBrand());
         product.setCategory(productRequest.getCategory());
         product.setDescription(productRequest.getDescription());
-        try {
-            product.setMainImage(new SerialBlob(mainImage[0].getBytes()));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            product.setMainImage(new SerialBlob(mainImage.getBytes()));
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         ProductEntity productSaved = productService.save(product);
 
         try {
