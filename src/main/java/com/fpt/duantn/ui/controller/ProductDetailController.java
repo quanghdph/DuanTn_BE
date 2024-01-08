@@ -3,11 +3,9 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.io.entity.*;
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
+import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
 import com.fpt.duantn.ui.model.request.ProductDetailRequest;
-import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.ProductDetailRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.ui.model.response.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,26 @@ public class ProductDetailController {
         return returnValue;
     }
 
+    @GetMapping()
+    public PaginationRest getProductDetail(@RequestParam(value = "page", defaultValue = "0") int page,
+                                      @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                      @RequestParam(value = "filter", defaultValue = "") String filter,
+                                      @RequestParam(value = "idProduct",required = true)Long idProduct) {
+        List<ProductDetailRest> returnValue = new ArrayList<>();
+
+        List<ProductDetailDto> productsDetails = productDetailService.getProductsDetail(idProduct,page, limit, filter);
+
+        for (ProductDetailDto productDetailDto : productsDetails) {
+            ProductDetailRest productModel = new ProductDetailRest();
+            BeanUtils.copyProperties(productDetailDto, productModel);
+            returnValue.add(productModel);
+        }
+        PaginationRest paginationRest = new PaginationRest();
+        paginationRest.setListProductDetail(returnValue);
+        paginationRest.setTotal(productDetailService.count(filter));
+
+        return paginationRest;
+    }
 //    @PostMapping()
 //    public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
 //        ProductDetailRest returnValue = new ProductDetailRest();
@@ -118,25 +136,25 @@ public class ProductDetailController {
 //        return returnValue;
 //    }
 
-    @GetMapping()
-    public PaginationRest getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                            @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                            @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<ProductDetailRest> returnValue = new ArrayList<>();
-
-        List<ProductDetailDto> productDetails = productDetailService.getProductsDetail(page, limit, filter);
-
-        for (ProductDetailDto productDetailDto : productDetails) {
-            ProductDetailRest productDetailModel = new ProductDetailRest();
-            BeanUtils.copyProperties(productDetailDto, productDetailModel);
-            returnValue.add(productDetailModel);
-        }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListProductDetail(returnValue);
-        paginationRest.setTotal(productDetailService.count(filter));
-
-        return paginationRest;
-    }
+//    @GetMapping()
+//    public PaginationRest getProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+//                                            @RequestParam(value = "limit", defaultValue = "5") int limit,
+//                                            @RequestParam(value = "filter", defaultValue = "") String filter) {
+//        List<ProductDetailRest> returnValue = new ArrayList<>();
+//
+//        List<ProductDetailDto> productDetails = productDetailService.getProductsDetail(page, limit, filter);
+//
+//        for (ProductDetailDto productDetailDto : productDetails) {
+//            ProductDetailRest productDetailModel = new ProductDetailRest();
+//            BeanUtils.copyProperties(productDetailDto, productDetailModel);
+//            returnValue.add(productDetailModel);
+//        }
+//        PaginationRest paginationRest = new PaginationRest();
+//        paginationRest.setListProductDetail(returnValue);
+//        paginationRest.setTotal(productDetailService.count(filter));
+//
+//        return paginationRest;
+//    }
 
     @GetMapping("/{productId}/{colorId}/{sizeId}")
     public ResponseEntity<ProductDetailDto> getProductDetailByColorAndSize(

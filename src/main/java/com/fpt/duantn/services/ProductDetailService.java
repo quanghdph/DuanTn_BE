@@ -18,6 +18,9 @@ public interface ProductDetailService {
     ProductDetailDto updateProductDetail(Long productDetailId, ProductDetailDto productDetail);
     void deleteProductDetail(Long productDetailId);
     List<ProductDetailDto> getProductsDetail(int page, int limit, String filter);
+
+    List<ProductDetailDto> getProductsDetail(Long idProduct, int page, int limit, String filter);
+
     Long count(String filter);
     ProductDetailDto getProductDetailsByProductAndColorAndSize(Long productId,Long colorId, Long sizeId);
     Optional<Double> sumMoneyByBillIdAndType(Long id, Integer type);
