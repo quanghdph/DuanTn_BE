@@ -54,7 +54,7 @@ public class SizeController {
 
     @GetMapping()
     public PaginationRest getSizes(@RequestParam(value = "page", defaultValue = "0") int page,
-                                   @RequestParam(value = "limit", defaultValue = "2") int limit,
+                                   @RequestParam(value = "limit", defaultValue = "10") int limit,
                                    @RequestParam(value = "filter", defaultValue = "") String filter) {
         List<SizeRest> returnValue = new ArrayList<>();
 
