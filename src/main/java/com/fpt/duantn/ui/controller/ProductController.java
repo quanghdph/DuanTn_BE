@@ -80,7 +80,6 @@ public class ProductController {
         productDto.setCategory(productDetails.getCategory());
         productDto.setBrand(productDetails.getBrand());
         productDto.setMaterial(productDetails.getMaterial());
-        productDto.setWaistband(productDetails.getWaistband());
 
         if (multipartFiles != null) {
             if (multipartFiles.length > 0) {
@@ -123,7 +122,7 @@ public class ProductController {
 
 
     @PostMapping(value = "/add")
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult) {
 
 
@@ -231,7 +230,6 @@ public class ProductController {
             productEntity.setCategory(productRequest.getCategory());
             productEntity.setBrand(productRequest.getBrand());
             productEntity.setMaterial(productRequest.getMaterial());
-            productEntity.setWaistband(productRequest.getWaistband());
             productEntity.setStatus(productRequest.getStatus());
             productEntity.setProductName(productRequest.getProductName());
             productEntity.setDescription(productRequest.getDescription());

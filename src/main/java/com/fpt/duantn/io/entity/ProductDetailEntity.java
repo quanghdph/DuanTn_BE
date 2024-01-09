@@ -32,7 +32,7 @@ public class ProductDetailEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "price", precision = 10, scale = 0)
     private BigDecimal price;

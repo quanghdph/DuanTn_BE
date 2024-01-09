@@ -130,6 +130,16 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
+    public boolean existsById(Long aLong) {
+        return productDetailRepository.existsById(aLong);
+    }
+
+    @Override
+    public Boolean existsByProductIdAndColorIdAndSizeId(Long idProduct, Long idColor, Long idSize) {
+        return productDetailRepository.existsByProductIdAndColorIdAndSizeId(idProduct, idColor, idSize);
+    }
+
+    @Override
     public List<ProductDetailDto> getProductsDetail(Long idProduct,int page, int limit, String filter) {
         List<ProductDetailDto> returnValue = new ArrayList<>();
 

@@ -26,7 +26,7 @@ public class ColorEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "color_name")
     private String colorName;

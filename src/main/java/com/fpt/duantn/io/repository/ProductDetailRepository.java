@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 
 @Repository
 public interface ProductDetailRepository extends JpaRepository<ProductDetailEntity, Long> {
@@ -53,5 +55,6 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetailEnti
     ProductDetailEntity findByProductIdAndColorIdAndSizeId(@Param("productId") Long productId,
                                                @Param("colorId") Long colorId,
                                                @Param("sizeId") Long sizeId);
+    Boolean existsByProductIdAndColorIdAndSizeId(Long idProduct, Long idColor, Long idSize);
 
 }

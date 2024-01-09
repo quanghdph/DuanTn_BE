@@ -10,10 +10,12 @@ import com.fpt.duantn.ui.model.response.PaginationRest;
 import com.fpt.duantn.ui.model.response.ProductDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.util.FormErrorUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.fpt.duantn.ui.model.response.*;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
@@ -55,37 +56,12 @@ public class ProductDetailController {
     public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
         ProductDetailRest returnValue = new ProductDetailRest();
 
-
-//    @PostMapping()
-//    public ProductDetailRest createProductDetail(@RequestBody ProductDetailRequest productDetailDetails) throws Exception {
-//        ProductDetailRest returnValue = new ProductDetailRest();
-//
-//        ModelMapper modelMapper = new ModelMapper();
-//
-//        ProductDetailEntity productDetailEntity = new ProductDetailEntity();
-//        productDetailEntity.setProduct(productDetailDetails.ge);
-//        ColorEntity colorEntity = new ColorEntity();
-//        colorEntity.setId(item.getColorId());
-//        productDetailEntity.setColor(colorEntity);
-//        SizeEntity sizeEntity = new SizeEntity();
-//        sizeEntity.setId(item.getSizeId());
-//        productDetailEntity.setSize(sizeEntity);
-//        productDetailEntity.setQuantity(item.getQuantity());
-//        productDetailEntity.setPrice(item.getPrice());
-//        productDetailEntity.setStatus(item.getStatus());
-//
-//
-//
-//
-//        ProductDetailDto createdUser = productDetailService.createProductDetail(productDetailDto);
-//        returnValue = modelMapper.map(createdUser, ProductDetailRest.class);
-//
-//        return returnValue;
-//    }
         ModelMapper modelMapper = new ModelMapper();
         ProductDetailDto productDetailDto = modelMapper.map(productDetailDetails, ProductDetailDto.class);
     return  returnValue;
     }
+
+
     @GetMapping()
     public PaginationRest getProductDetail(@RequestParam(value = "page", defaultValue = "0") int page,
                                       @RequestParam(value = "limit", defaultValue = "5") int limit,
@@ -133,22 +109,47 @@ public class ProductDetailController {
 //        return returnValue;
 //    }
 
-//    @PutMapping(path = "/{id}")
-//    public ProductDetailRest updateProductDetail(@PathVariable Long id, @RequestBody ProductDetailRequest productDetailDetails) {
-//        ProductDetailRest returnValue = new ProductDetailRest();
-//
-//        ProductDetailDto productDetailDto = new ProductDetailDto();
-//        productDetailDto = new ModelMapper().map(productDetailDetails, ProductDetailDto.class);
-//
-//        productDetailDto.setProduct(productDetailDetails.getProduct());
-//        productDetailDto.setColor(productDetailDetails.getColor());
-//        productDetailDto.setSize(productDetailDetails.getSize());
-//
-//        ProductDetailDto updateProductDetail = productDetailService.updateProductDetail(id, productDetailDto);
-//        returnValue = new ModelMapper().map(updateProductDetail, ProductDetailRest.class);
-//
-//        return returnValue;
-//    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping( value = "/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @ModelAttribute ProductDetailEntity productDetail , BindingResult bindingResult) {
+        if (productDetail.getColor()==null){
+            bindingResult.rejectValue("color.id","required","Vui lòng nhập trường này");
+        }else {
+            if (productDetail.getColor().getId()==null){
+                bindingResult.rejectValue("color.id","required","Vui lòng nhập trường này");
+            };
+        }
+        if (productDetail.getSize()==null){
+            bindingResult.rejectValue("size.id","required","Vui lòng nhập trường này");
+        }else {
+            if (productDetail.getSize().getId()==null){
+                bindingResult.rejectValue("size.id","required","Vui lòng nhập trường này");
+            };
+        }
+
+        if (bindingResult.hasErrors()){
+            Map errors = FormErrorUtil.changeToMapError(bindingResult);
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        if (productDetailService.existsById(id)){
+            Optional<ProductDetailEntity> optionalProductDetail = productDetailService.findById(id);
+            ProductDetailEntity productDetailDB = optionalProductDetail.get();
+            if (!(productDetailDB.getColor().getId().equals(productDetail.getColor().getId())&&productDetailDB.getSize().getId().equals(productDetail.getSize().getId()))){
+                if (productDetailService.existsByProductIdAndColorIdAndSizeId(productDetail.getProduct().getId(),productDetail.getColor().getId(),productDetail.getSize().getId())){
+                    return ResponseEntity.badRequest().body("Biến thể này đã tồn tại");
+                }
+            }
+            productDetail.setId(id);
+            ProductDetailEntity productDetailSaved = productDetailService.save(productDetail);
+            return ResponseEntity.ok(productDetailSaved);
+
+        }else {
+            return ResponseEntity.badRequest().body("Không tồn tại");
+        }
+
+
+    }
 
     @DeleteMapping(path = "/{id}")
     public OperationStatusModel deleteProductDetail(@PathVariable Long id) {

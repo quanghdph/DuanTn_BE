@@ -69,9 +69,6 @@ public class ProductEntity implements Serializable {
     @JoinColumn(name = "material_id")
     private MaterialEntity material;
 
-    @ManyToOne
-    @JoinColumn(name = "waistband_id")
-    private WaistbandEntity waistband;
 
     @Column(name = "product_code")
     private String productCode;

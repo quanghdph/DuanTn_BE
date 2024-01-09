@@ -25,7 +25,7 @@ public class SizeEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "size_name")
     private String sizeName;
