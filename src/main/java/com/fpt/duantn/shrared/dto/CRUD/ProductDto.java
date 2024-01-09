@@ -3,7 +3,6 @@ package com.fpt.duantn.shrared.dto.CRUD;
 import com.fpt.duantn.io.entity.BrandEntity;
 import com.fpt.duantn.io.entity.CategoryEntity;
 import com.fpt.duantn.io.entity.MaterialEntity;
-import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -11,10 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.Date;
-import java.util.List;
 
 
 @Getter
@@ -44,7 +41,6 @@ public class ProductDto implements Serializable {
 
     private Integer status;
 
-    private WaistbandEntity waistband;
 
     private String productCode;
 

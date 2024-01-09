@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "SELECT p.id, p.description, p.product_code, p.product_name, p.status, p.main_image, " +
-            "pd.id AS product_detail_id, pd.price, p.material_id,p.waistband_id " +
+            "pd.id AS product_detail_id, pd.price, p.material_id " +
             "c.id AS color_id, c.color_code " +
             "FROM products p " +
             "JOIN product_detail pd ON p.id = pd.product_id " +
@@ -40,7 +40,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "SELECT p.id, p.product_name," +
             "p.category_id,p.brand_id,p.main_image,p.description,p.create_date,p.update_date, " +
-            "p.status,p.product_code,p.material_id,p.waistband_id " +
+            "p.status,p.product_code,p.material_id " +
             "FROM products p " +
             "where 1=1 and (:filter is null or :filter = '' or (p.product_name like %:filter% or p.status like %:filter% or p.product_code like %:filter%))",
             nativeQuery = true)

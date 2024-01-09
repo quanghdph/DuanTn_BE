@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         //them khoa ngoai
         productEntity.setCategory(product.getCategory());
         productEntity.setBrand(product.getBrand());
-        productEntity.setWaistband(product.getWaistband());
+
         productEntity.setMaterial(product.getMaterial());
 
         // Lưu trữ thông tin màu vào cơ sở dữ liệu
@@ -95,7 +95,6 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setProductName(product.getProductName());
         productEntity.setCategory(product.getCategory());
         productEntity.setBrand(product.getBrand());
-        productEntity.setWaistband(product.getWaistband());
         productEntity.setMaterial(product.getMaterial());
         productEntity.setMainImage(product.getMainImage());
         productEntity.setDescription(product.getDescription());

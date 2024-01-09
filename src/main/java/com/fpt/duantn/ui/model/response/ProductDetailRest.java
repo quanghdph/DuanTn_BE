@@ -1,10 +1,8 @@
 package com.fpt.duantn.ui.model.response;
 
 import com.fpt.duantn.io.entity.ColorEntity;
-import com.fpt.duantn.io.entity.MaterialEntity;
 import com.fpt.duantn.io.entity.ProductEntity;
 import com.fpt.duantn.io.entity.SizeEntity;
-import com.fpt.duantn.io.entity.WaistbandEntity;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
