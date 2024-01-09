@@ -152,11 +152,6 @@ custom-config:
       - { urlPattern: "/size/**", method: "PUT" }
       - { urlPattern: "/size/**", method: "DELETE" }
 
-      - { urlPattern: "/waistband/**" }
-      - { urlPattern: "/waistband/**", method: "GET" }
-      - { urlPattern: "/waistband", method: "POST" }
-      - { urlPattern: "/waistband/**", method: "PUT" }
-      - { urlPattern: "/waistband/**", method: "DELETE" }
 server:
   port: 8080
 
