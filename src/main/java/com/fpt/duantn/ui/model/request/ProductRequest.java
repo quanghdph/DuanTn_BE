@@ -26,7 +26,7 @@ public class ProductRequest {
 
     private BrandEntity brand;
 
-    private String mainImage;
+    private MultipartFile mainImage;
 
     @Lob
     private String description;
