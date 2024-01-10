@@ -1,6 +1,15 @@
 package com.fpt.duantn.ui.controller;
 
+import com.fpt.duantn.io.entity.CartDetailEntity;
+import com.fpt.duantn.io.entity.CustomerEntity;
+import com.fpt.duantn.io.entity.ProductDetailEntity;
+import com.fpt.duantn.io.entity.User;
+import com.fpt.duantn.io.repository.CartDetailRepository;
+import com.fpt.duantn.io.repository.ProductDetailRepository;
+import com.fpt.duantn.security.JwtAuthenticationFilter;
 import com.fpt.duantn.services.CartDetailService;
+import com.fpt.duantn.services.CustomerService;
+import com.fpt.duantn.services.impl.UserServiceImpl;
 import com.fpt.duantn.shrared.dto.CRUD.CartDetailDto;
 import com.fpt.duantn.ui.model.request.CartDetailRequest;
 import com.fpt.duantn.ui.model.response.CartDetailRest;
@@ -11,120 +20,101 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
 @RequestMapping("/cart-detail")
 public class CartDetailController {
 
     @Autowired
-    CartDetailService cartDetailService;
+    CartDetailRepository cartDetailRepository;
 
-    @GetMapping(path = "/{id}")
-    public CartDetailRest getCartDetail(@PathVariable Long id) {
-        CartDetailRest returnValue = new CartDetailRest();
+    @Autowired
+    CustomerService customerService;
 
-        CartDetailDto cartDetailDto = cartDetailService.getCartDetailById(id);
-        ModelMapper modelMapper = new ModelMapper();
-        returnValue = modelMapper.map(cartDetailDto, CartDetailRest.class);
+    @Autowired
+    ProductDetailRepository productDetailRepository;
 
-        return returnValue;
+    @Autowired
+    UserServiceImpl userService;
+
+    @GetMapping("/cart-detail/{id}")
+    public ResponseEntity<CartDetailEntity> getByCartDetail(@PathVariable("id") Long id) {
+        if (!cartDetailRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        CartDetailEntity cartDetail = cartDetailRepository.findById(id).get();
+        cartDetail.setCustomer(null);
+        return ResponseEntity.ok(cartDetail);
     }
+
+    @RequestMapping(value = "/cart-details", method = RequestMethod.GET)
+    public ResponseEntity<?> getCartDetails(Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName()).orElse(null);
+
+        if (!customerService.existsById(user.getId())) {
+            return ResponseEntity.badRequest().body("Cần đăng nhập đúng tài khoản khách hàng");
+        }
+        List<CartDetailEntity> cartDetails = cartDetailRepository.findByCustomerIdAndStatus(user.getId(),1);
+        for (CartDetailEntity cartDetail:cartDetails) {
+            cartDetail.setCustomer(null);
+        }
+        return ResponseEntity.ok(cartDetails);
+    }
+
+
 
     @PostMapping()
-    public CartDetailRest createCartDetail(@RequestBody CartDetailRequest cartDetailDetails) throws Exception {
-        CartDetailRest returnValue = new CartDetailRest();
-
-        ModelMapper modelMapper = new ModelMapper();
-        CartDetailDto cartDetailDto = modelMapper.map(cartDetailDetails, CartDetailDto.class);
-
-        cartDetailDto.setProductDetail(cartDetailDetails.getProductDetail());
-
-
-        CartDetailDto createdUser = cartDetailService.createCartDetail(cartDetailDto);
-        returnValue = modelMapper.map(createdUser, CartDetailRest.class);
-
-        return returnValue;
-    }
-
-
-
-    @PutMapping(path = "/{id}")
-    public CartDetailRest updateCartDetail(@PathVariable Long id, @RequestBody CartDetailRequest cartDetailDetails) {
-        CartDetailRest returnValue = new CartDetailRest();
-
-        CartDetailDto cartDetailDto = new CartDetailDto();
-        cartDetailDto = new ModelMapper().map(cartDetailDetails, CartDetailDto.class);
-
-        cartDetailDto.setProductDetail(cartDetailDetails.getProductDetail());
-
-
-
-        CartDetailDto updateCartDetail = cartDetailService.updateCartDetail(id, cartDetailDto);
-        returnValue = new ModelMapper().map(updateCartDetail, CartDetailRest.class);
-
-        return returnValue;
-    }
-
-    @DeleteMapping(path = "/{id}")
-    public OperationStatusModel deleteCartDetail(@PathVariable Long id) {
-        OperationStatusModel returnValue = new OperationStatusModel();
-        returnValue.setOperationName(RequestOperationName.DELETE.name());
-
-        try {
-            cartDetailService.deleteCartDetail(id);
-            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
-            returnValue.setOperationMessage("Xoa Thanh Cong.");
-        }catch (DataIntegrityViolationException exception){
-            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-            returnValue.setOperationMessage("Lỗi khi xóa Gio Hang Chi Tiet: Gio Hang Chi Tiet có tham chiếu đến khoá ngoại.");
-        }catch (Exception e){
-            returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
-            returnValue.setOperationMessage("Lỗi khi xóa Gio Hang Chi Tiet: " + e.getMessage());
-        }return returnValue;
-    }
-
-
-
-//    @GetMapping("/search")
-//    public List<CartDetailRest> searchCartDetails(@RequestParam(value = "CartDetailName") String CartDetailName,
-//                                              @RequestParam(value = "page", defaultValue = "0") int page,
-//                                              @RequestParam(value = "limit", defaultValue = "2") int limit) {
-//        List<CartDetailRest> returnValue = new ArrayList<>();
-//
-//        List<CartDetailDto> CartDetails = CartDetailService.getCartDetailByCartDetailName(CartDetailName, page, limit);
-//
-//        for (CartDetailDto CartDetailDto : CartDetails) {
-//            CartDetailRest CartDetailModel = new CartDetailRest();
-//            BeanUtils.copyProperties(CartDetailDto, CartDetailModel);
-//            returnValue.add(CartDetailModel);
-//        }
-//
-//        return returnValue;
-//    }
-
-    @GetMapping()
-    public PaginationRest getCartDetails(@RequestParam(value = "page", defaultValue = "0") int page,
-                                         @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                         @RequestParam(value = "filter", defaultValue = "") String filter) {
-        List<CartDetailRest> returnValue = new ArrayList<>();
-
-        List<CartDetailDto> cartDetails = cartDetailService.getCartDetails(page, limit, filter);
-
-        for (CartDetailDto cartDetailDto : cartDetails) {
-            CartDetailRest cartDetailModel = new CartDetailRest();
-            BeanUtils.copyProperties(cartDetailDto, cartDetailModel);
-            returnValue.add(cartDetailModel);
+    public ResponseEntity<?> post(@RequestParam Long productDetailId,Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName()).orElse(null);
+        if (!customerService.existsById(user.getId())) {
+            return ResponseEntity.badRequest().body("Cần đăng nhập đúng tài khoản khách hàng");
         }
-        PaginationRest paginationRest = new PaginationRest();
-        paginationRest.setListCartDetail(returnValue);
-        paginationRest.setTotal(cartDetailService.count(filter));
+        if (cartDetailRepository.existsByCustomerIdAndProductDetailIdAndStatus(user.getId(),productDetailId,1)) {
+            return ResponseEntity.badRequest().body("Sản phẩm đã có trong gio hàng");
+        }
 
-        return paginationRest;
+        CartDetailEntity cartDetail = new CartDetailEntity();
+        ProductDetailEntity productDetail = new ProductDetailEntity();
+        productDetail.setId(user.getId());
+        cartDetail.setProductDetail(productDetail);
+
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(user.getId());
+        cartDetail.setCustomer(customer);
+
+        cartDetail.setStatus(1);
+        CartDetailEntity cartDetailSaved = cartDetailRepository.save(cartDetail);
+        cartDetailSaved.setCustomer(null);
+
+        return ResponseEntity.ok(cartDetailSaved);
     }
 
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id,Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName()).orElse(null);
+        if (!customerService.existsById(user.getId())) {
+            return ResponseEntity.badRequest().body("Cần đăng nhập đúng tài khoản khách hàng");
+        }
+        if (!cartDetailRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        int result = cartDetailRepository.deleteByProductDetailIdAndCustomerId(id,user.getId());
+        if (result>0){
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.badRequest().body("Xóa không thành công");
+        }
+
+    }
 
 }

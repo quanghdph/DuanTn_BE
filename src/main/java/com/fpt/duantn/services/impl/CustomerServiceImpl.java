@@ -54,6 +54,10 @@ public class CustomerServiceImpl implements CustomerService {
         return returnValue;
     }
 
+    @Override
+    public boolean existsById(Long aLong) {
+        return customerRepository.existsById(aLong);
+    }
 
     @Override
     public Boolean existsByEmail(String email) {

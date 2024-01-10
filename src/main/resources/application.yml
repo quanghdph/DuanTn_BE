@@ -59,6 +59,9 @@ custom-config:
       - { urlPattern: "/selloff/calculate-money/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/fast/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
 
+      - { urlPattern: "/product-detail", method: "POST", roles: [ "ADMIN"] }
+      - { urlPattern: "/product-detail/**", method: "PUT", roles: [ "ADMIN" ] }
+      - { urlPattern: "/product-detail/**", method: "DELETE", roles: [ "ADMIN", "EMPLOYEE"] }
 
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
@@ -142,9 +145,7 @@ custom-config:
 
       - { urlPattern: "/product-detail/**" }
       - { urlPattern: "/product-detail/**", method: "GET" }
-      - { urlPattern: "/product-detail", method: "POST" }
-      - { urlPattern: "/product-detail/**", method: "PUT" }
-      - { urlPattern: "/product-detail/**", method: "DELETE" }
+
 
       - { urlPattern: "/size/**" }
       - { urlPattern: "/size/**", method: "GET" }

@@ -75,7 +75,7 @@ public class SellOffController {
         Optional<Double> sumMoney = billDetailService.sumMoneyByBillIdAndType(billID.orElse(null),null);
         return ResponseEntity.ok(sumMoney.orElse(null));
     }
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE','CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
     @PostMapping ()
     public ResponseEntity<?> add(@RequestBody() SellOfRequest sellOffRequest, Authentication authentication) {
         if (sellOffRequest.getThanhToan()==null||sellOffRequest.getTrangThaiTT()==null||sellOffRequest.getSanPhams()==null){

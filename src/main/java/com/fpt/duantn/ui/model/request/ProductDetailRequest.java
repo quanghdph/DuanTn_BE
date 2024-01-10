@@ -20,4 +20,6 @@ public class ProductDetailRequest {
 
     private Integer status;
 
+
+
 }

@@ -29,6 +29,8 @@ public interface CustomerService {
     List<CustomerDto> getCustomerByCustomerName(String customerName, int page, int limit);
     <S extends CustomerEntity> S save(S entity);
 
+    boolean existsById(Long aLong);
+
     Boolean existsByEmail(String email);
 
 }
