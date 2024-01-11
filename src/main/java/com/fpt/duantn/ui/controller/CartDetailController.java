@@ -73,7 +73,7 @@ public class CartDetailController {
 
 
     @PostMapping()
-    public ResponseEntity<?> post(@RequestParam Long productDetailId,Authentication authentication) {
+    public ResponseEntity<?> post(@RequestBody Long productDetailId,Authentication authentication) {
         User user = userService.findByUsername(authentication.getName()).orElse(null);
         if (!customerService.existsById(user.getId())) {
             return ResponseEntity.badRequest().body("Cần đăng nhập đúng tài khoản khách hàng");
