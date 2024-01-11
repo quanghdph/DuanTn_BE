@@ -29,4 +29,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles;
-}
+
+    public User covertFormEmployee(EmployeeEntity employee){
+        return User.builder().email(employee.getEmail()).id(employee.getId()).password(employee.getEncryptedPassword()).roles(null).build();
+    }
+    public User covertFormCustomer(CustomerEntity customer){
+        return User.builder().email(customer.getEmail()).id(customer.getId()).password(customer.getEncryptedPassword()).roles(null).build();
+}}

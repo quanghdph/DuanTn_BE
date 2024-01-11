@@ -38,7 +38,7 @@ public class CartDetailEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customerId;
+    private CustomerEntity customer;
 
     @Column(name = "create_date")
     private Date createDate;
