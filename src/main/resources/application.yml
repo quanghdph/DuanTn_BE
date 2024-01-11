@@ -63,6 +63,8 @@ custom-config:
       - { urlPattern: "/product-detail/**", method: "PUT", roles: [ "ADMIN" ] }
       - { urlPattern: "/product-detail/**", method: "DELETE", roles: [ "ADMIN", "EMPLOYEE"] }
 
+      - { urlPattern: "/cart-detail", method: "POST",roles:["CUSTOMER"]}
+
     unprotectedEndpoints:
       - { urlPattern: "/api/auth/login" }
       - { urlPattern: "/api/auth/register", method: "POST" }
@@ -97,15 +99,8 @@ custom-config:
       - { urlPattern: "/address/**", method: "PUT" }
       - { urlPattern: "/address/**", method: "DELETE" }
 
-      - { urlPattern: "/cart/**" }
-      - { urlPattern: "/cart/**", method: "GET" }
-      - { urlPattern: "/cart", method: "POST" }
-      - { urlPattern: "/cart/**", method: "PUT" }
-      - { urlPattern: "/cart/**", method: "DELETE" }
-
       - { urlPattern: "/cart-detail/**" }
       - { urlPattern: "/cart-detail/**", method: "GET" }
-      - { urlPattern: "/cart-detail", method: "POST" }
       - { urlPattern: "/cart-detail/**", method: "PUT" }
       - { urlPattern: "/cart-detail/**", method: "DELETE" }
 
