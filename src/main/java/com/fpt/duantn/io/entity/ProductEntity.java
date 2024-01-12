@@ -2,6 +2,7 @@ package com.fpt.duantn.io.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,6 +49,7 @@ public class ProductEntity implements Serializable {
     private BrandEntity brand;
 
     @Lob
+    @JsonIgnore
     @Column(name = "main_image")
     private Blob mainImage;
 
