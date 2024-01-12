@@ -149,21 +149,4 @@ public class AuthController {
                 .body(("You've been signed out!"));
     }
 
-
-    public static String generateRandomPassword(int length) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new SecureRandom();
-        return random.ints(length, 0, characters.length())
-                .mapToObj(characters::charAt)
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                .toString();
-    }
-
-
-    // sendmail
-    public void sendMailPassword(String email, String password, String title) throws IOException, MessagingException {
-        String body = "<div>\r\n" + "        <h3>Mật khẩu của bạn là: <span style=\"color:red; font-weight: bold;\">"
-                + password + "</span></h3>\r\n" + "    </div>";
-        sendMailService.send( new MailInfo(email,title,body));
-    }
 }

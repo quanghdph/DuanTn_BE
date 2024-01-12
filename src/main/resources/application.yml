@@ -50,6 +50,8 @@ custom-config:
       - { urlPattern: "/product/**", method: "PUT", roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/product/**", method: "DELETE", roles: [ "ADMIN", "EMPLOYEE" ] }
 
+
+
       - { urlPattern: "/image", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/image/**", method: "PUT",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/image/**", method: "DELETE",roles: [ "ADMIN", "EMPLOYEE" ] }
@@ -74,6 +76,8 @@ custom-config:
 
       - { urlPattern: "/product/**" }
       - { urlPattern: "/product/**", method: "GET" }
+
+
 
       - { urlPattern: "/bill/**" }
       - { urlPattern: "/bill/**", method: "GET" }
