@@ -63,10 +63,12 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(HttpMethod.OPTIONS, "/api/auth/**").permitAll()
+                                    .requestMatchers("/product/**").permitAll()
+                                    .requestMatchers("/product-detail/**").permitAll()
                                     .requestMatchers("/DashBoard").permitAll()// Cho phép
                                     .requestMatchers("/selloff/**").permitAll()
                                     .requestMatchers("/api/send-mail").permitAll()
-                                    .requestMatchers("/cart-detail")
+                                    .requestMatchers("/cart-detail").permitAll()
 
 
                 )

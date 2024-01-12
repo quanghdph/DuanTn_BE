@@ -70,7 +70,6 @@ public class ProductController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ProductRest createProduct(@Valid @ModelAttribute ProductRequest productDetails, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
         System.out.println(multipartFiles.length);
@@ -122,7 +121,6 @@ public class ProductController {
 
 
     @PostMapping(value = "/add")
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult) {
 
 
@@ -219,7 +217,6 @@ public class ProductController {
     }
 
     @PutMapping(path = "/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
         ProductRest returnValue = new ProductRest();
 
@@ -247,7 +244,6 @@ public class ProductController {
     }
 
     @DeleteMapping(path = "/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public OperationStatusModel deleteProduct(@PathVariable Long id) {
         OperationStatusModel returnValue = new OperationStatusModel();
         returnValue.setOperationName(RequestOperationName.DELETE.name());
