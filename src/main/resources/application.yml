@@ -100,7 +100,7 @@ custom-config:
       - { urlPattern: "/address/**", method: "DELETE" }
 
       - { urlPattern: "/cart-detail/**" }
-      - { urlPattern: "/cart-detail/**", method: "GET" }
+      - { urlPattern: "/cart-detail/cart-details/**", method: "GET" }
       - { urlPattern: "/cart-detail/**", method: "PUT" }
       - { urlPattern: "/cart-detail/**", method: "DELETE" }
 
