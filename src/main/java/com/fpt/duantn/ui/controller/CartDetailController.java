@@ -84,7 +84,7 @@ public class CartDetailController {
 
         CartDetailEntity cartDetail = new CartDetailEntity();
         ProductDetailEntity productDetail = new ProductDetailEntity();
-        productDetail.setId(user.getId());
+        productDetail.setId(productDetailId);
         cartDetail.setProductDetail(productDetail);
 
         CustomerEntity customer = new CustomerEntity();
