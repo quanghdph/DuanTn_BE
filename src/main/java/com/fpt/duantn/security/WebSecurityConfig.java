@@ -67,10 +67,10 @@ public class WebSecurityConfig {
                                     .requestMatchers("/product-detail/**").permitAll()
                                     .requestMatchers("/DashBoard").permitAll()
                                     .requestMatchers("/selloff/**").permitAll()
-                                    .requestMatchers("/api/send-mail").permitAll()
                                     .requestMatchers("/cart-detail").permitAll()
                                     .requestMatchers("/sellon/**").permitAll()
                                     .requestMatchers("/api-vnp/**").permitAll()
+
 
                 )
 //                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))

@@ -74,8 +74,9 @@ custom-config:
       - { urlPattern: "/sellon/calculate-money/**", method: "POST" }
       - { urlPattern: "/sellon/calculate-money/{billID}/**", method: "GET" }
 
-      - { urlPattern: "/api-vnp/payment-callback/**", method: "GET" }
-      - { urlPattern: "/api-vnp/vnpay/{billID}/**", method: "GET" }
+      - { urlPattern: "/api-vnp/**" }
+      - { urlPattern: "/api-vnp/payment-callback", method: "GET"}
+      - { urlPattern: "/api-vnp/vnpay/{billID}", method: "GET"}
 
       - { urlPattern: "/product/**"}
       - { urlPattern: "/product/**", method: "GET" }

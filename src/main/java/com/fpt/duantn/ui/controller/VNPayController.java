@@ -7,6 +7,7 @@ import com.fpt.duantn.services.ProductDetailService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,6 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
@@ -32,6 +31,7 @@ public class VNPayController {
     private BillDetailService billDetailService;
     @Autowired
     private ProductDetailService productDetailService;
+
 
     @GetMapping("/payment-callback")
     public void paymentCallback(@RequestParam Map<String, String> queryParams, HttpServletResponse response, Authentication authentication) throws IOException, ParseException {
@@ -91,7 +91,8 @@ public class VNPayController {
     public ResponseEntity getPay(@PathVariable Long billID, @RequestParam(required = false) String admin) throws UnsupportedEncodingException {
         Double totalMoney = billDetailService.sumMoneyByBillIdAndType(billID,1).orElse(null);
         BillEntity bill = billService.findById(billID).orElse(null);
-        Double shipfee =  bill.getShipeFee().doubleValue();
+
+        Double shipfee =  bill.getShipeFee()==null?0D:bill.getShipeFee().doubleValue();
         DecimalFormat df = new DecimalFormat("#");
         df.setMaximumFractionDigits(340);
 

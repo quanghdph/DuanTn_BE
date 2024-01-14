@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -141,6 +142,11 @@ public class BillServiceImpl implements BillService {
     public Long count() {
 
         return this.billRepository.count();
+    }
+
+    @Override
+    public List<BillEntity> findByPaymentTypeAndStatusAndCreateDateBefore(Integer paymentType, Integer status, LocalDateTime billCreateDate) {
+        return billRepository.findByPaymentTypeAndStatusAndCreateDateBefore(paymentType, status, billCreateDate);
     }
 
     @Override
