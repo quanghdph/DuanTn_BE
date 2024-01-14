@@ -13,7 +13,7 @@ public interface BillService {
     BillDto getBillById(Long billId);
     BillDto updateBill(Long billId, BillDto bill);
     void deleteBill(Long billId);
-    List<BillDto> getBills(int page, int limit, String filter);
+    List<BillDto> getBills(int page, int limit, String filter,int status);
 
     boolean existsById(Long aLong);
 
@@ -21,7 +21,7 @@ public interface BillService {
 
     <S extends BillEntity> S save(S entity);
 
-    Long count(String filter);
+    Long count(String filter,int status);
 
 //    List<BillDto> getBillByBillName(String billName, int page, int limit);
 Optional<BillEntity> findById(Long id);

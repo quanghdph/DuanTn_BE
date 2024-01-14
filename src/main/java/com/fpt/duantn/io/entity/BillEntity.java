@@ -76,6 +76,16 @@ public class BillEntity implements Serializable {
     @Column(name = "note", length = 255)
     private String note;
 
+    @Column(name = "payment_type")
+    private Integer paymentType;
+
+    @Column(name = "payment_amount")
+    private BigDecimal paymentAmount;
+
+    @Column(name = "shipe_fee")
+    private BigDecimal shipeFee;
+
+
     @Column(name = "status")
     private Integer status;
 
