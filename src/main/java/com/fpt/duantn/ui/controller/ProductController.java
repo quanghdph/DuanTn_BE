@@ -215,7 +215,7 @@ public class ProductController {
         }
         return ResponseEntity.ok(productSaved.getId());
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(path = "/{id}")
     public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
         ProductRest returnValue = new ProductRest();
