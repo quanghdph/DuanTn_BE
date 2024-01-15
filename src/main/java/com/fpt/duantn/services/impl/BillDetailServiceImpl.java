@@ -59,6 +59,11 @@ public class BillDetailServiceImpl implements BillDetailService {
     }
 
     @Override
+    public List<BillDetailEntity> findByBillIdAndStatus(Long id, Integer status) {
+        return billDetailRepository.findByBillIdAndStatus(id, status);
+    }
+
+    @Override
     public Optional<Double> sumMoneyByBillIdAndType(Long billId, Integer status) {
         return billDetailRepository.sumMoneyByBillIdAndType(billId, status);
     }

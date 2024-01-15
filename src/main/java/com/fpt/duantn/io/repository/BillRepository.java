@@ -29,10 +29,27 @@ public interface BillRepository extends JpaRepository<BillEntity, Long> {
             nativeQuery = true)
     Page<BillEntity> filter(@Param("filter") String filter,int status, Pageable pageable);
 
+
+    @Query(value = "SELECT bil.id, bil.customer_id," +
+            "bil.employee_id,bil.create_date,bil.payment_date,bil.delivery_date,bil.update_date, " +
+            "bil.status,bil.address,bil.phone_number,bil.transport_fee,bil.note,bil.payment_type,bil.payment_amount,bil.shipe_fee " +
+            "FROM bill bil " +
+            "where  (:status = -1 or bil.status = :status) and ( bil.customer_id = :userId) and (:filter is null or :filter = '' or (bil.phone_number like %:filter% ))",
+            nativeQuery = true)
+    Page<BillEntity> filter(@Param("filter") String filter,int status, Pageable pageable,Long userId);
+
     @Query(value = "SELECT count(1) " +
             "FROM bill bil " +
-            "where (:status = -1 or bil.status = :status) and (:filter is null or :filter = '' or (bil.customer_id like %:filter% or bil.status like %:filter% or bil.employee_id like %:filter%))",
+            "where  (:status = -1 or bil.status = :status) and ( bil.customer_id = :userId) and (:filter is null or :filter = '' or (bil.phone_number like %:filter% ))",
             nativeQuery = true)
     Long count(@Param("filter") String filter,int status);
+
+    @Query(value = "SELECT count(1) " +
+            "FROM bill bil " +
+            "where  (:status = -1 or bil.status = :status) and ( bil.customer_id = :userId) and (:filter is null or :filter = '' or (bil.phone_number like %:filter% ))",
+            nativeQuery = true)
+    Long count(@Param("filter") String filter,int status,Long userId);
+
+
     public List<BillEntity> findByPaymentTypeAndStatusAndCreateDateBefore(Integer paymentType, Integer status, LocalDateTime billCreateDate);
 }

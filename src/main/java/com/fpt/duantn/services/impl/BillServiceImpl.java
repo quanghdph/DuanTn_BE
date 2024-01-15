@@ -132,6 +132,25 @@ public class BillServiceImpl implements BillService {
 
         return returnValue;
     }
+    @Override
+    public List<BillDto> getBills(int page, int limit, String filter, int status, Long userId) {
+        List<BillDto> returnValue = new ArrayList<>();
+
+        if(page>0) page = page-1;
+
+        Pageable pageableRequest = PageRequest.of(page, limit);
+
+        Page<BillEntity> billPage = billRepository.filter(filter,status, pageableRequest,userId);
+        List<BillEntity> bills = billPage.getContent();
+
+        for (BillEntity billEntity : bills) {
+            BillDto billDto = new BillDto();
+            BeanUtils.copyProperties(billEntity, billDto);
+            returnValue.add(billDto);
+        }
+
+        return returnValue;
+    }
 
     @Override
     public boolean existsById(Long aLong) {
@@ -157,6 +176,10 @@ public class BillServiceImpl implements BillService {
     @Override
     public Long count(String filter,int status) {
         return this.billRepository.count(filter,status);
+    }
+    @Override
+    public Long count(String filter,int status,Long userId) {
+        return this.billRepository.count(filter,status,userId);
     }
 
 //    @Override

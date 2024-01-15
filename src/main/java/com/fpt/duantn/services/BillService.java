@@ -16,6 +16,8 @@ public interface BillService {
     void deleteBill(Long billId);
     List<BillDto> getBills(int page, int limit, String filter,int status);
 
+    List<BillDto> getBills(int page, int limit, String filter, int status, Long userId);
+
     boolean existsById(Long aLong);
 
     Long count();
@@ -29,4 +31,5 @@ public interface BillService {
 //    List<BillDto> getBillByBillName(String billName, int page, int limit);
 Optional<BillEntity> findById(Long id);
 
+    Long count(String filter, int status, Long userId);
 }
