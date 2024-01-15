@@ -18,28 +18,18 @@ import java.util.List;
 public class ProductRequest {
     private String code;
     private String productName;
-
     private CategoryEntity category;
-
     private BrandEntity brand;
-
     private MultipartFile mainImage;
-
     @Lob
     private String description;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
     private Integer status;
-
     private MaterialEntity material;
-
     private List<ProductDetailRequest> productDetails;
-
-    MultipartFile[] imgs;
+    private MultipartFile[] imgs;
 
 }

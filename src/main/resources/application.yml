@@ -47,8 +47,8 @@ custom-config:
 
     endpointAuthorizations:
       - { urlPattern: "/image", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
-      - { urlPattern: "/image/**", method: "PUT",roles: [ "ADMIN", "EMPLOYEE" ] }
-      - { urlPattern: "/image/**", method: "DELETE",roles: [ "ADMIN", "EMPLOYEE" ] }
+      - { urlPattern: "/image/{id}", method: "PUT",roles: [ "ADMIN", "EMPLOYEE" ] }
+      - { urlPattern: "/image/delete/{id}", method: "DELETE",roles: [ "ADMIN", "EMPLOYEE" ] }
 
       - { urlPattern: "/address", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
 

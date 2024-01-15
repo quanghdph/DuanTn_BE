@@ -6,13 +6,12 @@ import com.fpt.duantn.io.entity.*;
 import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.services.ProductService;
+import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
+import com.fpt.duantn.ui.model.request.ImageRequest;
 import com.fpt.duantn.ui.model.request.ProductDetailRequest;
 import com.fpt.duantn.ui.model.request.ProductRequest;
-import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.ProductRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.ui.model.response.*;
 import com.fpt.duantn.util.FileImgUtil;
 import com.fpt.duantn.util.FormErrorUtil;
 import jakarta.validation.Valid;
@@ -70,12 +69,11 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductRest createProduct(@Valid @ModelAttribute ProductRequest productDetails, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
+    public ResponseEntity createProduct(@Valid @ModelAttribute ProductRequest productDetails, BindingResult bindingResult, @RequestPart(value = "images", required = false) MultipartFile[] multipartFiles) throws Exception {
         ProductRest returnValue = new ProductRest();
         System.out.println(multipartFiles.length);
         ModelMapper modelMapper = new ModelMapper();
         ProductDto productDto = modelMapper.map(productDetails, ProductDto.class);
-
         productDto.setCategory(productDetails.getCategory());
         productDto.setBrand(productDetails.getBrand());
         productDto.setMaterial(productDetails.getMaterial());
@@ -116,7 +114,7 @@ public class ProductController {
         imageService.saveAll(imagesList);
         returnValue = modelMapper.map(productDto1, ProductRest.class);
 
-        return returnValue;
+        return ResponseEntity.ok(returnValue);
     }
 
 
@@ -215,6 +213,24 @@ public class ProductController {
         }
         return ResponseEntity.ok(productSaved.getId());
     }
+
+    @PutMapping(path = "/image-main/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    public ResponseEntity updateImage(@PathVariable Long productId, @RequestPart("image") MultipartFile multipartFile) {
+        ProductEntity productEntity = productService.findById(productId).orElse(null);
+        try {
+            productEntity.setMainImage(new SerialBlob(multipartFile.getBytes()));
+        } catch (SQLException|IOException throwables) {
+           return ResponseEntity.badRequest().body("Lỗi ảnh");
+        }
+
+        productService.save(productEntity);
+
+        return ResponseEntity.ok(productEntity);
+    }
+
+
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(path = "/{id}")
     public ProductRest updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
