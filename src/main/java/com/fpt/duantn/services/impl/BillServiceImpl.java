@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -113,14 +114,14 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDto> getBills(int page, int limit, String filter) {
+    public List<BillDto> getBills(int page, int limit, String filter,int status) {
         List<BillDto> returnValue = new ArrayList<>();
 
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<BillEntity> billPage = billRepository.filter(filter, pageableRequest);
+        Page<BillEntity> billPage = billRepository.filter(filter,status, pageableRequest);
         List<BillEntity> bills = billPage.getContent();
 
         for (BillEntity billEntity : bills) {
@@ -144,13 +145,18 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public List<BillEntity> findByPaymentTypeAndStatusAndCreateDateBefore(Integer paymentType, Integer status, LocalDateTime billCreateDate) {
+        return billRepository.findByPaymentTypeAndStatusAndCreateDateBefore(paymentType, status, billCreateDate);
+    }
+
+    @Override
     public <S extends BillEntity> S save(S entity) {
         return billRepository.save(entity);
     }
 
     @Override
-    public Long count(String filter) {
-        return this.billRepository.count(filter);
+    public Long count(String filter,int status) {
+        return this.billRepository.count(filter,status);
     }
 
 //    @Override

@@ -46,4 +46,5 @@ public interface BillDetailRepository extends JpaRepository<BillDetailEntity, Lo
     Optional<Long> sumQuantityByBillIdAndType(@Param("billId") Long billId, @Param("status") Integer status);
 
     List<BillDetailEntity> findByBillId(Long id);
+
 }

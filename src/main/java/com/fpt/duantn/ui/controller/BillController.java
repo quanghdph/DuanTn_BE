@@ -109,10 +109,11 @@ public class BillController {
     @GetMapping()
     public PaginationRest getBills(@RequestParam(value = "page", defaultValue = "0") int page,
                                    @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                   @RequestParam(value = "filter", defaultValue = "") String filter) {
+                                   @RequestParam(value = "filter", defaultValue = "") String filter,
+                                   @RequestParam(value = "status", defaultValue = "-1") int status) {
         List<BillRest> returnValue = new ArrayList<>();
 
-        List<BillDto> bills = billService.getBills(page, limit, filter);
+        List<BillDto> bills = billService.getBills(page, limit, filter,status);
 
         for (BillDto billDto : bills) {
             BillRest billModel = new BillRest();
@@ -121,7 +122,7 @@ public class BillController {
         }
         PaginationRest paginationRest = new PaginationRest();
         paginationRest.setListBill(returnValue);
-        paginationRest.setTotal(billService.count(filter));
+        paginationRest.setTotal(billService.count(filter,status));
 
         return paginationRest;
     }

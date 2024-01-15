@@ -54,25 +54,35 @@ custom-config:
 
       - { urlPattern: "/selloff/calculate-money/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/fast/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
-
+      - { urlPattern: "/product/**", method: "PUT",roles: [ "ADMIN" ]}
       - { urlPattern: "/product-detail", method: "POST", roles: [ "ADMIN"] }
       - { urlPattern: "/product-detail/**", method: "PUT", roles: [ "ADMIN" ] }
       - { urlPattern: "/product-detail/**", method: "DELETE", roles: [ "ADMIN", "EMPLOYEE"] }
 
       - { urlPattern: "/cart-detail", method: "POST",roles:["CUSTOMER"]}
 
+      - { urlPattern: "/sellon/**", method: "POST",roles:["CUSTOMER"]}
+
     unprotectedEndpoints:
-      - { urlPattern: "/api/auth/login" }
+      - { urlPattern: "/api/auth/login"}
       - { urlPattern: "/api/auth/register", method: "POST" }
       - { urlPattern: "/api/send-mail/otp/**", method: "POST" }
 
       - { urlPattern: "/selloff/**", method: "POST" }
 
-      - { urlPattern: "/product/**" }
+      - { urlPattern: "/sellon/**"}
+      - { urlPattern: "/sellon/calculate-money/**", method: "POST" }
+      - { urlPattern: "/sellon/calculate-money/{billID}/**", method: "GET" }
+
+      - { urlPattern: "/api-vnp/**" }
+      - { urlPattern: "/api-vnp/payment-callback", method: "GET"}
+      - { urlPattern: "/api-vnp/vnpay/{billID}", method: "GET"}
+
+      - { urlPattern: "/product/**"}
       - { urlPattern: "/product/**", method: "GET" }
-      - { urlPattern: "/product", method: "POST", roles: [ "ADMIN", "EMPLOYEE" ] }
-      - { urlPattern: "/product/**", method: "PUT", roles: [ "ADMIN", "EMPLOYEE" ] }
-      - { urlPattern: "/product/**", method: "DELETE", roles: [ "ADMIN", "EMPLOYEE" ] }
+      - { urlPattern: "/product", method: "POST" }
+
+      - { urlPattern: "/product/**", method: "DELETE"}
 
 
       - { urlPattern: "/bill/**" }
