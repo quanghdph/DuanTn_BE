@@ -71,7 +71,7 @@ public class ImageController {
 //    }
 
     @ResponseBody
-    @GetMapping("")
+    @GetMapping()
     public PaginationRest getProductDetail(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "2") int limit,
@@ -96,10 +96,9 @@ public class ImageController {
 
     @PostMapping()
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-
-    public List<ImageDto> createImage(@RequestParam Long id, @RequestPart("images") MultipartFile []multipartFile) throws Exception {
+    public List<ImageDto> createImage(@RequestParam Long productId, @RequestPart("images") MultipartFile []multipartFile) throws Exception {
          List<ImageDto> returnValue = new ArrayList<>();
-        ProductEntity productEntity = productService.findById(id).orElse(null);
+        ProductEntity productEntity = productService.findById(productId).orElse(null);
         if (productEntity == null){
 
         } else {
@@ -111,11 +110,8 @@ public class ImageController {
                 ImageDto createdUser = imageService.createImage(imageDto);
                 createdUser.setImage(null);
                 returnValue.add(createdUser);
-
             }
-
         }
-
         return returnValue;
     }
 
@@ -136,7 +132,7 @@ public class ImageController {
         return returnValue;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity delete(@PathVariable Long id) {
         if (imageService.existsById(id)){

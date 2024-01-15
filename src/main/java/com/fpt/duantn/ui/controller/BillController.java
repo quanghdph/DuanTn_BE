@@ -2,11 +2,9 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.services.BillService;
 import com.fpt.duantn.shrared.dto.CRUD.BillDto;
+import com.fpt.duantn.shrared.dto.CRUD.BrandDto;
 import com.fpt.duantn.ui.model.request.BillRequest;
-import com.fpt.duantn.ui.model.response.BillRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
-import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
+import com.fpt.duantn.ui.model.response.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,11 +107,11 @@ public class BillController {
     @GetMapping()
     public PaginationRest getBills(@RequestParam(value = "page", defaultValue = "0") int page,
                                    @RequestParam(value = "limit", defaultValue = "5") int limit,
-                                   @RequestParam(value = "filter", defaultValue = "") String filter,
+                                   @RequestParam(value = "search", defaultValue = "") String search,
                                    @RequestParam(value = "status", defaultValue = "-1") int status) {
         List<BillRest> returnValue = new ArrayList<>();
 
-        List<BillDto> bills = billService.getBills(page, limit, filter,status);
+        List<BillDto> bills = billService.getBills(page, limit, search,status);
 
         for (BillDto billDto : bills) {
             BillRest billModel = new BillRest();
@@ -122,8 +120,25 @@ public class BillController {
         }
         PaginationRest paginationRest = new PaginationRest();
         paginationRest.setListBill(returnValue);
-        paginationRest.setTotal(billService.count(filter,status));
+        paginationRest.setTotal(billService.count(search,status));
 
         return paginationRest;
     }
+
+//    @GetMapping("/search")
+//    public List<BrandRest> searchBill(@RequestParam(value = "brandName") String brandName,
+//                                        @RequestParam(value = "page", defaultValue = "0") int page,
+//                                        @RequestParam(value = "limit", defaultValue = "5") int limit) {
+//        List<BrandRest> returnValue = new ArrayList<>();
+//
+//        List<BrandDto> brands = brandService.getBrandByBrandName(brandName, page, limit);
+//
+//        for (BrandDto brandDto : brands) {
+//            BrandRest brandModel = new BrandRest();
+//            BeanUtils.copyProperties(brandDto, brandModel);
+//            returnValue.add(brandModel);
+//        }
+//
+//        return returnValue;
+//    }
 }
