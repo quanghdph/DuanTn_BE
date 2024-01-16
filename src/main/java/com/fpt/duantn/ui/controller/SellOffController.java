@@ -121,8 +121,10 @@ public class SellOffController {
         if (sellOffRequest.getThanhToan().equals(1)){
             newBill.setStatus(-2);
             newBill.setPaymentAmount(new BigDecimal(0));
+            newBill.setPaymentType(1);
         }else {
             newBill.setStatus(7);
+            newBill.setPaymentType(0);
         }
         newBill.setCustomer(customer);
         if (customer!=null){
