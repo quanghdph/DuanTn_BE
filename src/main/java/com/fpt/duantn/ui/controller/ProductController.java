@@ -6,14 +6,14 @@ import com.fpt.duantn.io.entity.*;
 import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.services.ProductService;
-import com.fpt.duantn.shrared.dto.CRUD.ImageDto;
+
 import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
-import com.fpt.duantn.ui.model.request.ImageRequest;
+
 import com.fpt.duantn.ui.model.request.ProductDetailRequest;
 import com.fpt.duantn.ui.model.request.ProductRequest;
 import com.fpt.duantn.ui.model.response.*;
 import com.fpt.duantn.util.FileImgUtil;
-import com.fpt.duantn.util.FormErrorUtil;
+
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;

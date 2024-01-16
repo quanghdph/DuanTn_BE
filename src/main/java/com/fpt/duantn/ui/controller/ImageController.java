@@ -54,22 +54,6 @@ public class ImageController {
         return returnValue;
     }
 
-//    @GetMapping()
-//    public List<ImageRest> getImages(@RequestParam(value = "page", defaultValue = "0") int page,
-//                                       @RequestParam(value = "limit", defaultValue = "2") int limit) {
-//        List<ImageRest> returnValue = new ArrayList<>();
-//
-//        List<ImageDto> images = imageService.getImages(page, limit);
-//
-//        for (ImageDto imageDto : images) {
-//            ImageRest imageModel = new ImageRest();
-//            BeanUtils.copyProperties(imageDto, imageModel);
-//            returnValue.add(imageModel);
-//        }
-//
-//        return returnValue;
-//    }
-
     @ResponseBody
     @GetMapping()
     public PaginationRest getProductDetail(
