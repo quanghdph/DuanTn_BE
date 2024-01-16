@@ -128,6 +128,7 @@ public class ProductController {
         product.setBrand(productRequest.getBrand());
         product.setCategory(productRequest.getCategory());
         product.setDescription(productRequest.getDescription());
+        product.setMaterial(productRequest.getMaterial());
         try {
             MultipartFile mainImage = productRequest.getMainImage();
 
