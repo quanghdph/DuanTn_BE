@@ -41,5 +41,5 @@ public class BillRest {
     private String note;
 
     private Integer status;
-
+    private Integer paymentType;
 }

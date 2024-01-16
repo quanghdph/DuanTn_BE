@@ -44,4 +44,6 @@ public class BillDto implements Serializable {
     private String note;
 
     private Integer status;
+
+    private Integer paymentType;
 }
