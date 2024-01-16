@@ -52,7 +52,7 @@ custom-config:
 
       - { urlPattern: "/address", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
 
-      - { urlPattern: "/selloff/calculate-money/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
+      - { urlPattern: "/selloff/calculate-money", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/fast/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/phone-number/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/product/**", method: "PUT",roles: [ "ADMIN" ]}
@@ -70,10 +70,10 @@ custom-config:
       - { urlPattern: "/api/send-mail/otp/**", method: "POST" }
 
       - { urlPattern: "/selloff/**" }
-      - { urlPattern: "/selloff/**", method: "POST" }
+      - { urlPattern: "/selloff", method: "POST" }
 
       - { urlPattern: "/sellon/**"}
-      - { urlPattern: "/sellon/calculate-money/**", method: "POST" }
+      - { urlPattern: "/sellon/calculate-money", method: "POST" }
       - { urlPattern: "/sellon/calculate-money/{billID}/**", method: "GET" }
 
       - { urlPattern: "/api-vnp/**" }
@@ -83,7 +83,6 @@ custom-config:
       - { urlPattern: "/product/**"}
       - { urlPattern: "/product/**", method: "GET" }
       - { urlPattern: "/product", method: "POST" }
-
       - { urlPattern: "/product/**", method: "DELETE"}
 
 
