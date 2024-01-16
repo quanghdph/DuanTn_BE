@@ -120,22 +120,6 @@ public class ProductController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<?> addProduct(@Valid @ModelAttribute ProductRequest productRequest, BindingResult bindingResult) {
-
-
-        if (bindingResult.hasErrors()) {
-            Map errors = FormErrorUtil.changeToMapError(bindingResult);
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        // Kiểm tra mã trùng
-        ProductEntity existingProduct = productService.findByProductCode(productRequest.getCode());
-        if (existingProduct != null) {
-            Map<String, String> errors = new HashMap<>();
-            errors.put("code", "Mã đã tồn tại");
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-
 //        Conver dữ liệu sang domain
         ProductEntity product = new ProductEntity();
         product.setProductCode(new Random().nextInt(100)+"");

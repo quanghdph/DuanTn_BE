@@ -11,6 +11,8 @@ public interface BillDetailService {
 
     BillDetailDto createBillDetail(BillDetailDto billDetail);
 
+    List<BillDetailEntity> findByBillIdAndStatus(Long id, Integer status);
+
     Optional<Double> sumMoneyByBillIdAndType(Long billId, Integer status);
 
     Optional<Long> sumQuantityByBillIdAndType(Long billId, Integer status);
