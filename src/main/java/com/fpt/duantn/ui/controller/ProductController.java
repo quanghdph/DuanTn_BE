@@ -198,7 +198,7 @@ public class ProductController {
         return ResponseEntity.ok(productSaved.getId());
     }
 
-    @PutMapping(path = "/image-main/{id}")
+    @PutMapping(path = "/image-main/{productId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity updateImage(@PathVariable Long productId, @RequestPart("image") MultipartFile multipartFile) {
         ProductEntity productEntity = productService.findById(productId).orElse(null);
