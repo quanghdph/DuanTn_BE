@@ -69,6 +69,7 @@ custom-config:
       - { urlPattern: "/api/auth/register", method: "POST" }
       - { urlPattern: "/api/send-mail/otp/**", method: "POST" }
 
+      - { urlPattern: "/selloff/**" }
       - { urlPattern: "/selloff/**", method: "POST" }
 
       - { urlPattern: "/sellon/**"}
