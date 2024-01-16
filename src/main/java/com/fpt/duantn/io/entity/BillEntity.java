@@ -15,11 +15,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -46,14 +48,14 @@ public class BillEntity implements Serializable {
     private EmployeeEntity employee;
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    @CreatedDate
-    private Date createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Timestamp createDate;
 
     @Column(name = "update_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private Date updateDate;
+    private Timestamp updateDate;
 
     @Column(name = "payment_date")
     @Temporal(TemporalType.DATE)
