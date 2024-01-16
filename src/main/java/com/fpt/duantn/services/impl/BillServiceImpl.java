@@ -87,8 +87,8 @@ public class BillServiceImpl implements BillService {
 
         billEntity.setCustomer(bill.getCustomer());
         billEntity.setEmployee(bill.getEmployee());
-        billEntity.setCreateDate(bill.getCreateDate());
-        billEntity.setUpdateDate(bill.getUpdateDate());
+//        billEntity.setCreateDate(bill.getCreateDate());
+//        billEntity.setUpdateDate(bill.getUpdateDate());
         billEntity.setPaymentDate(bill.getPaymentDate());
         billEntity.setDeliveryDate(bill.getDeliveryDate());
         billEntity.setAddress(bill.getAddress());

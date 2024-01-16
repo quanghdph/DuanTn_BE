@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -118,6 +120,7 @@ public class SellOffController {
 
         if (sellOffRequest.getThanhToan().equals(1)){
             newBill.setStatus(-2);
+            newBill.setPaymentAmount(new BigDecimal(0));
         }else {
             newBill.setStatus(7);
         }
