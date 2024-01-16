@@ -140,7 +140,7 @@ public class BillServiceImpl implements BillService {
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
-        Page<BillEntity> billPage = billRepository.filter(filter,status, pageableRequest,userId);
+        Page<BillEntity> billPage = billRepository.filter(filter,status,userId, pageableRequest);
         List<BillEntity> bills = billPage.getContent();
 
         for (BillEntity billEntity : bills) {
@@ -179,7 +179,7 @@ public class BillServiceImpl implements BillService {
     }
     @Override
     public Long count(String filter,int status,Long userId) {
-        return this.billRepository.count(filter,status,userId);
+        return this.billRepository.count(filter,userId,status);
     }
 
 //    @Override
