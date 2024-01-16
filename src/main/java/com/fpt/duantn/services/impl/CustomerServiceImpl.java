@@ -176,7 +176,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(page>0) page = page-1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
-        Page<CustomerEntity> customerPage = customerRepository.findByLastNameContainingOrderByIdAsc(customerName, pageableRequest);
+        Page<CustomerEntity> customerPage = customerRepository.findByLastNameContainingOrPhoneNumberEqualsOrderByIdAsc(customerName,customerName, pageableRequest);
         List<CustomerEntity> customers = customerPage.getContent();
 
         for (CustomerEntity customerEntity : customers) {

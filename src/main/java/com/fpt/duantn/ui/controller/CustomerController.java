@@ -104,12 +104,12 @@ public class CustomerController {
     }
 
     @GetMapping("/search")
-    public List<CustomerRest> searchCustomers(@RequestParam(value = "customerName") String customerName,
+    public List<CustomerRest> searchCustomers(@RequestParam(value = "key") String key,
                                               @RequestParam(value = "page", defaultValue = "0") int page,
                                               @RequestParam(value = "limit", defaultValue = "5") int limit) {
         List<CustomerRest> returnValue = new ArrayList<>();
 
-        List<CustomerDto> customers =customerService.getCustomerByCustomerName(customerName, page, limit);
+        List<CustomerDto> customers =customerService.getCustomerByCustomerName(key, page, limit);
 
         for (CustomerDto customerDto : customers) {
             CustomerRest customerModel = new CustomerRest();

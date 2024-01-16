@@ -30,7 +30,7 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     CustomerEntity findCustomerEntityById(Long customerId);
 
 
-    Page<CustomerEntity> findByLastNameContainingOrderByIdAsc(String customerName, Pageable pageable);
+    Page<CustomerEntity> findByLastNameContainingOrPhoneNumberEqualsOrderByIdAsc(String customerName,String phoneNumber, Pageable pageable);
 
     @Query(value = "SELECT cust.id, cust.email_verification_status," +
             "cust.first_name,cust.last_name,cust.email,cust.email_verification_token,cust.create_date,cust.update_date, " +
