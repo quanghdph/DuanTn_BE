@@ -3,7 +3,7 @@ package com.fpt.duantn.ui.controller;
 import com.fpt.duantn.io.entity.*;
 import com.fpt.duantn.services.ProductDetailService;
 import com.fpt.duantn.shrared.dto.CRUD.ProductDetailDto;
-import com.fpt.duantn.shrared.dto.CRUD.ProductDto;
+
 import com.fpt.duantn.ui.model.request.ProductDetailRequest;
 
 import com.fpt.duantn.ui.model.response.PaginationRest;
@@ -11,23 +11,16 @@ import com.fpt.duantn.ui.model.response.ProductDetailRest;
 import com.fpt.duantn.ui.model.response.OperationStatusModel;
 import com.fpt.duantn.ui.model.response.RequestOperationStatus;
 import com.fpt.duantn.util.FormErrorUtil;
-import jakarta.servlet.http.HttpServletRequest;
-
-import com.fpt.duantn.ui.model.response.*;
 
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

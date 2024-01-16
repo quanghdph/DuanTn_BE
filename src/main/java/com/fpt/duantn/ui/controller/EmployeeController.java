@@ -2,7 +2,7 @@ package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.io.entity.EmployeeEntity;
 import com.fpt.duantn.io.entity.ImageEntity;
-import com.fpt.duantn.io.entity.ProductEntity;
+
 import com.fpt.duantn.services.EmployeeService;
 import com.fpt.duantn.services.ImageService;
 import com.fpt.duantn.shrared.dto.CRUD.EmployeeDto;

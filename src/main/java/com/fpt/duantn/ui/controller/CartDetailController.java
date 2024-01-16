@@ -6,28 +6,17 @@ import com.fpt.duantn.io.entity.ProductDetailEntity;
 import com.fpt.duantn.io.entity.User;
 import com.fpt.duantn.io.repository.CartDetailRepository;
 import com.fpt.duantn.io.repository.ProductDetailRepository;
-import com.fpt.duantn.security.JwtAuthenticationFilter;
-import com.fpt.duantn.services.CartDetailService;
+
 import com.fpt.duantn.services.CustomerService;
 import com.fpt.duantn.services.impl.UserServiceImpl;
-import com.fpt.duantn.shrared.dto.CRUD.CartDetailDto;
-import com.fpt.duantn.ui.model.request.CartDetailRequest;
-import com.fpt.duantn.ui.model.response.CartDetailRest;
-import com.fpt.duantn.ui.model.response.OperationStatusModel;
-import com.fpt.duantn.ui.model.response.PaginationRest;
-import com.fpt.duantn.ui.model.response.RequestOperationStatus;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.UUID;
+
 
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
