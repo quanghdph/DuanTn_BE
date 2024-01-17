@@ -55,6 +55,7 @@ custom-config:
       - { urlPattern: "/selloff/calculate-money", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/fast/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
       - { urlPattern: "/customer/phone-number/**", method: "POST",roles: [ "ADMIN", "EMPLOYEE" ] }
+      - { urlPattern: "/customer/profile/**", method: "GET",roles: [ "CUSTOMER" ] }
       - { urlPattern: "/product/**", method: "PUT",roles: [ "ADMIN" ]}
       - { urlPattern: "/product-detail", method: "POST", roles: [ "ADMIN"] }
       - { urlPattern: "/product-detail/**", method: "PUT", roles: [ "ADMIN" ] }

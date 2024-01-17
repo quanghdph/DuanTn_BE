@@ -1,27 +1,29 @@
 package com.fpt.duantn.ui.controller;
 
 import com.fpt.duantn.io.entity.CustomerEntity;
+import com.fpt.duantn.io.entity.User;
 import com.fpt.duantn.services.CustomerService;
 import com.fpt.duantn.services.EmployeeService;
+import com.fpt.duantn.services.impl.UserServiceImpl;
 import com.fpt.duantn.shrared.Utils;
 import com.fpt.duantn.shrared.dto.CRUD.CustomerDto;
 import com.fpt.duantn.ui.model.request.CustomerRequest;
 import com.fpt.duantn.ui.model.response.*;
 import com.fpt.duantn.util.FormErrorUtil;
 import jakarta.validation.Valid;
+import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.Blob;
+import java.util.*;
 
 @CrossOrigin(origins = {"http://localhost:4201","http://localhost:4200"})
 @RestController
@@ -34,7 +36,8 @@ public class CustomerController {
     EmployeeService employeeService;
     @Autowired
     Utils utils;
-
+    @Autowired
+    UserServiceImpl userService;
     @GetMapping(path = "/{id}")
     public CustomerRest getCustomer(@PathVariable Long id) {
         CustomerRest returnValue = new CustomerRest();
@@ -45,6 +48,23 @@ public class CustomerController {
 
         return returnValue;
     }
+
+    @GetMapping("/profile")
+    @PreAuthorize("hasAnyRole('CUSTOMER')")
+    public ResponseEntity getEmployee(Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName()).orElse(null);
+            if (user != null ){
+
+                CustomerEntity customer = customerService.findById(user.getId()).get();
+                CustomerRest customerRest = new CustomerRest();
+                ModelMapper modelMapper = new ModelMapper();
+                modelMapper.map(customer,customerRest);
+                return ResponseEntity.ok(customerRest);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
 
     @PostMapping()
     public CustomerRest createCustomer(@RequestBody CustomerRequest customerDetails) throws Exception {
