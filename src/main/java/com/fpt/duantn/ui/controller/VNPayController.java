@@ -62,26 +62,26 @@ public class VNPayController {
                 }
                 billService.save(bill);
                 if (queryParams.get("admin") !=null&&queryParams.get("admin") !=""){
-                    response.sendRedirect("http://localhost:4200/payment/success?billId="+billId+"&amount="+amount+"&transactionNo="+transactionNo);
+                    response.sendRedirect("http://localhost:4201/payment/success?billId="+billId+"&amount="+amount+"&transactionNo="+transactionNo);
                 }else {
-                    response.sendRedirect("http://localhost:4201/bill");
+                    response.sendRedirect("http://localhost:4200/payment/success");
                 }
             } else {
                 // Giao dịch thất bại
                 // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
                 if (queryParams.get("admin") !=null&&queryParams.get("admin") !=""){
-                    response.sendRedirect("http://localhost:4200/payment/error?billId="+billId+"&transactionNo="+transactionNo);
+                    response.sendRedirect("http://localhost:4201/payment/error?billId="+billId+"&transactionNo="+transactionNo);
                 }else {
-                    response.sendRedirect("http://localhost:4201/payment-failed");
+                    response.sendRedirect("http://localhost:4200/payment-failed");
                 }
 
 
             }
         }else {
             if (queryParams.get("admin") !=null&&queryParams.get("admin") !=""){
-                response.sendRedirect("http://localhost:4200/payment/error?billId="+billId+"&transactionNo="+transactionNo);
+                response.sendRedirect("http://localhost:4201/payment/error?billId="+billId+"&transactionNo="+transactionNo);
             }else {
-                response.sendRedirect("http://localhost:4201/payment-failed");
+                response.sendRedirect("http://localhost:4200/payment-failed");
             }
         }
 

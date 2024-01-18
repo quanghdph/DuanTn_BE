@@ -20,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -142,6 +143,7 @@ public class SellOnController {
         newBill.setAddress(sellOnRequest.getAddress());
         newBill.setPhoneNumber(sellOnRequest.getPhoneNumber());
         newBill.setNote(sellOnRequest.getNote());
+        newBill.setPaymentAmount(new BigDecimal(0));
 
         if (sellOnRequest.getPaymentType().equals(2)||sellOnRequest.getPaymentType().equals(-2)){
             newBill.setPaymentType(sellOnRequest.getPaymentType());
